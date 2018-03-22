@@ -1,0 +1,2063 @@
+Using gradMu forcing - new...
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+- Initializing: tcA=0.400000 tcB=0.400000 ncB=1.000000 vdwInteractionFactor=0.500000
+---------------------------------------------------------------------------------------------------------------------------------------------
+Graph library version 0.9, Copyright (C) 1992-2009 Alexander Wagner and Johannes Schlosser
+The graph library comes with ABSOLUTELY NO WARRANTY;
+it is distributed as free software under the GNU liscence.
+For details look at the LICENSE file distributed with the program
+
+For upgrades check the homepage: www.ndsu.edu/physics/people/faculty/wagner/graphics_library
+You can contact the author at alexander.wagner@ndsu.edu
+Error in graph:SetActiveGraph: 4 >= 4 (number of available graphs)
+Ignored...
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+- Initializing: tcA=0.300000 tcB=0.310000 ncB=1.300000 vdwInteractionFactor=1.500000
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+van K and Scott parameters:
+xi = -0.130435
+zeta = 0.146515
+Lambda = -0.483813
+
+
+-----------------------------------------------------------------------------------------
+Minimizing free energy... 2 components, 3 phases allowed...
+tcA=0.300000	tcB=0.310000	ncB=1.300000	VDW interaction=1.500000
+
+Scanning column nA0=0.000000
+Scanning column nA0=0.010000
+Scanning column nA0=0.020000
+Scanning column nA0=0.030000
+Scanning column nA0=0.040000
+Scanning column nA0=0.050000
+Scanning column nA0=0.060000
+Scanning column nA0=0.070000
+
+Phase 3 -eigenvalue: 1=(0.074866,1.302606) 2=(0.067051,1.233975) 3=(0.068501,1.247078)
+Take 2... AT=0.070000 BT=1.260000: phase A=0.068501 B=1.247078
+... repacking: A1=0.004068 B1=0.071501 V1=0.170314 A2=0.003880 B2=0.073194 V2=0.170314 A3=0.062052 B3=1.115305 V3=0.659372
+... new densities: 1=(0.023887,0.419821) 2=(0.022780,0.429759) 3=(0.094108,1.691465)
+hmm, another - eigenvalue... -3: 1=(0.065753,1.221730) 2=(0.065779,1.221972) 3=(0.070582,1.265245)
+
+Phase 3 -eigenvalue: 1=(0.065753,1.221730) 2=(0.065779,1.221972) 3=(0.070582,1.265245)
+Take 3... AT=0.070000 BT=1.260000: phase A=0.070582 B=1.265245
+... repacking: A1=0.027524 B1=0.486765 V1=0.439571 A2=0.027028 B2=0.491132 V2=0.439571 A3=0.015448 B3=0.282103 V3=0.120857
+... new densities: 1=(0.062616,1.107363) 2=(0.061487,1.117299) 3=(0.127818,2.334179)
+"metastable" again... 1=(0.065722,1.221880) 2=(0.072922,1.286087) 3=(0.073366,1.289899)
+
+Scanning column nA0=0.080000
+Scanning column nA0=0.090000
+Scanning column nA0=0.100000
+Scanning column nA0=0.110000
+Scanning column nA0=0.120000
+Scanning column nA0=0.130000
+Scanning column nA0=0.140000
+Scanning column nA0=0.150000
+Scanning column nA0=0.160000
+Scanning column nA0=0.170000
+Scanning column nA0=0.180000
+Scanning column nA0=0.190000
+Scanning column nA0=0.200000
+Scanning column nA0=0.210000
+Scanning column nA0=0.220000
+Scanning column nA0=0.230000
+Scanning column nA0=0.240000
+Scanning column nA0=0.250000
+Scanning column nA0=0.260000
+Scanning column nA0=0.270000
+Scanning column nA0=0.280000
+Scanning column nA0=0.290000
+Scanning column nA0=0.300000
+Scanning column nA0=0.310000
+Scanning column nA0=0.320000
+Scanning column nA0=0.330000
+Scanning column nA0=0.340000
+Scanning column nA0=0.350000
+Scanning column nA0=0.360000
+Scanning column nA0=0.370000
+Scanning column nA0=0.380000
+Scanning column nA0=0.390000
+Scanning column nA0=0.400000
+Scanning column nA0=0.410000
+Scanning column nA0=0.420000
+Scanning column nA0=0.430000
+Scanning column nA0=0.440000
+Scanning column nA0=0.450000
+Scanning column nA0=0.460000
+Scanning column nA0=0.470000
+Scanning column nA0=0.480000
+Scanning column nA0=0.490000
+Scanning column nA0=0.500000
+Scanning column nA0=0.510000
+Scanning column nA0=0.520000
+Scanning column nA0=0.530000
+Scanning column nA0=0.540000
+Scanning column nA0=0.550000
+Scanning column nA0=0.560000
+Scanning column nA0=0.570000
+Scanning column nA0=0.580000
+Scanning column nA0=0.590000
+Scanning column nA0=0.600000
+Scanning column nA0=0.610000
+Scanning column nA0=0.620000
+Scanning column nA0=0.630000
+Scanning column nA0=0.640000
+Scanning column nA0=0.650000
+Scanning column nA0=0.660000
+Scanning column nA0=0.670000
+Scanning column nA0=0.680000
+Scanning column nA0=0.690000
+Scanning column nA0=0.700000
+Scanning column nA0=0.710000
+Scanning column nA0=0.720000
+Scanning column nA0=0.730000
+Scanning column nA0=0.740000
+Scanning column nA0=0.750000
+Scanning column nA0=0.760000
+Scanning column nA0=0.770000
+Scanning column nA0=0.780000
+Scanning column nA0=0.790000
+Scanning column nA0=0.800000
+Scanning column nA0=0.810000
+Scanning column nA0=0.820000
+Scanning column nA0=0.830000
+Scanning column nA0=0.840000
+Scanning column nA0=0.850000
+Scanning column nA0=0.860000
+Scanning column nA0=0.870000
+Scanning column nA0=0.880000
+Scanning column nA0=0.890000
+Scanning column nA0=0.900000
+Scanning column nA0=0.910000
+Scanning column nA0=0.920000
+Scanning column nA0=0.930000
+Scanning column nA0=0.940000
+Scanning column nA0=0.950000
+
+Phase 3 -eigenvalue: 1=(0.980578,0.126381) 2=(0.927365,0.115319) 3=(0.945010,0.118915)
+Take 2... AT=0.950000 BT=0.120000: phase A=0.945010 B=0.118915
+... repacking: A1=0.054285 B1=0.006558 V1=0.168185 A2=0.052638 B2=0.006897 V2=0.168185 A3=0.843078 B3=0.106545 V3=0.663631
+... new densities: 1=(0.322769,0.038991) 2=(0.312975,0.041008) 3=(1.270402,0.160549)
+hmm, another - eigenvalue... -3: 1=(0.920507,0.113969) 2=(0.920674,0.114002) 3=(0.957619,0.121558)
+
+Phase 3 -eigenvalue: 1=(0.920507,0.113969) 2=(0.920674,0.114002) 3=(0.957619,0.121558)
+Take 3... AT=0.950000 BT=0.120000: phase A=0.957619 B=0.121558
+... repacking: A1=0.303975 B1=0.037933 V1=0.397114 A2=0.300088 B2=0.038745 V2=0.397114 A3=0.345937 B3=0.043321 V3=0.205773
+... new densities: 1=(0.765462,0.095523) 2=(0.755673,0.097567) 3=(1.681159,0.210531)
+hmm, another - eigenvalue... -1: 1=(0.952511,0.120468) 2=(0.923202,0.114482) 3=(0.976786,0.125573)
+
+Phase 1 -eigenvalue: 1=(0.952511,0.120468) 2=(0.923202,0.114482) 3=(0.976786,0.125573)
+Take 4... AT=0.950000 BT=0.120000: phase A=0.952511 B=0.120468
+... repacking: A1=0.061358 B1=0.007469 V1=0.178187 A2=0.059613 B2=0.007831 V2=0.178187 A3=0.829028 B3=0.104700 V3=0.643626
+... new densities: 1=(0.344346,0.041915) 2=(0.334555,0.043948) 3=(1.288060,0.162673)
+hmm, another - eigenvalue... -3: 1=(0.920491,0.113962) 2=(0.920318,0.113927) 3=(0.958447,0.121728)
+
+Phase 3 -eigenvalue: 1=(0.920491,0.113962) 2=(0.920318,0.113927) 3=(0.958447,0.121728)
+Take 5... AT=0.950000 BT=0.120000: phase A=0.958447 B=0.121728
+... repacking: A1=0.291943 B1=0.036439 V1=0.388982 A2=0.288136 B2=0.037235 V2=0.388982 A3=0.369921 B3=0.046327 V3=0.222036
+... new densities: 1=(0.750532,0.093677) 2=(0.740743,0.095723) 3=(1.666040,0.208644)
+"metastable" again... 1=(0.931054,0.116052) 2=(0.932170,0.116279) 3=(0.981871,0.126646)
+
+Scanning column nA0=0.960000
+Scanning column nA0=0.970000
+Scanning column nA0=0.980000
+Scanning column nA0=0.990000
+Scanning column nA0=1.000000
+Scanning column nA0=1.010000
+Scanning column nA0=1.020000
+Scanning column nA0=1.030000
+Scanning column nA0=1.040000
+Scanning column nA0=1.050000
+Scanning column nA0=1.060000
+Scanning column nA0=1.070000
+Scanning column nA0=1.080000
+Scanning column nA0=1.090000
+Scanning column nA0=1.100000
+Scanning column nA0=1.110000
+Scanning column nA0=1.120000
+Scanning column nA0=1.130000
+Scanning column nA0=1.140000
+Scanning column nA0=1.150000
+Scanning column nA0=1.160000
+Scanning column nA0=1.170000
+Scanning column nA0=1.180000
+Scanning column nA0=1.190000
+Scanning column nA0=1.200000
+Scanning column nA0=1.210000
+Scanning column nA0=1.220000
+Scanning column nA0=1.230000
+Scanning column nA0=1.240000
+Scanning column nA0=1.250000
+Scanning column nA0=1.260000
+Scanning column nA0=1.270000
+Scanning column nA0=1.280000
+Scanning column nA0=1.290000
+Scanning column nA0=1.300000
+Scanning column nA0=1.310000
+Scanning column nA0=1.320000
+Scanning column nA0=1.330000
+Scanning column nA0=1.340000
+Scanning column nA0=1.350000
+Scanning column nA0=1.360000
+Scanning column nA0=1.370000
+Scanning column nA0=1.380000
+Scanning column nA0=1.390000
+Scanning column nA0=1.400000
+Scanning column nA0=1.410000
+Scanning column nA0=1.420000
+Scanning column nA0=1.430000
+Scanning column nA0=1.440000
+Scanning column nA0=1.450000
+Scanning column nA0=1.460000
+Scanning column nA0=1.470000
+Scanning column nA0=1.480000
+Scanning column nA0=1.490000
+Scanning column nA0=1.500000
+Scanning column nA0=1.510000
+Scanning column nA0=1.520000
+Scanning column nA0=1.530000
+Scanning column nA0=1.540000
+Scanning column nA0=1.550000
+Scanning column nA0=1.560000
+Scanning column nA0=1.570000
+Scanning column nA0=1.580000
+Scanning column nA0=1.590000
+Scanning column nA0=1.600000
+Scanning column nA0=1.610000
+Scanning column nA0=1.620000
+Scanning column nA0=1.630000
+Scanning column nA0=1.640000
+Scanning column nA0=1.650000
+Scanning column nA0=1.660000
+Scanning column nA0=1.670000
+Scanning column nA0=1.680000
+Scanning column nA0=1.690000
+Scanning column nA0=1.700000
+Scanning column nA0=1.710000
+Scanning column nA0=1.720000
+Scanning column nA0=1.730000
+Scanning column nA0=1.740000
+Scanning column nA0=1.750000
+Scanning column nA0=1.760000
+Scanning column nA0=1.770000
+Scanning column nA0=1.780000
+Scanning column nA0=1.790000
+Scanning column nA0=1.800000
+Scanning column nA0=1.810000
+Scanning column nA0=1.820000
+Scanning column nA0=1.830000
+Scanning column nA0=1.840000
+Scanning column nA0=1.850000
+Scanning column nA0=1.860000
+Scanning column nA0=1.870000
+Scanning column nA0=1.880000
+Scanning column nA0=1.890000
+Scanning column nA0=1.900000
+Scanning column nA0=1.910000
+Scanning column nA0=1.920000
+Scanning column nA0=1.930000
+Scanning column nA0=1.940000
+Scanning column nA0=1.950000
+Scanning column nA0=1.960000
+Scanning column nA0=1.970000
+Scanning column nA0=1.980000
+Scanning column nA0=1.990000
+Scanning column nA0=2.000000
+Scanning column nA0=2.010000
+Scanning column nA0=2.020000
+Scanning column nA0=2.030000
+Scanning column nA0=2.040000
+Scanning column nA0=2.050000
+Scanning column nA0=2.060000
+Scanning column nA0=2.070000
+Scanning column nA0=2.080000
+Scanning column nA0=2.090000
+Scanning column nA0=2.100000
+Scanning column nA0=2.110000
+Scanning column nA0=2.120000
+Scanning column nA0=2.130000
+Scanning column nA0=2.140000
+Scanning column nA0=2.150000
+Scanning column nA0=2.160000
+Scanning column nA0=2.170000
+Scanning column nA0=2.180000
+Scanning column nA0=2.190000
+Scanning column nA0=2.200000
+Scanning column nA0=2.210000
+Scanning column nA0=2.220000
+Scanning column nA0=2.230000
+Scanning column nA0=2.240000
+Scanning column nA0=2.250000
+Scanning column nA0=2.260000
+Scanning column nA0=2.270000
+Scanning column nA0=2.280000
+Scanning column nA0=2.290000
+Scanning column nA0=2.300000
+Scanning column nA0=2.310000
+Scanning column nA0=2.320000
+Scanning column nA0=2.330000
+Scanning column nA0=2.340000
+Scanning column nA0=2.350000
+Scanning column nA0=2.360000
+Scanning column nA0=2.370000
+Scanning column nA0=2.380000
+Scanning column nA0=2.390000
+Scanning column nA0=2.400000
+Scanning column nA0=2.410000
+Scanning column nA0=2.420000
+Scanning column nA0=2.430000
+Scanning column nA0=2.440000
+Scanning column nA0=2.450000
+Scanning column nA0=2.460000
+Scanning column nA0=2.470000
+Scanning column nA0=2.480000
+Scanning column nA0=2.490000
+Scanning column nA0=2.500000
+Scanning column nA0=2.510000
+Scanning column nA0=2.520000
+Scanning column nA0=2.530000
+Scanning column nA0=2.540000
+Scanning column nA0=2.550000
+Scanning column nA0=2.560000
+Scanning column nA0=2.570000
+Scanning column nA0=2.580000
+Scanning column nA0=2.590000
+Scanning column nA0=2.600000
+Scanning column nA0=2.610000
+Scanning column nA0=2.620000
+Scanning column nA0=2.630000
+Scanning column nA0=2.640000
+Scanning column nA0=2.650000
+Scanning column nA0=2.660000
+Scanning column nA0=2.670000
+Scanning column nA0=2.680000
+Scanning column nA0=2.690000
+Scanning column nA0=2.700000
+Scanning column nA0=2.710000
+Scanning column nA0=2.720000
+Scanning column nA0=2.730000
+Scanning column nA0=2.740000
+Scanning column nA0=2.750000
+Scanning column nA0=2.760000
+Scanning column nA0=2.770000
+Scanning column nA0=2.780000
+Scanning column nA0=2.790000
+Scanning column nA0=2.800000
+Scanning column nA0=2.810000
+Scanning column nA0=2.820000
+Scanning column nA0=2.830000
+Scanning column nA0=2.840000
+Scanning column nA0=2.850000
+Scanning column nA0=2.860000
+Scanning column nA0=2.870000
+Scanning column nA0=2.880000
+Scanning column nA0=2.890000
+Scanning column nA0=2.900000
+Scanning column nA0=2.910000
+Scanning column nA0=2.920000
+Scanning column nA0=2.930000
+Scanning column nA0=2.940000
+Scanning column nA0=2.950000
+Scanning column nA0=2.960000
+Scanning column nA0=2.970000
+Scanning column nA0=2.980000
+Scanning column nA0=2.990000
+
+
+3-phase region defined by (0.000000,0.000000)
+0.000000 0.000000 0.000000 0.000000 0.000000 0.000000
+processing 2-phase densities...
+processing 3-phase densities...
+Pressure and chemical potential deviations complete
+
+Building binodal lines...
+Binodal lines complete
+Gnuplot scripts created!
+
+Processor time... 00:14:12
+Clock time... 00:03:41
+
+Done! Free energy minimization complete.
+--------------------------------------------------------------------------------------------------------------
+
+
+(1.000000,0.000000) is not expected to phase separate... skipping.
+
+(0.000000,1.000000) is not expected to phase separate... skipping.
+
+
+Read three-phase region coordinates: (0.000000,0.000000) (0.000000,0.000000) (0.000000,0.000000)
+
+(1.000000,0.100000) is not expected to phase separate... skipping.
+
+nA0=1.000000	nB0=0.200000
+
+Fitting interface width for (1.000000,0.200000)...
+01: interfaceWidth=3.408805, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.405640, gammaFactor=1.000000 (effective gammaMu=1.405640)
+"log" grad-Mu forcing: -nx*grad(Mux)-theta*grad(nx)
+Interface fit iteration 1: widthIntervalStart=1.000000, widthIntervalPoint1=38.814635, widthIntervalPoint2=62.185365, widthIntervalEnd=100.000000
+-- ssePoint1=3.766850 ssePoint2=6.577460
+Interface fit iteration 2: widthIntervalStart=1.000000, widthIntervalPoint1=24.370730, widthIntervalPoint2=38.814635, widthIntervalEnd=62.185365
+-- ssePoint1=2.037884 ssePoint2=3.766850
+Interface fit iteration 3: widthIntervalStart=1.000000, widthIntervalPoint1=15.443905, widthIntervalPoint2=24.370730, widthIntervalEnd=38.814635
+-- ssePoint1=1.009123 ssePoint2=2.037884
+Interface fit iteration 4: widthIntervalStart=1.000000, widthIntervalPoint1=9.926824, widthIntervalPoint2=15.443905, widthIntervalEnd=24.370730
+-- ssePoint1=0.428066 ssePoint2=1.009123
+Interface fit iteration 5: widthIntervalStart=1.000000, widthIntervalPoint1=6.517081, widthIntervalPoint2=9.926824, widthIntervalEnd=15.443905
+-- ssePoint1=0.134671 ssePoint2=0.428066
+Interface fit iteration 6: widthIntervalStart=1.000000, widthIntervalPoint1=4.409744, widthIntervalPoint2=6.517081, widthIntervalEnd=9.926824
+-- ssePoint1=0.019635 ssePoint2=0.134671
+Interface fit iteration 7: widthIntervalStart=1.000000, widthIntervalPoint1=3.107337, widthIntervalPoint2=4.409744, widthIntervalEnd=6.517081
+-- ssePoint1=0.003104 ssePoint2=0.019635
+Interface fit iteration 8: widthIntervalStart=1.000000, widthIntervalPoint1=2.302406, widthIntervalPoint2=3.107337, widthIntervalEnd=4.409744
+-- ssePoint1=0.029505 ssePoint2=0.003104
+Interface fit iteration 9: widthIntervalStart=2.302406, widthIntervalPoint1=3.107337, widthIntervalPoint2=3.604812, widthIntervalEnd=4.409744
+-- ssePoint1=0.003104 ssePoint2=0.002365
+Interface fit iteration 10: widthIntervalStart=3.107337, widthIntervalPoint1=3.604812, widthIntervalPoint2=3.912269, widthIntervalEnd=4.409744
+-- ssePoint1=0.002365 ssePoint2=0.006569
+Interface fit iteration 11: widthIntervalStart=3.107337, widthIntervalPoint1=3.414794, widthIntervalPoint2=3.604812, widthIntervalEnd=3.912269
+-- ssePoint1=0.001467 ssePoint2=0.002365
+Interface fit iteration 12: widthIntervalStart=3.107337, widthIntervalPoint1=3.297356, widthIntervalPoint2=3.414794, widthIntervalEnd=3.604812
+-- ssePoint1=0.001620 ssePoint2=0.001467
+Interface fit iteration 13: widthIntervalStart=3.297356, widthIntervalPoint1=3.414794, widthIntervalPoint2=3.487374, widthIntervalEnd=3.604812
+-- ssePoint1=0.001467 ssePoint2=0.001647
+Interface fit iteration 14: widthIntervalStart=3.297356, widthIntervalPoint1=3.369936, widthIntervalPoint2=3.414794, widthIntervalEnd=3.487374
+-- ssePoint1=0.001459 ssePoint2=0.001467
+Interface fit iteration 15: widthIntervalStart=3.297356, widthIntervalPoint1=3.342213, widthIntervalPoint2=3.369936, widthIntervalEnd=3.414794
+-- ssePoint1=0.001495 ssePoint2=0.001459
+Interface fit iteration 16: widthIntervalStart=3.342213, widthIntervalPoint1=3.369936, widthIntervalPoint2=3.387070, widthIntervalEnd=3.414794
+-- ssePoint1=0.001459 ssePoint2=0.001452
+Interface fit iteration 17: widthIntervalStart=3.369936, widthIntervalPoint1=3.387070, widthIntervalPoint2=3.397660, widthIntervalEnd=3.414794
+-- ssePoint1=0.001452 ssePoint2=0.001454
+Interface fit iteration 18: widthIntervalStart=3.369936, widthIntervalPoint1=3.380526, widthIntervalPoint2=3.387070, widthIntervalEnd=3.397660
+-- ssePoint1=0.001454 ssePoint2=0.001452
+Interface fit iteration 19: widthIntervalStart=3.380526, widthIntervalPoint1=3.387070, widthIntervalPoint2=3.391115, widthIntervalEnd=3.397660
+-- ssePoint1=0.001452 ssePoint2=0.001453
+Interface fit iteration 20: widthIntervalStart=3.380526, widthIntervalPoint1=3.384571, widthIntervalPoint2=3.387070, widthIntervalEnd=3.391115
+-- ssePoint1=0.001453 ssePoint2=0.001452
+Interface fit iteration 21: widthIntervalStart=3.384571, widthIntervalPoint1=3.387070, widthIntervalPoint2=3.388615, widthIntervalEnd=3.391115
+-- ssePoint1=0.001452 ssePoint2=0.001452
+Interface fit iteration 22: widthIntervalStart=3.387070, widthIntervalPoint1=3.388615, widthIntervalPoint2=3.389570, widthIntervalEnd=3.391115
+-- ssePoint1=0.001452 ssePoint2=0.001452
+Interface fit iteration 23: widthIntervalStart=3.387070, widthIntervalPoint1=3.388025, widthIntervalPoint2=3.388615, widthIntervalEnd=3.389570
+-- ssePoint1=0.001452 ssePoint2=0.001452
+Interface fit iteration 24: widthIntervalStart=3.387070, widthIntervalPoint1=3.387661, widthIntervalPoint2=3.388025, widthIntervalEnd=3.388615
+-- ssePoint1=0.001452 ssePoint2=0.001452
+determined interface width=3.388138 for (1.000000,0.200000)
+
+02: interfaceWidth=3.388138, kappa=0.100000, kappaFactor=10.714233, gammaMu=1.405640, gammaFactor=1.000000 (effective gammaMu=1.405640)
+
+nA0=1.000000	nB0=0.300000
+
+Fitting interface width for (1.000000,0.300000)...
+01: interfaceWidth=3.849738, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.364949, gammaFactor=1.000000 (effective gammaMu=1.364949)
+Interface fit iteration 1: widthIntervalStart=1.000000, widthIntervalPoint1=38.814635, widthIntervalPoint2=62.185365, widthIntervalEnd=100.000000
+-- ssePoint1=7.520969 ssePoint2=12.760183
+Interface fit iteration 2: widthIntervalStart=1.000000, widthIntervalPoint1=24.370730, widthIntervalPoint2=38.814635, widthIntervalEnd=62.185365
+-- ssePoint1=4.273539 ssePoint2=7.520969
+Interface fit iteration 3: widthIntervalStart=1.000000, widthIntervalPoint1=15.443905, widthIntervalPoint2=24.370730, widthIntervalEnd=38.814635
+-- ssePoint1=2.303190 ssePoint2=4.273539
+Interface fit iteration 4: widthIntervalStart=1.000000, widthIntervalPoint1=9.926824, widthIntervalPoint2=15.443905, widthIntervalEnd=24.370730
+-- ssePoint1=1.138404 ssePoint2=2.303190
+Interface fit iteration 5: widthIntervalStart=1.000000, widthIntervalPoint1=6.517081, widthIntervalPoint2=9.926824, widthIntervalEnd=15.443905
+-- ssePoint1=0.486862 ssePoint2=1.138404
+Interface fit iteration 6: widthIntervalStart=1.000000, widthIntervalPoint1=4.409744, widthIntervalPoint2=6.517081, widthIntervalEnd=9.926824
+-- ssePoint1=0.160612 ssePoint2=0.486862
+Interface fit iteration 7: widthIntervalStart=1.000000, widthIntervalPoint1=3.107337, widthIntervalPoint2=4.409744, widthIntervalEnd=6.517081
+-- ssePoint1=0.030145 ssePoint2=0.160612
+Interface fit iteration 8: widthIntervalStart=1.000000, widthIntervalPoint1=2.302406, widthIntervalPoint2=3.107337, widthIntervalEnd=4.409744
+-- ssePoint1=0.003711 ssePoint2=0.030145
+Interface fit iteration 9: widthIntervalStart=1.000000, widthIntervalPoint1=1.804931, widthIntervalPoint2=2.302406, widthIntervalEnd=3.107337
+-- ssePoint1=0.021478 ssePoint2=0.003711
+Interface fit iteration 10: widthIntervalStart=1.804931, widthIntervalPoint1=2.302406, widthIntervalPoint2=2.609863, widthIntervalEnd=3.107337
+-- ssePoint1=0.003711 ssePoint2=0.007066
+Interface fit iteration 11: widthIntervalStart=1.804931, widthIntervalPoint1=2.112388, widthIntervalPoint2=2.302406, widthIntervalEnd=2.609863
+-- ssePoint1=0.006743 ssePoint2=0.003711
+Interface fit iteration 12: widthIntervalStart=2.112388, widthIntervalPoint1=2.302406, widthIntervalPoint2=2.419844, widthIntervalEnd=2.609863
+-- ssePoint1=0.003711 ssePoint2=0.003865
+Interface fit iteration 13: widthIntervalStart=2.112388, widthIntervalPoint1=2.229826, widthIntervalPoint2=2.302406, widthIntervalEnd=2.419844
+-- ssePoint1=0.004371 ssePoint2=0.003711
+Interface fit iteration 14: widthIntervalStart=2.229826, widthIntervalPoint1=2.302406, widthIntervalPoint2=2.347263, widthIntervalEnd=2.419844
+-- ssePoint1=0.003711 ssePoint2=0.003596
+Interface fit iteration 15: widthIntervalStart=2.302406, widthIntervalPoint1=2.347263, widthIntervalPoint2=2.374987, widthIntervalEnd=2.419844
+-- ssePoint1=0.003596 ssePoint2=0.003633
+Interface fit iteration 16: widthIntervalStart=2.302406, widthIntervalPoint1=2.330129, widthIntervalPoint2=2.347263, widthIntervalEnd=2.374987
+-- ssePoint1=0.003614 ssePoint2=0.003596
+Interface fit iteration 17: widthIntervalStart=2.330129, widthIntervalPoint1=2.347263, widthIntervalPoint2=2.357853, widthIntervalEnd=2.374987
+-- ssePoint1=0.003596 ssePoint2=0.003601
+Interface fit iteration 18: widthIntervalStart=2.330129, widthIntervalPoint1=2.340719, widthIntervalPoint2=2.347263, widthIntervalEnd=2.357853
+-- ssePoint1=0.003599 ssePoint2=0.003596
+Interface fit iteration 19: widthIntervalStart=2.340719, widthIntervalPoint1=2.347263, widthIntervalPoint2=2.351308, widthIntervalEnd=2.357853
+-- ssePoint1=0.003596 ssePoint2=0.003596
+Interface fit iteration 20: widthIntervalStart=2.340719, widthIntervalPoint1=2.344764, widthIntervalPoint2=2.347263, widthIntervalEnd=2.351308
+-- ssePoint1=0.003597 ssePoint2=0.003596
+Interface fit iteration 21: widthIntervalStart=2.344764, widthIntervalPoint1=2.347263, widthIntervalPoint2=2.348808, widthIntervalEnd=2.351308
+-- ssePoint1=0.003596 ssePoint2=0.003596
+Interface fit iteration 22: widthIntervalStart=2.347263, widthIntervalPoint1=2.348808, widthIntervalPoint2=2.349763, widthIntervalEnd=2.351308
+-- ssePoint1=0.003596 ssePoint2=0.003596
+Interface fit iteration 23: widthIntervalStart=2.347263, widthIntervalPoint1=2.348218, widthIntervalPoint2=2.348808, widthIntervalEnd=2.349763
+-- ssePoint1=0.003596 ssePoint2=0.003596
+Interface fit iteration 24: widthIntervalStart=2.348218, widthIntervalPoint1=2.348808, widthIntervalPoint2=2.349173, widthIntervalEnd=2.349763
+-- ssePoint1=0.003596 ssePoint2=0.003596
+determined interface width=2.348696 for (1.000000,0.300000)
+
+02: interfaceWidth=2.348696, kappa=0.100000, kappaFactor=7.427228, gammaMu=1.364949, gammaFactor=1.000000 (effective gammaMu=1.364949)
+
+nA0=1.000000	nB0=0.400000
+
+Fitting interface width for (1.000000,0.400000)...
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=1.000000 (effective gammaMu=1.380809)
+Instability detected: index 0
+Unstable simulation!!... width=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=1.000000...
+
+Fitting gammaMu value for (1.000000,0.400000) at kappa=0.100000, kappaFactor=1.000000...
+
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=1000.000000 (effective gammaMu=0.001381)
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=382.584045 (effective gammaMu=0.003609)
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=618.415955 (effective gammaMu=0.002233)
+GammaMu fit iteration 1: gammaIntervalStart=1.000000, gammaIntervalPoint1=382.584045, gammaIntervalPoint2=618.415955, gammaIntervalEnd=1000.000000
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=146.752136 (effective gammaMu=0.009409)
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=236.831910 (effective gammaMu=0.005830)
+GammaMu fit iteration 2: gammaIntervalStart=1.000000, gammaIntervalPoint1=146.752136, gammaIntervalPoint2=236.831910, gammaIntervalEnd=382.584045
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=56.672362 (effective gammaMu=0.024365)
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=91.079774 (effective gammaMu=0.015160)
+GammaMu fit iteration 3: gammaIntervalStart=1.000000, gammaIntervalPoint1=56.672362, gammaIntervalPoint2=91.079774, gammaIntervalEnd=146.752136
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=22.264950 (effective gammaMu=0.062017)
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=35.407412 (effective gammaMu=0.038998)
+GammaMu fit iteration 4: gammaIntervalStart=1.000000, gammaIntervalPoint1=22.264950, gammaIntervalPoint2=35.407412, gammaIntervalEnd=56.672362
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=9.122488 (effective gammaMu=0.151363)
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=14.142462 (effective gammaMu=0.097636)
+GammaMu fit iteration 5: gammaIntervalStart=1.000000, gammaIntervalPoint1=9.122488, gammaIntervalPoint2=14.142462, gammaIntervalEnd=22.264950
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=4.102514 (effective gammaMu=0.336576)
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=6.019974 (effective gammaMu=0.229371)
+GammaMu fit iteration 6: gammaIntervalStart=1.000000, gammaIntervalPoint1=4.102514, gammaIntervalPoint2=6.019974, gammaIntervalEnd=9.122488
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=2.185055 (effective gammaMu=0.631933)
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=2.917459 (effective gammaMu=0.473292)
+GammaMu fit iteration 7: gammaIntervalStart=1.000000, gammaIntervalPoint1=2.185055, gammaIntervalPoint2=2.917459, gammaIntervalEnd=4.102514
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=1.452651 (effective gammaMu=0.950545)
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=1.732404 (effective gammaMu=0.797048)
+GammaMu fit iteration 8: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.452651, gammaIntervalPoint2=1.732404, gammaIntervalEnd=2.185055
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=1.172897 (effective gammaMu=1.177264)
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=1.279754 (effective gammaMu=1.078965)
+GammaMu fit iteration 9: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.172897, gammaIntervalPoint2=1.279754, gammaIntervalEnd=1.452651
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=1.066041 (effective gammaMu=1.295269)
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=1.106856 (effective gammaMu=1.247506)
+GammaMu fit iteration 10: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.066041, gammaIntervalPoint2=1.106856, gammaIntervalEnd=1.172897
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=1.025225 (effective gammaMu=1.346835)
+Instability detected: index 0
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=1.040815 (effective gammaMu=1.326661)
+Instability detected: index 0
+determined gammaFactor=1.098022, for (1.000000,0.400000) with interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.326661
+
+
+Fitting interface width for (1.000000,0.400000)...
+01: interfaceWidth=4.213194, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.380809, gammaFactor=1.098022 (effective gammaMu=1.257542)
+Interface fit iteration 1: widthIntervalStart=1.000000, widthIntervalPoint1=38.814635, widthIntervalPoint2=62.185365, widthIntervalEnd=100.000000
+-- ssePoint1=9.928609 ssePoint2=16.683539
+Interface fit iteration 2: widthIntervalStart=1.000000, widthIntervalPoint1=24.370730, widthIntervalPoint2=38.814635, widthIntervalEnd=62.185365
+-- ssePoint1=5.733562 ssePoint2=9.928609
+Interface fit iteration 3: widthIntervalStart=1.000000, widthIntervalPoint1=15.443905, widthIntervalPoint2=24.370730, widthIntervalEnd=38.814635
+-- ssePoint1=3.175095 ssePoint2=5.733562
+Interface fit iteration 4: widthIntervalStart=1.000000, widthIntervalPoint1=9.926824, widthIntervalPoint2=15.443905, widthIntervalEnd=24.370730
+-- ssePoint1=1.644102 ssePoint2=3.175095
+Interface fit iteration 5: widthIntervalStart=1.000000, widthIntervalPoint1=6.517081, widthIntervalPoint2=9.926824, widthIntervalEnd=15.443905
+-- ssePoint1=0.764235 ssePoint2=1.644102
+Interface fit iteration 6: widthIntervalStart=1.000000, widthIntervalPoint1=4.409744, widthIntervalPoint2=6.517081, widthIntervalEnd=9.926824
+-- ssePoint1=0.297382 ssePoint2=0.764235
+Interface fit iteration 7: widthIntervalStart=1.000000, widthIntervalPoint1=3.107337, widthIntervalPoint2=4.409744, widthIntervalEnd=6.517081
+-- ssePoint1=0.083950 ssePoint2=0.297382
+Interface fit iteration 8: widthIntervalStart=1.000000, widthIntervalPoint1=2.302406, widthIntervalPoint2=3.107337, widthIntervalEnd=4.409744
+-- ssePoint1=0.012284 ssePoint2=0.083950
+Interface fit iteration 9: widthIntervalStart=1.000000, widthIntervalPoint1=1.804931, widthIntervalPoint2=2.302406, widthIntervalEnd=3.107337
+-- ssePoint1=0.007829 ssePoint2=0.012284
+Interface fit iteration 10: widthIntervalStart=1.000000, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.804931, widthIntervalEnd=2.302406
+-- ssePoint1=0.027359 ssePoint2=0.007829
+Interface fit iteration 11: widthIntervalStart=1.497475, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.994950, widthIntervalEnd=2.302406
+-- ssePoint1=0.007829 ssePoint2=0.004914
+Interface fit iteration 12: widthIntervalStart=1.804931, widthIntervalPoint1=1.994950, widthIntervalPoint2=2.112388, widthIntervalEnd=2.302406
+-- ssePoint1=0.004914 ssePoint2=0.006098
+Interface fit iteration 13: widthIntervalStart=1.804931, widthIntervalPoint1=1.922369, widthIntervalPoint2=1.994950, widthIntervalEnd=2.112388
+-- ssePoint1=0.005289 ssePoint2=0.004914
+Interface fit iteration 14: widthIntervalStart=1.922369, widthIntervalPoint1=1.994950, widthIntervalPoint2=2.039807, widthIntervalEnd=2.112388
+-- ssePoint1=0.004914 ssePoint2=0.005113
+Interface fit iteration 15: widthIntervalStart=1.922369, widthIntervalPoint1=1.967226, widthIntervalPoint2=1.994950, widthIntervalEnd=2.039807
+-- ssePoint1=0.004954 ssePoint2=0.004914
+Interface fit iteration 16: widthIntervalStart=1.967226, widthIntervalPoint1=1.994950, widthIntervalPoint2=2.012084, widthIntervalEnd=2.039807
+-- ssePoint1=0.004914 ssePoint2=0.004952
+Interface fit iteration 17: widthIntervalStart=1.967226, widthIntervalPoint1=1.984360, widthIntervalPoint2=1.994950, widthIntervalEnd=2.012084
+-- ssePoint1=0.004914 ssePoint2=0.004914
+Interface fit iteration 18: widthIntervalStart=1.984360, widthIntervalPoint1=1.994950, widthIntervalPoint2=2.001494, widthIntervalEnd=2.012084
+-- ssePoint1=0.004914 ssePoint2=0.004923
+Interface fit iteration 19: widthIntervalStart=1.984360, widthIntervalPoint1=1.990905, widthIntervalPoint2=1.994950, widthIntervalEnd=2.001494
+-- ssePoint1=0.004912 ssePoint2=0.004914
+Interface fit iteration 20: widthIntervalStart=1.984360, widthIntervalPoint1=1.988405, widthIntervalPoint2=1.990905, widthIntervalEnd=1.994950
+-- ssePoint1=0.004912 ssePoint2=0.004912
+Interface fit iteration 21: widthIntervalStart=1.988405, widthIntervalPoint1=1.990905, widthIntervalPoint2=1.992450, widthIntervalEnd=1.994950
+-- ssePoint1=0.004912 ssePoint2=0.004913
+Interface fit iteration 22: widthIntervalStart=1.988405, widthIntervalPoint1=1.989950, widthIntervalPoint2=1.990905, widthIntervalEnd=1.992450
+-- ssePoint1=0.004912 ssePoint2=0.004912
+Interface fit iteration 23: widthIntervalStart=1.988405, widthIntervalPoint1=1.989360, widthIntervalPoint2=1.989950, widthIntervalEnd=1.990905
+-- ssePoint1=0.004912 ssePoint2=0.004912
+Interface fit iteration 24: widthIntervalStart=1.989360, widthIntervalPoint1=1.989950, widthIntervalPoint2=1.990315, widthIntervalEnd=1.990905
+-- ssePoint1=0.004912 ssePoint2=0.004912
+determined interface width=1.989837 for (1.000000,0.400000)
+
+02: interfaceWidth=2.000000, kappa=0.100000, kappaFactor=6.292418, gammaMu=1.380809, gammaFactor=1.098022 (effective gammaMu=1.257542)
+
+nA0=1.000000	nB0=0.500000
+
+Fitting interface width for (1.000000,0.500000)...
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=1.000000 (effective gammaMu=1.417435)
+Instability detected: index 0
+Unstable simulation!!... width=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=1.000000...
+
+Fitting gammaMu value for (1.000000,0.500000) at kappa=0.100000, kappaFactor=1.000000...
+
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=1000.000000 (effective gammaMu=0.001417)
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=382.584045 (effective gammaMu=0.003705)
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=618.415955 (effective gammaMu=0.002292)
+GammaMu fit iteration 1: gammaIntervalStart=1.000000, gammaIntervalPoint1=382.584045, gammaIntervalPoint2=618.415955, gammaIntervalEnd=1000.000000
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=146.752136 (effective gammaMu=0.009659)
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=236.831910 (effective gammaMu=0.005985)
+GammaMu fit iteration 2: gammaIntervalStart=1.000000, gammaIntervalPoint1=146.752136, gammaIntervalPoint2=236.831910, gammaIntervalEnd=382.584045
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=56.672362 (effective gammaMu=0.025011)
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=91.079774 (effective gammaMu=0.015563)
+GammaMu fit iteration 3: gammaIntervalStart=1.000000, gammaIntervalPoint1=56.672362, gammaIntervalPoint2=91.079774, gammaIntervalEnd=146.752136
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=22.264950 (effective gammaMu=0.063662)
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=35.407412 (effective gammaMu=0.040032)
+GammaMu fit iteration 4: gammaIntervalStart=1.000000, gammaIntervalPoint1=22.264950, gammaIntervalPoint2=35.407412, gammaIntervalEnd=56.672362
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=9.122488 (effective gammaMu=0.155378)
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=14.142462 (effective gammaMu=0.100226)
+GammaMu fit iteration 5: gammaIntervalStart=1.000000, gammaIntervalPoint1=9.122488, gammaIntervalPoint2=14.142462, gammaIntervalEnd=22.264950
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=4.102514 (effective gammaMu=0.345504)
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=6.019974 (effective gammaMu=0.235455)
+GammaMu fit iteration 6: gammaIntervalStart=1.000000, gammaIntervalPoint1=4.102514, gammaIntervalPoint2=6.019974, gammaIntervalEnd=9.122488
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=2.185055 (effective gammaMu=0.648696)
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=2.917459 (effective gammaMu=0.485846)
+GammaMu fit iteration 7: gammaIntervalStart=1.000000, gammaIntervalPoint1=2.185055, gammaIntervalPoint2=2.917459, gammaIntervalEnd=4.102514
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=1.452651 (effective gammaMu=0.975758)
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=1.732404 (effective gammaMu=0.818190)
+GammaMu fit iteration 8: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.452651, gammaIntervalPoint2=1.732404, gammaIntervalEnd=2.185055
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=1.172897 (effective gammaMu=1.208491)
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=1.279754 (effective gammaMu=1.107585)
+GammaMu fit iteration 9: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.172897, gammaIntervalPoint2=1.279754, gammaIntervalEnd=1.452651
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=1.066041 (effective gammaMu=1.329626)
+Instability detected: index 0
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=1.106856 (effective gammaMu=1.280596)
+Instability detected: index 0
+GammaMu fit iteration 10: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.066041, gammaIntervalPoint2=1.106856, gammaIntervalEnd=1.172897
+-- stablePoint1=0 stablePoint2=0
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=1.132082 (effective gammaMu=1.252061)
+Instability detected: index 0
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=1.147672 (effective gammaMu=1.235053)
+Instability detected: index 0
+determined gammaFactor=1.208084, for (1.000000,0.500000) with interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.235053
+
+
+Fitting interface width for (1.000000,0.500000)...
+01: interfaceWidth=4.540517, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.417435, gammaFactor=1.208084 (effective gammaMu=1.173292)
+Interface fit iteration 1: widthIntervalStart=1.000000, widthIntervalPoint1=38.814635, widthIntervalPoint2=62.185365, widthIntervalEnd=100.000000
+-- ssePoint1=11.596137 ssePoint2=19.390587
+Interface fit iteration 2: widthIntervalStart=1.000000, widthIntervalPoint1=24.370730, widthIntervalPoint2=38.814635, widthIntervalEnd=62.185365
+-- ssePoint1=6.751327 ssePoint2=11.596137
+Interface fit iteration 3: widthIntervalStart=1.000000, widthIntervalPoint1=15.443905, widthIntervalPoint2=24.370730, widthIntervalEnd=38.814635
+-- ssePoint1=3.789677 ssePoint2=6.751327
+Interface fit iteration 4: widthIntervalStart=1.000000, widthIntervalPoint1=9.926824, widthIntervalPoint2=15.443905, widthIntervalEnd=24.370730
+-- ssePoint1=2.007563 ssePoint2=3.789677
+Interface fit iteration 5: widthIntervalStart=1.000000, widthIntervalPoint1=6.517081, widthIntervalPoint2=9.926824, widthIntervalEnd=15.443905
+-- ssePoint1=0.970660 ssePoint2=2.007563
+Interface fit iteration 6: widthIntervalStart=1.000000, widthIntervalPoint1=4.409744, widthIntervalPoint2=6.517081, widthIntervalEnd=9.926824
+-- ssePoint1=0.406017 ssePoint2=0.970660
+Interface fit iteration 7: widthIntervalStart=1.000000, widthIntervalPoint1=3.107337, widthIntervalPoint2=4.409744, widthIntervalEnd=6.517081
+-- ssePoint1=0.133307 ssePoint2=0.406017
+Interface fit iteration 8: widthIntervalStart=1.000000, widthIntervalPoint1=2.302406, widthIntervalPoint2=3.107337, widthIntervalEnd=4.409744
+-- ssePoint1=0.027702 ssePoint2=0.133307
+Interface fit iteration 9: widthIntervalStart=1.000000, widthIntervalPoint1=1.804931, widthIntervalPoint2=2.302406, widthIntervalEnd=3.107337
+-- ssePoint1=0.005239 ssePoint2=0.027702
+Interface fit iteration 10: widthIntervalStart=1.000000, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.804931, widthIntervalEnd=2.302406
+-- ssePoint1=0.015895 ssePoint2=0.005239
+Interface fit iteration 11: widthIntervalStart=1.497475, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.994950, widthIntervalEnd=2.302406
+-- ssePoint1=0.005239 ssePoint2=0.008786
+Interface fit iteration 12: widthIntervalStart=1.497475, widthIntervalPoint1=1.687493, widthIntervalPoint2=1.804931, widthIntervalEnd=1.994950
+-- ssePoint1=0.006710 ssePoint2=0.005239
+Interface fit iteration 13: widthIntervalStart=1.687493, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.877512, widthIntervalEnd=1.994950
+-- ssePoint1=0.005239 ssePoint2=0.005773
+Interface fit iteration 14: widthIntervalStart=1.687493, widthIntervalPoint1=1.760074, widthIntervalPoint2=1.804931, widthIntervalEnd=1.877512
+-- ssePoint1=0.005449 ssePoint2=0.005239
+Interface fit iteration 15: widthIntervalStart=1.760074, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.832655, widthIntervalEnd=1.877512
+-- ssePoint1=0.005239 ssePoint2=0.005318
+Interface fit iteration 16: widthIntervalStart=1.760074, widthIntervalPoint1=1.787797, widthIntervalPoint2=1.804931, widthIntervalEnd=1.832655
+-- ssePoint1=0.005269 ssePoint2=0.005239
+Interface fit iteration 17: widthIntervalStart=1.787797, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.815521, widthIntervalEnd=1.832655
+-- ssePoint1=0.005239 ssePoint2=0.005250
+Interface fit iteration 18: widthIntervalStart=1.787797, widthIntervalPoint1=1.798387, widthIntervalPoint2=1.804931, widthIntervalEnd=1.815521
+-- ssePoint1=0.005243 ssePoint2=0.005239
+Interface fit iteration 19: widthIntervalStart=1.798387, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.808976, widthIntervalEnd=1.815521
+-- ssePoint1=0.005239 ssePoint2=0.005240
+Interface fit iteration 20: widthIntervalStart=1.798387, widthIntervalPoint1=1.802431, widthIntervalPoint2=1.804931, widthIntervalEnd=1.808976
+-- ssePoint1=0.005239 ssePoint2=0.005239
+Interface fit iteration 21: widthIntervalStart=1.802431, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.806476, widthIntervalEnd=1.808976
+-- ssePoint1=0.005239 ssePoint2=0.005239
+Interface fit iteration 22: widthIntervalStart=1.802431, widthIntervalPoint1=1.803976, widthIntervalPoint2=1.804931, widthIntervalEnd=1.806476
+-- ssePoint1=0.005239 ssePoint2=0.005239
+Interface fit iteration 23: widthIntervalStart=1.803976, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.805521, widthIntervalEnd=1.806476
+-- ssePoint1=0.005239 ssePoint2=0.005239
+Interface fit iteration 24: widthIntervalStart=1.803976, widthIntervalPoint1=1.804567, widthIntervalPoint2=1.804931, widthIntervalEnd=1.805521
+-- ssePoint1=0.005239 ssePoint2=0.005239
+determined interface width=1.805044 for (1.000000,0.500000)
+
+02: interfaceWidth=2.000000, kappa=0.100000, kappaFactor=5.708050, gammaMu=1.417435, gammaFactor=1.208084 (effective gammaMu=1.173292)
+(1.000000,0.600000) is not expected to phase separate... skipping.
+(1.000000,0.700000) is not expected to phase separate... skipping.
+(1.000000,0.800000) is not expected to phase separate... skipping.
+(1.000000,0.900000) is not expected to phase separate... skipping.
+
+nA0=0.100000	nB0=1.000000
+
+Fitting interface width for (0.100000,1.000000)...
+01: interfaceWidth=3.080247, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.048709, gammaFactor=1.000000 (effective gammaMu=1.048709)
+Interface fit iteration 1: widthIntervalStart=1.000000, widthIntervalPoint1=38.814635, widthIntervalPoint2=62.185365, widthIntervalEnd=100.000000
+-- ssePoint1=8.114376 ssePoint2=14.015736
+Interface fit iteration 2: widthIntervalStart=1.000000, widthIntervalPoint1=24.370730, widthIntervalPoint2=38.814635, widthIntervalEnd=62.185365
+-- ssePoint1=4.472659 ssePoint2=8.114376
+Interface fit iteration 3: widthIntervalStart=1.000000, widthIntervalPoint1=15.443905, widthIntervalPoint2=24.370730, widthIntervalEnd=38.814635
+-- ssePoint1=2.288147 ssePoint2=4.472659
+Interface fit iteration 4: widthIntervalStart=1.000000, widthIntervalPoint1=9.926824, widthIntervalPoint2=15.443905, widthIntervalEnd=24.370730
+-- ssePoint1=1.030851 ssePoint2=2.288147
+Interface fit iteration 5: widthIntervalStart=1.000000, widthIntervalPoint1=6.517081, widthIntervalPoint2=9.926824, widthIntervalEnd=15.443905
+-- ssePoint1=0.368390 ssePoint2=1.030851
+Interface fit iteration 6: widthIntervalStart=1.000000, widthIntervalPoint1=4.409744, widthIntervalPoint2=6.517081, widthIntervalEnd=9.926824
+-- ssePoint1=0.079097 ssePoint2=0.368390
+Interface fit iteration 7: widthIntervalStart=1.000000, widthIntervalPoint1=3.107337, widthIntervalPoint2=4.409744, widthIntervalEnd=6.517081
+-- ssePoint1=0.003642 ssePoint2=0.079097
+Interface fit iteration 8: widthIntervalStart=1.000000, widthIntervalPoint1=2.302406, widthIntervalPoint2=3.107337, widthIntervalEnd=4.409744
+-- ssePoint1=0.029438 ssePoint2=0.003642
+Interface fit iteration 9: widthIntervalStart=2.302406, widthIntervalPoint1=3.107337, widthIntervalPoint2=3.604812, widthIntervalEnd=4.409744
+-- ssePoint1=0.003642 ssePoint2=0.018780
+Interface fit iteration 10: widthIntervalStart=2.302406, widthIntervalPoint1=2.799881, widthIntervalPoint2=3.107337, widthIntervalEnd=3.604812
+-- ssePoint1=0.005151 ssePoint2=0.003642
+Interface fit iteration 11: widthIntervalStart=2.799881, widthIntervalPoint1=3.107337, widthIntervalPoint2=3.297356, widthIntervalEnd=3.604812
+-- ssePoint1=0.003642 ssePoint2=0.007064
+Interface fit iteration 12: widthIntervalStart=2.799881, widthIntervalPoint1=2.989900, widthIntervalPoint2=3.107337, widthIntervalEnd=3.297356
+-- ssePoint1=0.003138 ssePoint2=0.003642
+Interface fit iteration 13: widthIntervalStart=2.799881, widthIntervalPoint1=2.917319, widthIntervalPoint2=2.989900, widthIntervalEnd=3.107337
+-- ssePoint1=0.003481 ssePoint2=0.003138
+Interface fit iteration 14: widthIntervalStart=2.917319, widthIntervalPoint1=2.989900, widthIntervalPoint2=3.034757, widthIntervalEnd=3.107337
+-- ssePoint1=0.003138 ssePoint2=0.003179
+Interface fit iteration 15: widthIntervalStart=2.917319, widthIntervalPoint1=2.962176, widthIntervalPoint2=2.989900, widthIntervalEnd=3.034757
+-- ssePoint1=0.003209 ssePoint2=0.003138
+Interface fit iteration 16: widthIntervalStart=2.962176, widthIntervalPoint1=2.989900, widthIntervalPoint2=3.007033, widthIntervalEnd=3.034757
+-- ssePoint1=0.003138 ssePoint2=0.003131
+Interface fit iteration 17: widthIntervalStart=2.989900, widthIntervalPoint1=3.007033, widthIntervalPoint2=3.017623, widthIntervalEnd=3.034757
+-- ssePoint1=0.003131 ssePoint2=0.003141
+Interface fit iteration 18: widthIntervalStart=2.989900, widthIntervalPoint1=3.000489, widthIntervalPoint2=3.007033, widthIntervalEnd=3.017623
+-- ssePoint1=0.003131 ssePoint2=0.003131
+Interface fit iteration 19: widthIntervalStart=2.989900, widthIntervalPoint1=2.996444, widthIntervalPoint2=3.000489, widthIntervalEnd=3.007033
+-- ssePoint1=0.003132 ssePoint2=0.003131
+Interface fit iteration 20: widthIntervalStart=2.996444, widthIntervalPoint1=3.000489, widthIntervalPoint2=3.002989, widthIntervalEnd=3.007033
+-- ssePoint1=0.003131 ssePoint2=0.003131
+Interface fit iteration 21: widthIntervalStart=3.000489, widthIntervalPoint1=3.002989, widthIntervalPoint2=3.004534, widthIntervalEnd=3.007033
+-- ssePoint1=0.003131 ssePoint2=0.003131
+Interface fit iteration 22: widthIntervalStart=3.000489, widthIntervalPoint1=3.002034, widthIntervalPoint2=3.002989, widthIntervalEnd=3.004534
+-- ssePoint1=0.003131 ssePoint2=0.003131
+Interface fit iteration 23: widthIntervalStart=3.002034, widthIntervalPoint1=3.002989, widthIntervalPoint2=3.003579, widthIntervalEnd=3.004534
+-- ssePoint1=0.003131 ssePoint2=0.003131
+Interface fit iteration 24: widthIntervalStart=3.002034, widthIntervalPoint1=3.002624, widthIntervalPoint2=3.002989, widthIntervalEnd=3.003579
+-- ssePoint1=0.003131 ssePoint2=0.003131
+determined interface width=3.002511 for (0.100000,1.000000)
+
+02: interfaceWidth=3.002511, kappa=0.100000, kappaFactor=9.494774, gammaMu=1.048709, gammaFactor=1.000000 (effective gammaMu=1.048709)
+
+nA0=0.200000	nB0=1.000000
+
+Fitting interface width for (0.200000,1.000000)...
+01: interfaceWidth=3.581868, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.058518, gammaFactor=1.000000 (effective gammaMu=1.058518)
+Interface fit iteration 1: widthIntervalStart=1.000000, widthIntervalPoint1=38.814635, widthIntervalPoint2=62.185365, widthIntervalEnd=100.000000
+-- ssePoint1=13.935720 ssePoint2=23.474161
+Interface fit iteration 2: widthIntervalStart=1.000000, widthIntervalPoint1=24.370730, widthIntervalPoint2=38.814635, widthIntervalEnd=62.185365
+-- ssePoint1=8.015144 ssePoint2=13.935720
+Interface fit iteration 3: widthIntervalStart=1.000000, widthIntervalPoint1=15.443905, widthIntervalPoint2=24.370730, widthIntervalEnd=38.814635
+-- ssePoint1=4.408603 ssePoint2=8.015144
+Interface fit iteration 4: widthIntervalStart=1.000000, widthIntervalPoint1=9.926824, widthIntervalPoint2=15.443905, widthIntervalEnd=24.370730
+-- ssePoint1=2.256458 ssePoint2=4.408603
+Interface fit iteration 5: widthIntervalStart=1.000000, widthIntervalPoint1=6.517081, widthIntervalPoint2=9.926824, widthIntervalEnd=15.443905
+-- ssePoint1=1.027347 ssePoint2=2.256458
+Interface fit iteration 6: widthIntervalStart=1.000000, widthIntervalPoint1=4.409744, widthIntervalPoint2=6.517081, widthIntervalEnd=9.926824
+-- ssePoint1=0.383942 ssePoint2=1.027347
+Interface fit iteration 7: widthIntervalStart=1.000000, widthIntervalPoint1=3.107337, widthIntervalPoint2=4.409744, widthIntervalEnd=6.517081
+-- ssePoint1=0.098558 ssePoint2=0.383942
+Interface fit iteration 8: widthIntervalStart=1.000000, widthIntervalPoint1=2.302406, widthIntervalPoint2=3.107337, widthIntervalEnd=4.409744
+-- ssePoint1=0.011130 ssePoint2=0.098558
+Interface fit iteration 9: widthIntervalStart=1.000000, widthIntervalPoint1=1.804931, widthIntervalPoint2=2.302406, widthIntervalEnd=3.107337
+-- ssePoint1=0.015185 ssePoint2=0.011130
+Interface fit iteration 10: widthIntervalStart=1.804931, widthIntervalPoint1=2.302406, widthIntervalPoint2=2.609863, widthIntervalEnd=3.107337
+-- ssePoint1=0.011130 ssePoint2=0.033222
+Interface fit iteration 11: widthIntervalStart=1.804931, widthIntervalPoint1=2.112388, widthIntervalPoint2=2.302406, widthIntervalEnd=2.609863
+-- ssePoint1=0.006178 ssePoint2=0.011130
+Interface fit iteration 12: widthIntervalStart=1.804931, widthIntervalPoint1=1.994950, widthIntervalPoint2=2.112388, widthIntervalEnd=2.302406
+-- ssePoint1=0.006949 ssePoint2=0.006178
+Interface fit iteration 13: widthIntervalStart=1.994950, widthIntervalPoint1=2.112388, widthIntervalPoint2=2.184968, widthIntervalEnd=2.302406
+-- ssePoint1=0.006178 ssePoint2=0.007205
+Interface fit iteration 14: widthIntervalStart=1.994950, widthIntervalPoint1=2.067530, widthIntervalPoint2=2.112388, widthIntervalEnd=2.184968
+-- ssePoint1=0.006107 ssePoint2=0.006178
+Interface fit iteration 15: widthIntervalStart=1.994950, widthIntervalPoint1=2.039807, widthIntervalPoint2=2.067530, widthIntervalEnd=2.112388
+-- ssePoint1=0.006287 ssePoint2=0.006107
+Interface fit iteration 16: widthIntervalStart=2.039807, widthIntervalPoint1=2.067530, widthIntervalPoint2=2.084664, widthIntervalEnd=2.112388
+-- ssePoint1=0.006107 ssePoint2=0.006082
+Interface fit iteration 17: widthIntervalStart=2.067530, widthIntervalPoint1=2.084664, widthIntervalPoint2=2.095254, widthIntervalEnd=2.112388
+-- ssePoint1=0.006082 ssePoint2=0.006099
+Interface fit iteration 18: widthIntervalStart=2.067530, widthIntervalPoint1=2.078120, widthIntervalPoint2=2.084664, widthIntervalEnd=2.095254
+-- ssePoint1=0.006084 ssePoint2=0.006082
+Interface fit iteration 19: widthIntervalStart=2.078120, widthIntervalPoint1=2.084664, widthIntervalPoint2=2.088709, widthIntervalEnd=2.095254
+-- ssePoint1=0.006082 ssePoint2=0.006086
+Interface fit iteration 20: widthIntervalStart=2.078120, widthIntervalPoint1=2.082165, widthIntervalPoint2=2.084664, widthIntervalEnd=2.088709
+-- ssePoint1=0.006082 ssePoint2=0.006082
+Interface fit iteration 21: widthIntervalStart=2.078120, widthIntervalPoint1=2.080620, widthIntervalPoint2=2.082165, widthIntervalEnd=2.084664
+-- ssePoint1=0.006082 ssePoint2=0.006082
+Interface fit iteration 22: widthIntervalStart=2.080620, widthIntervalPoint1=2.082165, widthIntervalPoint2=2.083119, widthIntervalEnd=2.084664
+-- ssePoint1=0.006082 ssePoint2=0.006082
+Interface fit iteration 23: widthIntervalStart=2.082165, widthIntervalPoint1=2.083119, widthIntervalPoint2=2.083709, widthIntervalEnd=2.084664
+-- ssePoint1=0.006082 ssePoint2=0.006082
+Interface fit iteration 24: widthIntervalStart=2.082165, widthIntervalPoint1=2.082755, widthIntervalPoint2=2.083119, widthIntervalEnd=2.083709
+-- ssePoint1=0.006082 ssePoint2=0.006082
+determined interface width=2.082642 for (0.200000,1.000000)
+
+02: interfaceWidth=2.082642, kappa=0.100000, kappaFactor=6.585892, gammaMu=1.058518, gammaFactor=1.000000 (effective gammaMu=1.058518)
+
+nA0=0.300000	nB0=1.000000
+
+Fitting interface width for (0.300000,1.000000)...
+01: interfaceWidth=3.976744, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.112056, gammaFactor=1.000000 (effective gammaMu=1.112056)
+Interface fit iteration 1: widthIntervalStart=1.000000, widthIntervalPoint1=38.814635, widthIntervalPoint2=62.185365, widthIntervalEnd=100.000000
+-- ssePoint1=16.132432 ssePoint2=26.970112
+Interface fit iteration 2: widthIntervalStart=1.000000, widthIntervalPoint1=24.370730, widthIntervalPoint2=38.814635, widthIntervalEnd=62.185365
+-- ssePoint1=9.396390 ssePoint2=16.132432
+Interface fit iteration 3: widthIntervalStart=1.000000, widthIntervalPoint1=15.443905, widthIntervalPoint2=24.370730, widthIntervalEnd=38.814635
+-- ssePoint1=5.277711 ssePoint2=9.396390
+Interface fit iteration 4: widthIntervalStart=1.000000, widthIntervalPoint1=9.926824, widthIntervalPoint2=15.443905, widthIntervalEnd=24.370730
+-- ssePoint1=2.798293 ssePoint2=5.277711
+Interface fit iteration 5: widthIntervalStart=1.000000, widthIntervalPoint1=6.517081, widthIntervalPoint2=9.926824, widthIntervalEnd=15.443905
+-- ssePoint1=1.354604 ssePoint2=2.798293
+Interface fit iteration 6: widthIntervalStart=1.000000, widthIntervalPoint1=4.409744, widthIntervalPoint2=6.517081, widthIntervalEnd=9.926824
+-- ssePoint1=0.567453 ssePoint2=1.354604
+Interface fit iteration 7: widthIntervalStart=1.000000, widthIntervalPoint1=3.107337, widthIntervalPoint2=4.409744, widthIntervalEnd=6.517081
+-- ssePoint1=0.186468 ssePoint2=0.567453
+Interface fit iteration 8: widthIntervalStart=1.000000, widthIntervalPoint1=2.302406, widthIntervalPoint2=3.107337, widthIntervalEnd=4.409744
+-- ssePoint1=0.038331 ssePoint2=0.186468
+Interface fit iteration 9: widthIntervalStart=1.000000, widthIntervalPoint1=1.804931, widthIntervalPoint2=2.302406, widthIntervalEnd=3.107337
+-- ssePoint1=0.006300 ssePoint2=0.038331
+Interface fit iteration 10: widthIntervalStart=1.000000, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.804931, widthIntervalEnd=2.302406
+-- ssePoint1=0.020679 ssePoint2=0.006300
+Interface fit iteration 11: widthIntervalStart=1.497475, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.994950, widthIntervalEnd=2.302406
+-- ssePoint1=0.006300 ssePoint2=0.011528
+Interface fit iteration 12: widthIntervalStart=1.497475, widthIntervalPoint1=1.687493, widthIntervalPoint2=1.804931, widthIntervalEnd=1.994950
+-- ssePoint1=0.008171 ssePoint2=0.006300
+Interface fit iteration 13: widthIntervalStart=1.687493, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.877512, widthIntervalEnd=1.994950
+-- ssePoint1=0.006300 ssePoint2=0.007154
+Interface fit iteration 14: widthIntervalStart=1.687493, widthIntervalPoint1=1.760074, widthIntervalPoint2=1.804931, widthIntervalEnd=1.877512
+-- ssePoint1=0.006524 ssePoint2=0.006300
+Interface fit iteration 15: widthIntervalStart=1.760074, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.832655, widthIntervalEnd=1.877512
+-- ssePoint1=0.006300 ssePoint2=0.006452
+Interface fit iteration 16: widthIntervalStart=1.760074, widthIntervalPoint1=1.787797, widthIntervalPoint2=1.804931, widthIntervalEnd=1.832655
+-- ssePoint1=0.006316 ssePoint2=0.006300
+Interface fit iteration 17: widthIntervalStart=1.787797, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.815521, widthIntervalEnd=1.832655
+-- ssePoint1=0.006300 ssePoint2=0.006332
+Interface fit iteration 18: widthIntervalStart=1.787797, widthIntervalPoint1=1.798387, widthIntervalPoint2=1.804931, widthIntervalEnd=1.815521
+-- ssePoint1=0.006296 ssePoint2=0.006300
+Interface fit iteration 19: widthIntervalStart=1.787797, widthIntervalPoint1=1.794342, widthIntervalPoint2=1.798387, widthIntervalEnd=1.804931
+-- ssePoint1=0.006300 ssePoint2=0.006296
+Interface fit iteration 20: widthIntervalStart=1.794342, widthIntervalPoint1=1.798387, widthIntervalPoint2=1.800886, widthIntervalEnd=1.804931
+-- ssePoint1=0.006296 ssePoint2=0.006296
+Interface fit iteration 21: widthIntervalStart=1.794342, widthIntervalPoint1=1.796842, widthIntervalPoint2=1.798387, widthIntervalEnd=1.800886
+-- ssePoint1=0.006297 ssePoint2=0.006296
+Interface fit iteration 22: widthIntervalStart=1.796842, widthIntervalPoint1=1.798387, widthIntervalPoint2=1.799342, widthIntervalEnd=1.800886
+-- ssePoint1=0.006296 ssePoint2=0.006296
+Interface fit iteration 23: widthIntervalStart=1.798387, widthIntervalPoint1=1.799342, widthIntervalPoint2=1.799932, widthIntervalEnd=1.800886
+-- ssePoint1=0.006296 ssePoint2=0.006296
+Interface fit iteration 24: widthIntervalStart=1.798387, widthIntervalPoint1=1.798977, widthIntervalPoint2=1.799342, widthIntervalEnd=1.799932
+-- ssePoint1=0.006296 ssePoint2=0.006296
+determined interface width=1.799454 for (0.300000,1.000000)
+
+02: interfaceWidth=2.000000, kappa=0.100000, kappaFactor=5.690374, gammaMu=1.112056, gammaFactor=1.000000 (effective gammaMu=1.112056)
+
+nA0=0.400000	nB0=1.000000
+
+Fitting interface width for (0.400000,1.000000)...
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=1.000000 (effective gammaMu=1.179879)
+Instability detected: index 0
+Unstable simulation!!... width=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=1.000000...
+
+Fitting gammaMu value for (0.400000,1.000000) at kappa=0.100000, kappaFactor=1.000000...
+
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=1000.000000 (effective gammaMu=0.001180)
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=382.584045 (effective gammaMu=0.003084)
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=618.415955 (effective gammaMu=0.001908)
+GammaMu fit iteration 1: gammaIntervalStart=1.000000, gammaIntervalPoint1=382.584045, gammaIntervalPoint2=618.415955, gammaIntervalEnd=1000.000000
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=146.752136 (effective gammaMu=0.008040)
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=236.831910 (effective gammaMu=0.004982)
+GammaMu fit iteration 2: gammaIntervalStart=1.000000, gammaIntervalPoint1=146.752136, gammaIntervalPoint2=236.831910, gammaIntervalEnd=382.584045
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=56.672362 (effective gammaMu=0.020819)
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=91.079774 (effective gammaMu=0.012954)
+GammaMu fit iteration 3: gammaIntervalStart=1.000000, gammaIntervalPoint1=56.672362, gammaIntervalPoint2=91.079774, gammaIntervalEnd=146.752136
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=22.264950 (effective gammaMu=0.052993)
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=35.407412 (effective gammaMu=0.033323)
+GammaMu fit iteration 4: gammaIntervalStart=1.000000, gammaIntervalPoint1=22.264950, gammaIntervalPoint2=35.407412, gammaIntervalEnd=56.672362
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=9.122488 (effective gammaMu=0.129337)
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=14.142462 (effective gammaMu=0.083428)
+GammaMu fit iteration 5: gammaIntervalStart=1.000000, gammaIntervalPoint1=9.122488, gammaIntervalPoint2=14.142462, gammaIntervalEnd=22.264950
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=4.102514 (effective gammaMu=0.287599)
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=6.019974 (effective gammaMu=0.195994)
+GammaMu fit iteration 6: gammaIntervalStart=1.000000, gammaIntervalPoint1=4.102514, gammaIntervalPoint2=6.019974, gammaIntervalEnd=9.122488
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=2.185055 (effective gammaMu=0.539977)
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=2.917459 (effective gammaMu=0.404420)
+GammaMu fit iteration 7: gammaIntervalStart=1.000000, gammaIntervalPoint1=2.185055, gammaIntervalPoint2=2.917459, gammaIntervalEnd=4.102514
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=1.452651 (effective gammaMu=0.812224)
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=1.732404 (effective gammaMu=0.681064)
+GammaMu fit iteration 8: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.452651, gammaIntervalPoint2=1.732404, gammaIntervalEnd=2.185055
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=1.172897 (effective gammaMu=1.005952)
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=1.279754 (effective gammaMu=0.921958)
+GammaMu fit iteration 9: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.172897, gammaIntervalPoint2=1.279754, gammaIntervalEnd=1.452651
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=1.066041 (effective gammaMu=1.106785)
+Instability detected: index 0
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=1.106856 (effective gammaMu=1.065973)
+Instability detected: index 0
+GammaMu fit iteration 10: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.066041, gammaIntervalPoint2=1.106856, gammaIntervalEnd=1.172897
+-- stablePoint1=0 stablePoint2=0
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=1.132082 (effective gammaMu=1.042220)
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=1.147672 (effective gammaMu=1.028063)
+determined gammaFactor=1.208084, for (0.400000,1.000000) with interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.028063
+
+
+Fitting interface width for (0.400000,1.000000)...
+01: interfaceWidth=4.323473, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.179879, gammaFactor=1.208084 (effective gammaMu=0.976653)
+Interface fit iteration 1: widthIntervalStart=1.000000, widthIntervalPoint1=38.814635, widthIntervalPoint2=62.185365, widthIntervalEnd=100.000000
+-- ssePoint1=16.960836 ssePoint2=28.255957
+Interface fit iteration 2: widthIntervalStart=1.000000, widthIntervalPoint1=24.370730, widthIntervalPoint2=38.814635, widthIntervalEnd=62.185365
+-- ssePoint1=9.936316 ssePoint2=16.960836
+Interface fit iteration 3: widthIntervalStart=1.000000, widthIntervalPoint1=15.443905, widthIntervalPoint2=24.370730, widthIntervalEnd=38.814635
+-- ssePoint1=5.634931 ssePoint2=9.936316
+Interface fit iteration 4: widthIntervalStart=1.000000, widthIntervalPoint1=9.926824, widthIntervalPoint2=15.443905, widthIntervalEnd=24.370730
+-- ssePoint1=3.036128 ssePoint2=5.634931
+Interface fit iteration 5: widthIntervalStart=1.000000, widthIntervalPoint1=6.517081, widthIntervalPoint2=9.926824, widthIntervalEnd=15.443905
+-- ssePoint1=1.510343 ssePoint2=3.036128
+Interface fit iteration 6: widthIntervalStart=1.000000, widthIntervalPoint1=4.409744, widthIntervalPoint2=6.517081, widthIntervalEnd=9.926824
+-- ssePoint1=0.663772 ssePoint2=1.510343
+Interface fit iteration 7: widthIntervalStart=1.000000, widthIntervalPoint1=3.107337, widthIntervalPoint2=4.409744, widthIntervalEnd=6.517081
+-- ssePoint1=0.239132 ssePoint2=0.663772
+Interface fit iteration 8: widthIntervalStart=1.000000, widthIntervalPoint1=2.302406, widthIntervalPoint2=3.107337, widthIntervalEnd=4.409744
+-- ssePoint1=0.060058 ssePoint2=0.239132
+Interface fit iteration 9: widthIntervalStart=1.000000, widthIntervalPoint1=1.804931, widthIntervalPoint2=2.302406, widthIntervalEnd=3.107337
+-- ssePoint1=0.007469 ssePoint2=0.060058
+Interface fit iteration 10: widthIntervalStart=1.000000, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.804931, widthIntervalEnd=2.302406
+-- ssePoint1=0.008979 ssePoint2=0.007469
+Interface fit iteration 11: widthIntervalStart=1.497475, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.994950, widthIntervalEnd=2.302406
+-- ssePoint1=0.007469 ssePoint2=0.020639
+Interface fit iteration 12: widthIntervalStart=1.497475, widthIntervalPoint1=1.687493, widthIntervalPoint2=1.804931, widthIntervalEnd=1.994950
+-- ssePoint1=0.004411 ssePoint2=0.007469
+Interface fit iteration 13: widthIntervalStart=1.497475, widthIntervalPoint1=1.614913, widthIntervalPoint2=1.687493, widthIntervalEnd=1.804931
+-- ssePoint1=0.004688 ssePoint2=0.004411
+Interface fit iteration 14: widthIntervalStart=1.614913, widthIntervalPoint1=1.687493, widthIntervalPoint2=1.732351, widthIntervalEnd=1.804931
+-- ssePoint1=0.004411 ssePoint2=0.005085
+Interface fit iteration 15: widthIntervalStart=1.614913, widthIntervalPoint1=1.659770, widthIntervalPoint2=1.687493, widthIntervalEnd=1.732351
+-- ssePoint1=0.004313 ssePoint2=0.004411
+Interface fit iteration 16: widthIntervalStart=1.614913, widthIntervalPoint1=1.642636, widthIntervalPoint2=1.659770, widthIntervalEnd=1.687493
+-- ssePoint1=0.004377 ssePoint2=0.004313
+Interface fit iteration 17: widthIntervalStart=1.642636, widthIntervalPoint1=1.659770, widthIntervalPoint2=1.670359, widthIntervalEnd=1.687493
+-- ssePoint1=0.004313 ssePoint2=0.004321
+Interface fit iteration 18: widthIntervalStart=1.642636, widthIntervalPoint1=1.653225, widthIntervalPoint2=1.659770, widthIntervalEnd=1.670359
+-- ssePoint1=0.004326 ssePoint2=0.004313
+Interface fit iteration 19: widthIntervalStart=1.653225, widthIntervalPoint1=1.659770, widthIntervalPoint2=1.663815, widthIntervalEnd=1.670359
+-- ssePoint1=0.004313 ssePoint2=0.004311
+Interface fit iteration 20: widthIntervalStart=1.659770, widthIntervalPoint1=1.663815, widthIntervalPoint2=1.666315, widthIntervalEnd=1.670359
+-- ssePoint1=0.004311 ssePoint2=0.004313
+Interface fit iteration 21: widthIntervalStart=1.659770, widthIntervalPoint1=1.662270, widthIntervalPoint2=1.663815, widthIntervalEnd=1.666315
+-- ssePoint1=0.004311 ssePoint2=0.004311
+Interface fit iteration 22: widthIntervalStart=1.659770, widthIntervalPoint1=1.661315, widthIntervalPoint2=1.662270, widthIntervalEnd=1.663815
+-- ssePoint1=0.004311 ssePoint2=0.004311
+Interface fit iteration 23: widthIntervalStart=1.661315, widthIntervalPoint1=1.662270, widthIntervalPoint2=1.662860, widthIntervalEnd=1.663815
+-- ssePoint1=0.004311 ssePoint2=0.004311
+Interface fit iteration 24: widthIntervalStart=1.662270, widthIntervalPoint1=1.662860, widthIntervalPoint2=1.663225, widthIntervalEnd=1.663815
+-- ssePoint1=0.004311 ssePoint2=0.004311
+determined interface width=1.662747 for (0.400000,1.000000)
+
+02: interfaceWidth=2.000000, kappa=0.100000, kappaFactor=5.258069, gammaMu=1.179879, gammaFactor=1.208084 (effective gammaMu=0.976653)
+
+nA0=0.500000	nB0=1.000000
+
+Fitting interface width for (0.500000,1.000000)...
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=1.000000 (effective gammaMu=1.255809)
+Instability detected: index 0
+Unstable simulation!!... width=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=1.000000...
+
+Fitting gammaMu value for (0.500000,1.000000) at kappa=0.100000, kappaFactor=1.000000...
+
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=1000.000000 (effective gammaMu=0.001256)
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=382.584045 (effective gammaMu=0.003282)
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=618.415955 (effective gammaMu=0.002031)
+GammaMu fit iteration 1: gammaIntervalStart=1.000000, gammaIntervalPoint1=382.584045, gammaIntervalPoint2=618.415955, gammaIntervalEnd=1000.000000
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=146.752136 (effective gammaMu=0.008557)
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=236.831910 (effective gammaMu=0.005303)
+GammaMu fit iteration 2: gammaIntervalStart=1.000000, gammaIntervalPoint1=146.752136, gammaIntervalPoint2=236.831910, gammaIntervalEnd=382.584045
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=56.672362 (effective gammaMu=0.022159)
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=91.079774 (effective gammaMu=0.013788)
+GammaMu fit iteration 3: gammaIntervalStart=1.000000, gammaIntervalPoint1=56.672362, gammaIntervalPoint2=91.079774, gammaIntervalEnd=146.752136
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=22.264950 (effective gammaMu=0.056403)
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=35.407412 (effective gammaMu=0.035467)
+GammaMu fit iteration 4: gammaIntervalStart=1.000000, gammaIntervalPoint1=22.264950, gammaIntervalPoint2=35.407412, gammaIntervalEnd=56.672362
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=9.122488 (effective gammaMu=0.137661)
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=14.142462 (effective gammaMu=0.088797)
+GammaMu fit iteration 5: gammaIntervalStart=1.000000, gammaIntervalPoint1=9.122488, gammaIntervalPoint2=14.142462, gammaIntervalEnd=22.264950
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=4.102514 (effective gammaMu=0.306107)
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=6.019974 (effective gammaMu=0.208607)
+GammaMu fit iteration 6: gammaIntervalStart=1.000000, gammaIntervalPoint1=4.102514, gammaIntervalPoint2=6.019974, gammaIntervalEnd=9.122488
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=2.185055 (effective gammaMu=0.574727)
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=2.917459 (effective gammaMu=0.430446)
+GammaMu fit iteration 7: gammaIntervalStart=1.000000, gammaIntervalPoint1=2.185055, gammaIntervalPoint2=2.917459, gammaIntervalEnd=4.102514
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=1.452651 (effective gammaMu=0.864495)
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=1.732404 (effective gammaMu=0.724894)
+GammaMu fit iteration 8: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.452651, gammaIntervalPoint2=1.732404, gammaIntervalEnd=2.185055
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=1.172897 (effective gammaMu=1.070690)
+Instability detected: index 0
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=1.279754 (effective gammaMu=0.981290)
+GammaMu fit iteration 9: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.172897, gammaIntervalPoint2=1.279754, gammaIntervalEnd=1.452651
+-- stablePoint1=0 stablePoint2=1
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=1.345794 (effective gammaMu=0.933136)
+GammaMu fit iteration 10: gammaIntervalStart=1.172897, gammaIntervalPoint1=1.279754, gammaIntervalPoint2=1.345794, gammaIntervalEnd=1.452651
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=1.213713 (effective gammaMu=1.034684)
+Instability detected: index 0
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=1.238938 (effective gammaMu=1.013617)
+GammaMu fit iteration 11: gammaIntervalStart=1.172897, gammaIntervalPoint1=1.213713, gammaIntervalPoint2=1.238938, gammaIntervalEnd=1.279754
+-- stablePoint1=0 stablePoint2=1
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=1.254528 (effective gammaMu=1.001021)
+determined gammaFactor=1.318146, for (0.500000,1.000000) with interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.001021
+
+
+Fitting interface width for (0.500000,1.000000)...
+01: interfaceWidth=4.638949, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.255809, gammaFactor=1.318146 (effective gammaMu=0.952709)
+Interface fit iteration 1: widthIntervalStart=1.000000, widthIntervalPoint1=38.814635, widthIntervalPoint2=62.185365, widthIntervalEnd=100.000000
+-- ssePoint1=17.157843 ssePoint2=28.529573
+Interface fit iteration 2: widthIntervalStart=1.000000, widthIntervalPoint1=24.370730, widthIntervalPoint2=38.814635, widthIntervalEnd=62.185365
+-- ssePoint1=10.083528 ssePoint2=17.157843
+Interface fit iteration 3: widthIntervalStart=1.000000, widthIntervalPoint1=15.443905, widthIntervalPoint2=24.370730, widthIntervalEnd=38.814635
+-- ssePoint1=5.748181 ssePoint2=10.083528
+Interface fit iteration 4: widthIntervalStart=1.000000, widthIntervalPoint1=9.926824, widthIntervalPoint2=15.443905, widthIntervalEnd=24.370730
+-- ssePoint1=3.123854 ssePoint2=5.748181
+Interface fit iteration 5: widthIntervalStart=1.000000, widthIntervalPoint1=6.517081, widthIntervalPoint2=9.926824, widthIntervalEnd=15.443905
+-- ssePoint1=1.576478 ssePoint2=3.123854
+Interface fit iteration 6: widthIntervalStart=1.000000, widthIntervalPoint1=4.409744, widthIntervalPoint2=6.517081, widthIntervalEnd=9.926824
+-- ssePoint1=0.710211 ssePoint2=1.576478
+Interface fit iteration 7: widthIntervalStart=1.000000, widthIntervalPoint1=3.107337, widthIntervalPoint2=4.409744, widthIntervalEnd=6.517081
+-- ssePoint1=0.267820 ssePoint2=0.710211
+Interface fit iteration 8: widthIntervalStart=1.000000, widthIntervalPoint1=2.302406, widthIntervalPoint2=3.107337, widthIntervalEnd=4.409744
+-- ssePoint1=0.074001 ssePoint2=0.267820
+Interface fit iteration 9: widthIntervalStart=1.000000, widthIntervalPoint1=1.804931, widthIntervalPoint2=2.302406, widthIntervalEnd=3.107337
+-- ssePoint1=0.010355 ssePoint2=0.074001
+Interface fit iteration 10: widthIntervalStart=1.000000, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.804931, widthIntervalEnd=2.302406
+-- ssePoint1=0.004263 ssePoint2=0.010355
+Interface fit iteration 11: widthIntervalStart=1.000000, widthIntervalPoint1=1.307456, widthIntervalPoint2=1.497475, widthIntervalEnd=1.804931
+-- ssePoint1=0.017547 ssePoint2=0.004263
+Interface fit iteration 12: widthIntervalStart=1.307456, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.614913, widthIntervalEnd=1.804931
+-- ssePoint1=0.004263 ssePoint2=0.002939
+Interface fit iteration 13: widthIntervalStart=1.497475, widthIntervalPoint1=1.614913, widthIntervalPoint2=1.687493, widthIntervalEnd=1.804931
+-- ssePoint1=0.002939 ssePoint2=0.004458
+Interface fit iteration 14: widthIntervalStart=1.497475, widthIntervalPoint1=1.570055, widthIntervalPoint2=1.614913, widthIntervalEnd=1.687493
+-- ssePoint1=0.002873 ssePoint2=0.002939
+Interface fit iteration 15: widthIntervalStart=1.497475, widthIntervalPoint1=1.542332, widthIntervalPoint2=1.570055, widthIntervalEnd=1.614913
+-- ssePoint1=0.003180 ssePoint2=0.002873
+Interface fit iteration 16: widthIntervalStart=1.542332, widthIntervalPoint1=1.570055, widthIntervalPoint2=1.587189, widthIntervalEnd=1.614913
+-- ssePoint1=0.002873 ssePoint2=0.002817
+Interface fit iteration 17: widthIntervalStart=1.570055, widthIntervalPoint1=1.587189, widthIntervalPoint2=1.597779, widthIntervalEnd=1.614913
+-- ssePoint1=0.002817 ssePoint2=0.002833
+Interface fit iteration 18: widthIntervalStart=1.570055, widthIntervalPoint1=1.580645, widthIntervalPoint2=1.587189, widthIntervalEnd=1.597779
+-- ssePoint1=0.002826 ssePoint2=0.002817
+Interface fit iteration 19: widthIntervalStart=1.580645, widthIntervalPoint1=1.587189, widthIntervalPoint2=1.591234, widthIntervalEnd=1.597779
+-- ssePoint1=0.002817 ssePoint2=0.002818
+Interface fit iteration 20: widthIntervalStart=1.580645, widthIntervalPoint1=1.584690, widthIntervalPoint2=1.587189, widthIntervalEnd=1.591234
+-- ssePoint1=0.002819 ssePoint2=0.002817
+Interface fit iteration 21: widthIntervalStart=1.584690, widthIntervalPoint1=1.587189, widthIntervalPoint2=1.588734, widthIntervalEnd=1.591234
+-- ssePoint1=0.002817 ssePoint2=0.002817
+Interface fit iteration 22: widthIntervalStart=1.587189, widthIntervalPoint1=1.588734, widthIntervalPoint2=1.589689, widthIntervalEnd=1.591234
+-- ssePoint1=0.002817 ssePoint2=0.002817
+Interface fit iteration 23: widthIntervalStart=1.587189, widthIntervalPoint1=1.588144, widthIntervalPoint2=1.588734, widthIntervalEnd=1.589689
+-- ssePoint1=0.002817 ssePoint2=0.002817
+Interface fit iteration 24: widthIntervalStart=1.587189, widthIntervalPoint1=1.587780, widthIntervalPoint2=1.588144, widthIntervalEnd=1.588734
+-- ssePoint1=0.002817 ssePoint2=0.002817
+determined interface width=1.588257 for (0.500000,1.000000)
+
+02: interfaceWidth=2.000000, kappa=0.100000, kappaFactor=5.022510, gammaMu=1.255809, gammaFactor=1.318146 (effective gammaMu=0.952709)
+
+nA0=0.600000	nB0=1.000000
+
+Fitting interface width for (0.600000,1.000000)...
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=1.000000 (effective gammaMu=1.337696)
+Instability detected: index 0
+Unstable simulation!!... width=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=1.000000...
+
+Fitting gammaMu value for (0.600000,1.000000) at kappa=0.100000, kappaFactor=1.000000...
+
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=1000.000000 (effective gammaMu=0.001338)
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=382.584045 (effective gammaMu=0.003496)
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=618.415955 (effective gammaMu=0.002163)
+GammaMu fit iteration 1: gammaIntervalStart=1.000000, gammaIntervalPoint1=382.584045, gammaIntervalPoint2=618.415955, gammaIntervalEnd=1000.000000
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=146.752136 (effective gammaMu=0.009115)
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=236.831910 (effective gammaMu=0.005648)
+GammaMu fit iteration 2: gammaIntervalStart=1.000000, gammaIntervalPoint1=146.752136, gammaIntervalPoint2=236.831910, gammaIntervalEnd=382.584045
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=56.672362 (effective gammaMu=0.023604)
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=91.079774 (effective gammaMu=0.014687)
+GammaMu fit iteration 3: gammaIntervalStart=1.000000, gammaIntervalPoint1=56.672362, gammaIntervalPoint2=91.079774, gammaIntervalEnd=146.752136
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=22.264950 (effective gammaMu=0.060081)
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=35.407412 (effective gammaMu=0.037780)
+GammaMu fit iteration 4: gammaIntervalStart=1.000000, gammaIntervalPoint1=22.264950, gammaIntervalPoint2=35.407412, gammaIntervalEnd=56.672362
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=9.122488 (effective gammaMu=0.146637)
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=14.142462 (effective gammaMu=0.094587)
+GammaMu fit iteration 5: gammaIntervalStart=1.000000, gammaIntervalPoint1=9.122488, gammaIntervalPoint2=14.142462, gammaIntervalEnd=22.264950
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=4.102514 (effective gammaMu=0.326067)
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=6.019974 (effective gammaMu=0.222210)
+GammaMu fit iteration 6: gammaIntervalStart=1.000000, gammaIntervalPoint1=4.102514, gammaIntervalPoint2=6.019974, gammaIntervalEnd=9.122488
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=2.185055 (effective gammaMu=0.612202)
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=2.917459 (effective gammaMu=0.458514)
+GammaMu fit iteration 7: gammaIntervalStart=1.000000, gammaIntervalPoint1=2.185055, gammaIntervalPoint2=2.917459, gammaIntervalEnd=4.102514
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=1.452651 (effective gammaMu=0.920865)
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=1.732404 (effective gammaMu=0.772161)
+GammaMu fit iteration 8: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.452651, gammaIntervalPoint2=1.732404, gammaIntervalEnd=2.185055
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=1.172897 (effective gammaMu=1.140505)
+Instability detected: index 0
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=1.279754 (effective gammaMu=1.045276)
+Instability detected: index 0
+GammaMu fit iteration 9: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.172897, gammaIntervalPoint2=1.279754, gammaIntervalEnd=1.452651
+-- stablePoint1=0 stablePoint2=0
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=1.345794 (effective gammaMu=0.993982)
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=1.386610 (effective gammaMu=0.964724)
+GammaMu fit iteration 10: gammaIntervalStart=1.279754, gammaIntervalPoint1=1.345794, gammaIntervalPoint2=1.386610, gammaIntervalEnd=1.452651
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=1.304979 (effective gammaMu=1.025071)
+Instability detected: index 0
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=1.320569 (effective gammaMu=1.012969)
+determined gammaFactor=1.386168, for (0.600000,1.000000) with interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.012969
+
+
+Fitting interface width for (0.600000,1.000000)...
+01: interfaceWidth=4.930484, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.337696, gammaFactor=1.386168 (effective gammaMu=0.965031)
+Interface fit iteration 1: widthIntervalStart=1.000000, widthIntervalPoint1=38.814635, widthIntervalPoint2=62.185365, widthIntervalEnd=100.000000
+-- ssePoint1=17.044275 ssePoint2=28.310899
+Interface fit iteration 2: widthIntervalStart=1.000000, widthIntervalPoint1=24.370730, widthIntervalPoint2=38.814635, widthIntervalEnd=62.185365
+-- ssePoint1=10.034176 ssePoint2=17.044275
+Interface fit iteration 3: widthIntervalStart=1.000000, widthIntervalPoint1=15.443905, widthIntervalPoint2=24.370730, widthIntervalEnd=38.814635
+-- ssePoint1=5.736348 ssePoint2=10.034176
+Interface fit iteration 4: widthIntervalStart=1.000000, widthIntervalPoint1=9.926824, widthIntervalPoint2=15.443905, widthIntervalEnd=24.370730
+-- ssePoint1=3.132083 ssePoint2=5.736348
+Interface fit iteration 5: widthIntervalStart=1.000000, widthIntervalPoint1=6.517081, widthIntervalPoint2=9.926824, widthIntervalEnd=15.443905
+-- ssePoint1=1.593025 ssePoint2=3.132083
+Interface fit iteration 6: widthIntervalStart=1.000000, widthIntervalPoint1=4.409744, widthIntervalPoint2=6.517081, widthIntervalEnd=9.926824
+-- ssePoint1=0.727287 ssePoint2=1.593025
+Interface fit iteration 7: widthIntervalStart=1.000000, widthIntervalPoint1=3.107337, widthIntervalPoint2=4.409744, widthIntervalEnd=6.517081
+-- ssePoint1=0.280936 ssePoint2=0.727287
+Interface fit iteration 8: widthIntervalStart=1.000000, widthIntervalPoint1=2.302406, widthIntervalPoint2=3.107337, widthIntervalEnd=4.409744
+-- ssePoint1=0.081501 ssePoint2=0.280936
+Interface fit iteration 9: widthIntervalStart=1.000000, widthIntervalPoint1=1.804931, widthIntervalPoint2=2.302406, widthIntervalEnd=3.107337
+-- ssePoint1=0.012519 ssePoint2=0.081501
+Interface fit iteration 10: widthIntervalStart=1.000000, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.804931, widthIntervalEnd=2.302406
+-- ssePoint1=0.002228 ssePoint2=0.012519
+Interface fit iteration 11: widthIntervalStart=1.000000, widthIntervalPoint1=1.307456, widthIntervalPoint2=1.497475, widthIntervalEnd=1.804931
+-- ssePoint1=0.012544 ssePoint2=0.002228
+Interface fit iteration 12: widthIntervalStart=1.307456, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.614913, widthIntervalEnd=1.804931
+-- ssePoint1=0.002228 ssePoint2=0.002595
+Interface fit iteration 13: widthIntervalStart=1.307456, widthIntervalPoint1=1.424894, widthIntervalPoint2=1.497475, widthIntervalEnd=1.614913
+-- ssePoint1=0.004481 ssePoint2=0.002228
+Interface fit iteration 14: widthIntervalStart=1.424894, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.542332, widthIntervalEnd=1.614913
+-- ssePoint1=0.002228 ssePoint2=0.001804
+Interface fit iteration 15: widthIntervalStart=1.497475, widthIntervalPoint1=1.542332, widthIntervalPoint2=1.570055, widthIntervalEnd=1.614913
+-- ssePoint1=0.001804 ssePoint2=0.001896
+Interface fit iteration 16: widthIntervalStart=1.497475, widthIntervalPoint1=1.525198, widthIntervalPoint2=1.542332, widthIntervalEnd=1.570055
+-- ssePoint1=0.001881 ssePoint2=0.001804
+Interface fit iteration 17: widthIntervalStart=1.525198, widthIntervalPoint1=1.542332, widthIntervalPoint2=1.552922, widthIntervalEnd=1.570055
+-- ssePoint1=0.001804 ssePoint2=0.001808
+Interface fit iteration 18: widthIntervalStart=1.525198, widthIntervalPoint1=1.535788, widthIntervalPoint2=1.542332, widthIntervalEnd=1.552922
+-- ssePoint1=0.001821 ssePoint2=0.001804
+Interface fit iteration 19: widthIntervalStart=1.535788, widthIntervalPoint1=1.542332, widthIntervalPoint2=1.546377, widthIntervalEnd=1.552922
+-- ssePoint1=0.001804 ssePoint2=0.001801
+Interface fit iteration 20: widthIntervalStart=1.542332, widthIntervalPoint1=1.546377, widthIntervalPoint2=1.548877, widthIntervalEnd=1.552922
+-- ssePoint1=0.001801 ssePoint2=0.001802
+Interface fit iteration 21: widthIntervalStart=1.542332, widthIntervalPoint1=1.544832, widthIntervalPoint2=1.546377, widthIntervalEnd=1.548877
+-- ssePoint1=0.001801 ssePoint2=0.001801
+Interface fit iteration 22: widthIntervalStart=1.544832, widthIntervalPoint1=1.546377, widthIntervalPoint2=1.547332, widthIntervalEnd=1.548877
+-- ssePoint1=0.001801 ssePoint2=0.001801
+Interface fit iteration 23: widthIntervalStart=1.544832, widthIntervalPoint1=1.545787, widthIntervalPoint2=1.546377, widthIntervalEnd=1.547332
+-- ssePoint1=0.001801 ssePoint2=0.001801
+Interface fit iteration 24: widthIntervalStart=1.545787, widthIntervalPoint1=1.546377, widthIntervalPoint2=1.546742, widthIntervalEnd=1.547332
+-- ssePoint1=0.001801 ssePoint2=0.001801
+determined interface width=1.546854 for (0.600000,1.000000)
+
+02: interfaceWidth=2.000000, kappa=0.100000, kappaFactor=4.891583, gammaMu=1.337696, gammaFactor=1.386168 (effective gammaMu=0.965031)
+(0.700000,1.000000) is not expected to phase separate... skipping.
+(0.800000,1.000000) is not expected to phase separate... skipping.
+(0.900000,1.000000) is not expected to phase separate... skipping.
+
+nA0=0.100000	nB0=0.900000
+
+Fitting interface width for (0.100000,0.900000)...
+01: interfaceWidth=3.208178, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.042224, gammaFactor=1.000000 (effective gammaMu=1.042224)
+Interface fit iteration 1: widthIntervalStart=1.000000, widthIntervalPoint1=38.814635, widthIntervalPoint2=62.185365, widthIntervalEnd=100.000000
+-- ssePoint1=9.966569 ssePoint2=17.048906
+Interface fit iteration 2: widthIntervalStart=1.000000, widthIntervalPoint1=24.370730, widthIntervalPoint2=38.814635, widthIntervalEnd=62.185365
+-- ssePoint1=5.585211 ssePoint2=9.966569
+Interface fit iteration 3: widthIntervalStart=1.000000, widthIntervalPoint1=15.443905, widthIntervalPoint2=24.370730, widthIntervalEnd=38.814635
+-- ssePoint1=2.939889 ssePoint2=5.585211
+Interface fit iteration 4: widthIntervalStart=1.000000, widthIntervalPoint1=9.926824, widthIntervalPoint2=15.443905, widthIntervalEnd=24.370730
+-- ssePoint1=1.394016 ssePoint2=2.939889
+Interface fit iteration 5: widthIntervalStart=1.000000, widthIntervalPoint1=6.517081, widthIntervalPoint2=9.926824, widthIntervalEnd=15.443905
+-- ssePoint1=0.551269 ssePoint2=1.394016
+Interface fit iteration 6: widthIntervalStart=1.000000, widthIntervalPoint1=4.409744, widthIntervalPoint2=6.517081, widthIntervalEnd=9.926824
+-- ssePoint1=0.152769 ssePoint2=0.551269
+Interface fit iteration 7: widthIntervalStart=1.000000, widthIntervalPoint1=3.107337, widthIntervalPoint2=4.409744, widthIntervalEnd=6.517081
+-- ssePoint1=0.016278 ssePoint2=0.152769
+Interface fit iteration 8: widthIntervalStart=1.000000, widthIntervalPoint1=2.302406, widthIntervalPoint2=3.107337, widthIntervalEnd=4.409744
+-- ssePoint1=0.012296 ssePoint2=0.016278
+Interface fit iteration 9: widthIntervalStart=1.000000, widthIntervalPoint1=1.804931, widthIntervalPoint2=2.302406, widthIntervalEnd=3.107337
+-- ssePoint1=0.058572 ssePoint2=0.012296
+Interface fit iteration 10: widthIntervalStart=1.804931, widthIntervalPoint1=2.302406, widthIntervalPoint2=2.609863, widthIntervalEnd=3.107337
+-- ssePoint1=0.012296 ssePoint2=0.004030
+Interface fit iteration 11: widthIntervalStart=2.302406, widthIntervalPoint1=2.609863, widthIntervalPoint2=2.799881, widthIntervalEnd=3.107337
+-- ssePoint1=0.004030 ssePoint2=0.005312
+Interface fit iteration 12: widthIntervalStart=2.302406, widthIntervalPoint1=2.492425, widthIntervalPoint2=2.609863, widthIntervalEnd=2.799881
+-- ssePoint1=0.005590 ssePoint2=0.004030
+Interface fit iteration 13: widthIntervalStart=2.492425, widthIntervalPoint1=2.609863, widthIntervalPoint2=2.682443, widthIntervalEnd=2.799881
+-- ssePoint1=0.004030 ssePoint2=0.003984
+Interface fit iteration 14: widthIntervalStart=2.609863, widthIntervalPoint1=2.682443, widthIntervalPoint2=2.727300, widthIntervalEnd=2.799881
+-- ssePoint1=0.003984 ssePoint2=0.004291
+Interface fit iteration 15: widthIntervalStart=2.609863, widthIntervalPoint1=2.654720, widthIntervalPoint2=2.682443, widthIntervalEnd=2.727300
+-- ssePoint1=0.003922 ssePoint2=0.003984
+Interface fit iteration 16: widthIntervalStart=2.609863, widthIntervalPoint1=2.637586, widthIntervalPoint2=2.654720, widthIntervalEnd=2.682443
+-- ssePoint1=0.003932 ssePoint2=0.003922
+Interface fit iteration 17: widthIntervalStart=2.637586, widthIntervalPoint1=2.654720, widthIntervalPoint2=2.665309, widthIntervalEnd=2.682443
+-- ssePoint1=0.003922 ssePoint2=0.003934
+Interface fit iteration 18: widthIntervalStart=2.637586, widthIntervalPoint1=2.648175, widthIntervalPoint2=2.654720, widthIntervalEnd=2.665309
+-- ssePoint1=0.003921 ssePoint2=0.003922
+Interface fit iteration 19: widthIntervalStart=2.637586, widthIntervalPoint1=2.644130, widthIntervalPoint2=2.648175, widthIntervalEnd=2.654720
+-- ssePoint1=0.003924 ssePoint2=0.003921
+Interface fit iteration 20: widthIntervalStart=2.644130, widthIntervalPoint1=2.648175, widthIntervalPoint2=2.650675, widthIntervalEnd=2.654720
+-- ssePoint1=0.003921 ssePoint2=0.003921
+Interface fit iteration 21: widthIntervalStart=2.648175, widthIntervalPoint1=2.650675, widthIntervalPoint2=2.652220, widthIntervalEnd=2.654720
+-- ssePoint1=0.003921 ssePoint2=0.003921
+Interface fit iteration 22: widthIntervalStart=2.648175, widthIntervalPoint1=2.649720, widthIntervalPoint2=2.650675, widthIntervalEnd=2.652220
+-- ssePoint1=0.003921 ssePoint2=0.003921
+Interface fit iteration 23: widthIntervalStart=2.649720, widthIntervalPoint1=2.650675, widthIntervalPoint2=2.651265, widthIntervalEnd=2.652220
+-- ssePoint1=0.003921 ssePoint2=0.003921
+Interface fit iteration 24: widthIntervalStart=2.649720, widthIntervalPoint1=2.650310, widthIntervalPoint2=2.650675, widthIntervalEnd=2.651265
+-- ssePoint1=0.003921 ssePoint2=0.003921
+determined interface width=2.650788 for (0.100000,0.900000)
+
+02: interfaceWidth=2.650788, kappa=0.100000, kappaFactor=8.382527, gammaMu=1.042224, gammaFactor=1.000000 (effective gammaMu=1.042224)
+
+nA0=0.200000	nB0=0.800000
+
+Fitting interface width for (0.200000,0.800000)...
+01: interfaceWidth=3.883768, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.096931, gammaFactor=1.000000 (effective gammaMu=1.096931)
+Interface fit iteration 1: widthIntervalStart=1.000000, widthIntervalPoint1=38.814635, widthIntervalPoint2=62.185365, widthIntervalEnd=100.000000
+-- ssePoint1=15.763509 ssePoint2=26.389595
+Interface fit iteration 2: widthIntervalStart=1.000000, widthIntervalPoint1=24.370730, widthIntervalPoint2=38.814635, widthIntervalEnd=62.185365
+-- ssePoint1=9.160393 ssePoint2=15.763509
+Interface fit iteration 3: widthIntervalStart=1.000000, widthIntervalPoint1=15.443905, widthIntervalPoint2=24.370730, widthIntervalEnd=38.814635
+-- ssePoint1=5.125849 ssePoint2=9.160393
+Interface fit iteration 4: widthIntervalStart=1.000000, widthIntervalPoint1=9.926824, widthIntervalPoint2=15.443905, widthIntervalEnd=24.370730
+-- ssePoint1=2.700886 ssePoint2=5.125849
+Interface fit iteration 5: widthIntervalStart=1.000000, widthIntervalPoint1=6.517081, widthIntervalPoint2=9.926824, widthIntervalEnd=15.443905
+-- ssePoint1=1.293573 ssePoint2=2.700886
+Interface fit iteration 6: widthIntervalStart=1.000000, widthIntervalPoint1=4.409744, widthIntervalPoint2=6.517081, widthIntervalEnd=9.926824
+-- ssePoint1=0.531483 ssePoint2=1.293573
+Interface fit iteration 7: widthIntervalStart=1.000000, widthIntervalPoint1=3.107337, widthIntervalPoint2=4.409744, widthIntervalEnd=6.517081
+-- ssePoint1=0.167810 ssePoint2=0.531483
+Interface fit iteration 8: widthIntervalStart=1.000000, widthIntervalPoint1=2.302406, widthIntervalPoint2=3.107337, widthIntervalEnd=4.409744
+-- ssePoint1=0.031169 ssePoint2=0.167810
+Interface fit iteration 9: widthIntervalStart=1.000000, widthIntervalPoint1=1.804931, widthIntervalPoint2=2.302406, widthIntervalEnd=3.107337
+-- ssePoint1=0.006307 ssePoint2=0.031169
+Interface fit iteration 10: widthIntervalStart=1.000000, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.804931, widthIntervalEnd=2.302406
+-- ssePoint1=0.024916 ssePoint2=0.006307
+Interface fit iteration 11: widthIntervalStart=1.497475, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.994950, widthIntervalEnd=2.302406
+-- ssePoint1=0.006307 ssePoint2=0.008818
+Interface fit iteration 12: widthIntervalStart=1.497475, widthIntervalPoint1=1.687493, widthIntervalPoint2=1.804931, widthIntervalEnd=1.994950
+-- ssePoint1=0.009826 ssePoint2=0.006307
+Interface fit iteration 13: widthIntervalStart=1.687493, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.877512, widthIntervalEnd=1.994950
+-- ssePoint1=0.006307 ssePoint2=0.006130
+Interface fit iteration 14: widthIntervalStart=1.804931, widthIntervalPoint1=1.877512, widthIntervalPoint2=1.922369, widthIntervalEnd=1.994950
+-- ssePoint1=0.006130 ssePoint2=0.006736
+Interface fit iteration 15: widthIntervalStart=1.804931, widthIntervalPoint1=1.849789, widthIntervalPoint2=1.877512, widthIntervalEnd=1.922369
+-- ssePoint1=0.006025 ssePoint2=0.006130
+Interface fit iteration 16: widthIntervalStart=1.804931, widthIntervalPoint1=1.832655, widthIntervalPoint2=1.849789, widthIntervalEnd=1.877512
+-- ssePoint1=0.006066 ssePoint2=0.006025
+Interface fit iteration 17: widthIntervalStart=1.832655, widthIntervalPoint1=1.849789, widthIntervalPoint2=1.860378, widthIntervalEnd=1.877512
+-- ssePoint1=0.006025 ssePoint2=0.006040
+Interface fit iteration 18: widthIntervalStart=1.832655, widthIntervalPoint1=1.843244, widthIntervalPoint2=1.849789, widthIntervalEnd=1.860378
+-- ssePoint1=0.006031 ssePoint2=0.006025
+Interface fit iteration 19: widthIntervalStart=1.843244, widthIntervalPoint1=1.849789, widthIntervalPoint2=1.853833, widthIntervalEnd=1.860378
+-- ssePoint1=0.006025 ssePoint2=0.006027
+Interface fit iteration 20: widthIntervalStart=1.843244, widthIntervalPoint1=1.847289, widthIntervalPoint2=1.849789, widthIntervalEnd=1.853833
+-- ssePoint1=0.006026 ssePoint2=0.006025
+Interface fit iteration 21: widthIntervalStart=1.847289, widthIntervalPoint1=1.849789, widthIntervalPoint2=1.851334, widthIntervalEnd=1.853833
+-- ssePoint1=0.006025 ssePoint2=0.006025
+Interface fit iteration 22: widthIntervalStart=1.847289, widthIntervalPoint1=1.848834, widthIntervalPoint2=1.849789, widthIntervalEnd=1.851334
+-- ssePoint1=0.006025 ssePoint2=0.006025
+Interface fit iteration 23: widthIntervalStart=1.848834, widthIntervalPoint1=1.849789, widthIntervalPoint2=1.850379, widthIntervalEnd=1.851334
+-- ssePoint1=0.006025 ssePoint2=0.006025
+Interface fit iteration 24: widthIntervalStart=1.848834, widthIntervalPoint1=1.849424, widthIntervalPoint2=1.849789, widthIntervalEnd=1.850379
+-- ssePoint1=0.006025 ssePoint2=0.006025
+determined interface width=1.849901 for (0.200000,0.800000)
+
+02: interfaceWidth=2.000000, kappa=0.100000, kappaFactor=5.849901, gammaMu=1.096931, gammaFactor=1.000000 (effective gammaMu=1.096931)
+
+nA0=0.300000	nB0=0.700000
+
+Fitting interface width for (0.300000,0.700000)...
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=1.000000 (effective gammaMu=1.227144)
+Instability detected: index 0
+Unstable simulation!!... width=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=1.000000...
+
+Fitting gammaMu value for (0.300000,0.700000) at kappa=0.100000, kappaFactor=1.000000...
+
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=1000.000000 (effective gammaMu=0.001227)
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=382.584045 (effective gammaMu=0.003208)
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=618.415955 (effective gammaMu=0.001984)
+GammaMu fit iteration 1: gammaIntervalStart=1.000000, gammaIntervalPoint1=382.584045, gammaIntervalPoint2=618.415955, gammaIntervalEnd=1000.000000
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=146.752136 (effective gammaMu=0.008362)
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=236.831910 (effective gammaMu=0.005181)
+GammaMu fit iteration 2: gammaIntervalStart=1.000000, gammaIntervalPoint1=146.752136, gammaIntervalPoint2=236.831910, gammaIntervalEnd=382.584045
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=56.672362 (effective gammaMu=0.021653)
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=91.079774 (effective gammaMu=0.013473)
+GammaMu fit iteration 3: gammaIntervalStart=1.000000, gammaIntervalPoint1=56.672362, gammaIntervalPoint2=91.079774, gammaIntervalEnd=146.752136
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=22.264950 (effective gammaMu=0.055115)
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=35.407412 (effective gammaMu=0.034658)
+GammaMu fit iteration 4: gammaIntervalStart=1.000000, gammaIntervalPoint1=22.264950, gammaIntervalPoint2=35.407412, gammaIntervalEnd=56.672362
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=9.122488 (effective gammaMu=0.134519)
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=14.142462 (effective gammaMu=0.086770)
+GammaMu fit iteration 5: gammaIntervalStart=1.000000, gammaIntervalPoint1=9.122488, gammaIntervalPoint2=14.142462, gammaIntervalEnd=22.264950
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=4.102514 (effective gammaMu=0.299120)
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=6.019974 (effective gammaMu=0.203845)
+GammaMu fit iteration 6: gammaIntervalStart=1.000000, gammaIntervalPoint1=4.102514, gammaIntervalPoint2=6.019974, gammaIntervalEnd=9.122488
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=2.185055 (effective gammaMu=0.561608)
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=2.917459 (effective gammaMu=0.420621)
+GammaMu fit iteration 7: gammaIntervalStart=1.000000, gammaIntervalPoint1=2.185055, gammaIntervalPoint2=2.917459, gammaIntervalEnd=4.102514
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=1.452651 (effective gammaMu=0.844762)
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=1.732404 (effective gammaMu=0.708347)
+GammaMu fit iteration 8: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.452651, gammaIntervalPoint2=1.732404, gammaIntervalEnd=2.185055
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=1.172897 (effective gammaMu=1.046250)
+Instability detected: index 0
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=1.279754 (effective gammaMu=0.958891)
+GammaMu fit iteration 9: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.172897, gammaIntervalPoint2=1.279754, gammaIntervalEnd=1.452651
+-- stablePoint1=0 stablePoint2=1
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=1.345794 (effective gammaMu=0.911836)
+GammaMu fit iteration 10: gammaIntervalStart=1.172897, gammaIntervalPoint1=1.279754, gammaIntervalPoint2=1.345794, gammaIntervalEnd=1.452651
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=1.213713 (effective gammaMu=1.011066)
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=1.238938 (effective gammaMu=0.990480)
+GammaMu fit iteration 11: gammaIntervalStart=1.172897, gammaIntervalPoint1=1.213713, gammaIntervalPoint2=1.238938, gammaIntervalEnd=1.279754
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=1.188487 (effective gammaMu=1.032526)
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=1.198123 (effective gammaMu=1.024222)
+determined gammaFactor=1.250124, for (0.300000,0.700000) with interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.024222
+
+
+Fitting interface width for (0.300000,0.700000)...
+01: interfaceWidth=4.526095, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.227144, gammaFactor=1.250124 (effective gammaMu=0.981617)
+Interface fit iteration 1: widthIntervalStart=1.000000, widthIntervalPoint1=38.814635, widthIntervalPoint2=62.185365, widthIntervalEnd=100.000000
+-- ssePoint1=17.133281 ssePoint2=28.505130
+Interface fit iteration 2: widthIntervalStart=1.000000, widthIntervalPoint1=24.370730, widthIntervalPoint2=38.814635, widthIntervalEnd=62.185365
+-- ssePoint1=10.059530 ssePoint2=17.133281
+Interface fit iteration 3: widthIntervalStart=1.000000, widthIntervalPoint1=15.443905, widthIntervalPoint2=24.370730, widthIntervalEnd=38.814635
+-- ssePoint1=5.725559 ssePoint2=10.059530
+Interface fit iteration 4: widthIntervalStart=1.000000, widthIntervalPoint1=9.926824, widthIntervalPoint2=15.443905, widthIntervalEnd=24.370730
+-- ssePoint1=3.103552 ssePoint2=5.725559
+Interface fit iteration 5: widthIntervalStart=1.000000, widthIntervalPoint1=6.517081, widthIntervalPoint2=9.926824, widthIntervalEnd=15.443905
+-- ssePoint1=1.559508 ssePoint2=3.103552
+Interface fit iteration 6: widthIntervalStart=1.000000, widthIntervalPoint1=4.409744, widthIntervalPoint2=6.517081, widthIntervalEnd=9.926824
+-- ssePoint1=0.697402 ssePoint2=1.559508
+Interface fit iteration 7: widthIntervalStart=1.000000, widthIntervalPoint1=3.107337, widthIntervalPoint2=4.409744, widthIntervalEnd=6.517081
+-- ssePoint1=0.259470 ssePoint2=0.697402
+Interface fit iteration 8: widthIntervalStart=1.000000, widthIntervalPoint1=2.302406, widthIntervalPoint2=3.107337, widthIntervalEnd=4.409744
+-- ssePoint1=0.069729 ssePoint2=0.259470
+Interface fit iteration 9: widthIntervalStart=1.000000, widthIntervalPoint1=1.804931, widthIntervalPoint2=2.302406, widthIntervalEnd=3.107337
+-- ssePoint1=0.009324 ssePoint2=0.069729
+Interface fit iteration 10: widthIntervalStart=1.000000, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.804931, widthIntervalEnd=2.302406
+-- ssePoint1=0.005547 ssePoint2=0.009324
+Interface fit iteration 11: widthIntervalStart=1.000000, widthIntervalPoint1=1.307456, widthIntervalPoint2=1.497475, widthIntervalEnd=1.804931
+-- ssePoint1=0.020374 ssePoint2=0.005547
+Interface fit iteration 12: widthIntervalStart=1.307456, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.614913, widthIntervalEnd=1.804931
+-- ssePoint1=0.005547 ssePoint2=0.003311
+Interface fit iteration 13: widthIntervalStart=1.497475, widthIntervalPoint1=1.614913, widthIntervalPoint2=1.687493, widthIntervalEnd=1.804931
+-- ssePoint1=0.003311 ssePoint2=0.004283
+Interface fit iteration 14: widthIntervalStart=1.497475, widthIntervalPoint1=1.570055, widthIntervalPoint2=1.614913, widthIntervalEnd=1.687493
+-- ssePoint1=0.003589 ssePoint2=0.003311
+Interface fit iteration 15: widthIntervalStart=1.570055, widthIntervalPoint1=1.614913, widthIntervalPoint2=1.642636, widthIntervalEnd=1.687493
+-- ssePoint1=0.003311 ssePoint2=0.003479
+Interface fit iteration 16: widthIntervalStart=1.570055, widthIntervalPoint1=1.597779, widthIntervalPoint2=1.614913, widthIntervalEnd=1.642636
+-- ssePoint1=0.003336 ssePoint2=0.003311
+Interface fit iteration 17: widthIntervalStart=1.597779, widthIntervalPoint1=1.614913, widthIntervalPoint2=1.625502, widthIntervalEnd=1.642636
+-- ssePoint1=0.003311 ssePoint2=0.003345
+Interface fit iteration 18: widthIntervalStart=1.597779, widthIntervalPoint1=1.608368, widthIntervalPoint2=1.614913, widthIntervalEnd=1.625502
+-- ssePoint1=0.003309 ssePoint2=0.003311
+Interface fit iteration 19: widthIntervalStart=1.597779, widthIntervalPoint1=1.604323, widthIntervalPoint2=1.608368, widthIntervalEnd=1.614913
+-- ssePoint1=0.003315 ssePoint2=0.003309
+Interface fit iteration 20: widthIntervalStart=1.604323, widthIntervalPoint1=1.608368, widthIntervalPoint2=1.610868, widthIntervalEnd=1.614913
+-- ssePoint1=0.003309 ssePoint2=0.003308
+Interface fit iteration 21: widthIntervalStart=1.608368, widthIntervalPoint1=1.610868, widthIntervalPoint2=1.612413, widthIntervalEnd=1.614913
+-- ssePoint1=0.003308 ssePoint2=0.003308
+Interface fit iteration 22: widthIntervalStart=1.608368, widthIntervalPoint1=1.609913, widthIntervalPoint2=1.610868, widthIntervalEnd=1.612413
+-- ssePoint1=0.003308 ssePoint2=0.003308
+Interface fit iteration 23: widthIntervalStart=1.609913, widthIntervalPoint1=1.610868, widthIntervalPoint2=1.611458, widthIntervalEnd=1.612413
+-- ssePoint1=0.003308 ssePoint2=0.003308
+Interface fit iteration 24: widthIntervalStart=1.609913, widthIntervalPoint1=1.610503, widthIntervalPoint2=1.610868, widthIntervalEnd=1.611458
+-- ssePoint1=0.003308 ssePoint2=0.003308
+determined interface width=1.610391 for (0.300000,0.700000)
+
+02: interfaceWidth=2.000000, kappa=0.100000, kappaFactor=5.092502, gammaMu=1.227144, gammaFactor=1.250124 (effective gammaMu=0.981617)
+
+nA0=0.400000	nB0=0.600000
+
+Fitting interface width for (0.400000,0.600000)...
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=1.000000 (effective gammaMu=1.422945)
+Instability detected: index 0
+Unstable simulation!!... width=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=1.000000...
+
+Fitting gammaMu value for (0.400000,0.600000) at kappa=0.100000, kappaFactor=1.000000...
+
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=1000.000000 (effective gammaMu=0.001423)
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=382.584045 (effective gammaMu=0.003719)
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=618.415955 (effective gammaMu=0.002301)
+GammaMu fit iteration 1: gammaIntervalStart=1.000000, gammaIntervalPoint1=382.584045, gammaIntervalPoint2=618.415955, gammaIntervalEnd=1000.000000
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=146.752136 (effective gammaMu=0.009696)
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=236.831910 (effective gammaMu=0.006008)
+GammaMu fit iteration 2: gammaIntervalStart=1.000000, gammaIntervalPoint1=146.752136, gammaIntervalPoint2=236.831910, gammaIntervalEnd=382.584045
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=56.672362 (effective gammaMu=0.025108)
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=91.079774 (effective gammaMu=0.015623)
+GammaMu fit iteration 3: gammaIntervalStart=1.000000, gammaIntervalPoint1=56.672362, gammaIntervalPoint2=91.079774, gammaIntervalEnd=146.752136
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=22.264950 (effective gammaMu=0.063910)
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=35.407412 (effective gammaMu=0.040188)
+GammaMu fit iteration 4: gammaIntervalStart=1.000000, gammaIntervalPoint1=22.264950, gammaIntervalPoint2=35.407412, gammaIntervalEnd=56.672362
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=9.122488 (effective gammaMu=0.155982)
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=14.142462 (effective gammaMu=0.100615)
+GammaMu fit iteration 5: gammaIntervalStart=1.000000, gammaIntervalPoint1=9.122488, gammaIntervalPoint2=14.142462, gammaIntervalEnd=22.264950
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=4.102514 (effective gammaMu=0.346847)
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=6.019974 (effective gammaMu=0.236371)
+GammaMu fit iteration 6: gammaIntervalStart=1.000000, gammaIntervalPoint1=4.102514, gammaIntervalPoint2=6.019974, gammaIntervalEnd=9.122488
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=2.185055 (effective gammaMu=0.651217)
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=2.917459 (effective gammaMu=0.487734)
+GammaMu fit iteration 7: gammaIntervalStart=1.000000, gammaIntervalPoint1=2.185055, gammaIntervalPoint2=2.917459, gammaIntervalEnd=4.102514
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=1.452651 (effective gammaMu=0.979550)
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=1.732404 (effective gammaMu=0.821370)
+GammaMu fit iteration 8: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.452651, gammaIntervalPoint2=1.732404, gammaIntervalEnd=2.185055
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=1.172897 (effective gammaMu=1.213188)
+Instability detected: index 0
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=1.279754 (effective gammaMu=1.111890)
+Instability detected: index 0
+GammaMu fit iteration 9: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.172897, gammaIntervalPoint2=1.279754, gammaIntervalEnd=1.452651
+-- stablePoint1=0 stablePoint2=0
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=1.345794 (effective gammaMu=1.057327)
+Instability detected: index 0
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=1.386610 (effective gammaMu=1.026204)
+Instability detected: index 0
+GammaMu fit iteration 10: gammaIntervalStart=1.279754, gammaIntervalPoint1=1.345794, gammaIntervalPoint2=1.386610, gammaIntervalEnd=1.452651
+-- stablePoint1=0 stablePoint2=0
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=1.411835 (effective gammaMu=1.007869)
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=1.427425 (effective gammaMu=0.996861)
+determined gammaFactor=1.496230, for (0.400000,0.600000) with interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=0.996861
+
+
+Fitting interface width for (0.400000,0.600000)...
+01: interfaceWidth=5.197137, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.422945, gammaFactor=1.496230 (effective gammaMu=0.951020)
+Interface fit iteration 1: widthIntervalStart=1.000000, widthIntervalPoint1=38.814635, widthIntervalPoint2=62.185365, widthIntervalEnd=100.000000
+-- ssePoint1=16.775965 ssePoint2=27.850591
+Interface fit iteration 2: widthIntervalStart=1.000000, widthIntervalPoint1=24.370730, widthIntervalPoint2=38.814635, widthIntervalEnd=62.185365
+-- ssePoint1=9.884742 ssePoint2=16.775965
+Interface fit iteration 3: widthIntervalStart=1.000000, widthIntervalPoint1=15.443905, widthIntervalPoint2=24.370730, widthIntervalEnd=38.814635
+-- ssePoint1=5.658917 ssePoint2=9.884742
+Interface fit iteration 4: widthIntervalStart=1.000000, widthIntervalPoint1=9.926824, widthIntervalPoint2=15.443905, widthIntervalEnd=24.370730
+-- ssePoint1=3.097016 ssePoint2=5.658917
+Interface fit iteration 5: widthIntervalStart=1.000000, widthIntervalPoint1=6.517081, widthIntervalPoint2=9.926824, widthIntervalEnd=15.443905
+-- ssePoint1=1.581312 ssePoint2=3.097016
+Interface fit iteration 6: widthIntervalStart=1.000000, widthIntervalPoint1=4.409744, widthIntervalPoint2=6.517081, widthIntervalEnd=9.926824
+-- ssePoint1=0.726719 ssePoint2=1.581312
+Interface fit iteration 7: widthIntervalStart=1.000000, widthIntervalPoint1=3.107337, widthIntervalPoint2=4.409744, widthIntervalEnd=6.517081
+-- ssePoint1=0.284064 ssePoint2=0.726719
+Interface fit iteration 8: widthIntervalStart=1.000000, widthIntervalPoint1=2.302406, widthIntervalPoint2=3.107337, widthIntervalEnd=4.409744
+-- ssePoint1=0.084396 ssePoint2=0.284064
+Interface fit iteration 9: widthIntervalStart=1.000000, widthIntervalPoint1=1.804931, widthIntervalPoint2=2.302406, widthIntervalEnd=3.107337
+-- ssePoint1=0.013662 ssePoint2=0.084396
+Interface fit iteration 10: widthIntervalStart=1.000000, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.804931, widthIntervalEnd=2.302406
+-- ssePoint1=0.001429 ssePoint2=0.013662
+Interface fit iteration 11: widthIntervalStart=1.000000, widthIntervalPoint1=1.307456, widthIntervalPoint2=1.497475, widthIntervalEnd=1.804931
+-- ssePoint1=0.010146 ssePoint2=0.001429
+Interface fit iteration 12: widthIntervalStart=1.307456, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.614913, widthIntervalEnd=1.804931
+-- ssePoint1=0.001429 ssePoint2=0.002627
+Interface fit iteration 13: widthIntervalStart=1.307456, widthIntervalPoint1=1.424894, widthIntervalPoint2=1.497475, widthIntervalEnd=1.614913
+-- ssePoint1=0.003110 ssePoint2=0.001429
+Interface fit iteration 14: widthIntervalStart=1.424894, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.542332, widthIntervalEnd=1.614913
+-- ssePoint1=0.001429 ssePoint2=0.001337
+Interface fit iteration 15: widthIntervalStart=1.497475, widthIntervalPoint1=1.542332, widthIntervalPoint2=1.570055, widthIntervalEnd=1.614913
+-- ssePoint1=0.001337 ssePoint2=0.001624
+Interface fit iteration 16: widthIntervalStart=1.497475, widthIntervalPoint1=1.525198, widthIntervalPoint2=1.542332, widthIntervalEnd=1.570055
+-- ssePoint1=0.001290 ssePoint2=0.001337
+Interface fit iteration 17: widthIntervalStart=1.497475, widthIntervalPoint1=1.514609, widthIntervalPoint2=1.525198, widthIntervalEnd=1.542332
+-- ssePoint1=0.001311 ssePoint2=0.001290
+Interface fit iteration 18: widthIntervalStart=1.514609, widthIntervalPoint1=1.525198, widthIntervalPoint2=1.531743, widthIntervalEnd=1.542332
+-- ssePoint1=0.001290 ssePoint2=0.001296
+Interface fit iteration 19: widthIntervalStart=1.514609, widthIntervalPoint1=1.521153, widthIntervalPoint2=1.525198, widthIntervalEnd=1.531743
+-- ssePoint1=0.001293 ssePoint2=0.001290
+Interface fit iteration 20: widthIntervalStart=1.521153, widthIntervalPoint1=1.525198, widthIntervalPoint2=1.527698, widthIntervalEnd=1.531743
+-- ssePoint1=0.001290 ssePoint2=0.001290
+Interface fit iteration 21: widthIntervalStart=1.521153, widthIntervalPoint1=1.523653, widthIntervalPoint2=1.525198, widthIntervalEnd=1.527698
+-- ssePoint1=0.001290 ssePoint2=0.001290
+Interface fit iteration 22: widthIntervalStart=1.523653, widthIntervalPoint1=1.525198, widthIntervalPoint2=1.526153, widthIntervalEnd=1.527698
+-- ssePoint1=0.001290 ssePoint2=0.001289
+Interface fit iteration 23: widthIntervalStart=1.525198, widthIntervalPoint1=1.526153, widthIntervalPoint2=1.526743, widthIntervalEnd=1.527698
+-- ssePoint1=0.001289 ssePoint2=0.001290
+Interface fit iteration 24: widthIntervalStart=1.525198, widthIntervalPoint1=1.525788, widthIntervalPoint2=1.526153, widthIntervalEnd=1.526743
+-- ssePoint1=0.001289 ssePoint2=0.001289
+determined interface width=1.525676 for (0.400000,0.600000)
+
+02: interfaceWidth=2.000000, kappa=0.100000, kappaFactor=4.824610, gammaMu=1.422945, gammaFactor=1.496230 (effective gammaMu=0.951020)
+
+nA0=0.500000	nB0=0.500000
+
+Fitting interface width for (0.500000,0.500000)...
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=1.000000 (effective gammaMu=1.712106)
+Instability detected: index 0
+Unstable simulation!!... width=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=1.000000...
+
+Fitting gammaMu value for (0.500000,0.500000) at kappa=0.100000, kappaFactor=1.000000...
+
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=1000.000000 (effective gammaMu=0.001712)
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=382.584045 (effective gammaMu=0.004475)
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=618.415955 (effective gammaMu=0.002769)
+GammaMu fit iteration 1: gammaIntervalStart=1.000000, gammaIntervalPoint1=382.584045, gammaIntervalPoint2=618.415955, gammaIntervalEnd=1000.000000
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=146.752136 (effective gammaMu=0.011667)
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=236.831910 (effective gammaMu=0.007229)
+GammaMu fit iteration 2: gammaIntervalStart=1.000000, gammaIntervalPoint1=146.752136, gammaIntervalPoint2=236.831910, gammaIntervalEnd=382.584045
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=56.672362 (effective gammaMu=0.030211)
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=91.079774 (effective gammaMu=0.018798)
+GammaMu fit iteration 3: gammaIntervalStart=1.000000, gammaIntervalPoint1=56.672362, gammaIntervalPoint2=91.079774, gammaIntervalEnd=146.752136
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=22.264950 (effective gammaMu=0.076897)
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=35.407412 (effective gammaMu=0.048354)
+GammaMu fit iteration 4: gammaIntervalStart=1.000000, gammaIntervalPoint1=22.264950, gammaIntervalPoint2=35.407412, gammaIntervalEnd=56.672362
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=9.122488 (effective gammaMu=0.187680)
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=14.142462 (effective gammaMu=0.121061)
+GammaMu fit iteration 5: gammaIntervalStart=1.000000, gammaIntervalPoint1=9.122488, gammaIntervalPoint2=14.142462, gammaIntervalEnd=22.264950
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=4.102514 (effective gammaMu=0.417331)
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=6.019974 (effective gammaMu=0.284404)
+GammaMu fit iteration 6: gammaIntervalStart=1.000000, gammaIntervalPoint1=4.102514, gammaIntervalPoint2=6.019974, gammaIntervalEnd=9.122488
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=2.185055 (effective gammaMu=0.783553)
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=2.917459 (effective gammaMu=0.586848)
+GammaMu fit iteration 7: gammaIntervalStart=1.000000, gammaIntervalPoint1=2.185055, gammaIntervalPoint2=2.917459, gammaIntervalEnd=4.102514
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=1.452651 (effective gammaMu=1.178608)
+Instability detected: index 0
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=1.732404 (effective gammaMu=0.988283)
+GammaMu fit iteration 8: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.452651, gammaIntervalPoint2=1.732404, gammaIntervalEnd=2.185055
+-- stablePoint1=0 stablePoint2=1
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=1.905301 (effective gammaMu=0.898601)
+GammaMu fit iteration 9: gammaIntervalStart=1.452651, gammaIntervalPoint1=1.732404, gammaIntervalPoint2=1.905301, gammaIntervalEnd=2.185055
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=1.559507 (effective gammaMu=1.097851)
+Instability detected: index 0
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=1.625548 (effective gammaMu=1.053248)
+Instability detected: index 0
+GammaMu fit iteration 10: gammaIntervalStart=1.452651, gammaIntervalPoint1=1.559507, gammaIntervalPoint2=1.625548, gammaIntervalEnd=1.732404
+-- stablePoint1=0 stablePoint2=0
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=1.666363 (effective gammaMu=1.027450)
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=1.691589 (effective gammaMu=1.012129)
+GammaMu fit iteration 11: gammaIntervalStart=1.625548, gammaIntervalPoint1=1.666363, gammaIntervalPoint2=1.691589, gammaIntervalEnd=1.732404
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=1.641138 (effective gammaMu=1.043243)
+Instability detected: index 0
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=1.650773 (effective gammaMu=1.037154)
+Instability detected: index 0
+determined gammaFactor=1.716354, for (0.500000,0.500000) with interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.037154
+
+
+Fitting interface width for (0.500000,0.500000)...
+01: interfaceWidth=5.921470, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.712106, gammaFactor=1.716354 (effective gammaMu=0.997525)
+Interface fit iteration 1: widthIntervalStart=1.000000, widthIntervalPoint1=38.814635, widthIntervalPoint2=62.185365, widthIntervalEnd=100.000000
+-- ssePoint1=15.572850 ssePoint2=25.856813
+Interface fit iteration 2: widthIntervalStart=1.000000, widthIntervalPoint1=24.370730, widthIntervalPoint2=38.814635, widthIntervalEnd=62.185365
+-- ssePoint1=9.173623 ssePoint2=15.572850
+Interface fit iteration 3: widthIntervalStart=1.000000, widthIntervalPoint1=15.443905, widthIntervalPoint2=24.370730, widthIntervalEnd=38.814635
+-- ssePoint1=5.249768 ssePoint2=9.173623
+Interface fit iteration 4: widthIntervalStart=1.000000, widthIntervalPoint1=9.926824, widthIntervalPoint2=15.443905, widthIntervalEnd=24.370730
+-- ssePoint1=2.871347 ssePoint2=5.249768
+Interface fit iteration 5: widthIntervalStart=1.000000, widthIntervalPoint1=6.517081, widthIntervalPoint2=9.926824, widthIntervalEnd=15.443905
+-- ssePoint1=1.464729 ssePoint2=2.871347
+Interface fit iteration 6: widthIntervalStart=1.000000, widthIntervalPoint1=4.409744, widthIntervalPoint2=6.517081, widthIntervalEnd=9.926824
+-- ssePoint1=0.672239 ssePoint2=1.464729
+Interface fit iteration 7: widthIntervalStart=1.000000, widthIntervalPoint1=3.107337, widthIntervalPoint2=4.409744, widthIntervalEnd=6.517081
+-- ssePoint1=0.262324 ssePoint2=0.672239
+Interface fit iteration 8: widthIntervalStart=1.000000, widthIntervalPoint1=2.302406, widthIntervalPoint2=3.107337, widthIntervalEnd=4.409744
+-- ssePoint1=0.077910 ssePoint2=0.262324
+Interface fit iteration 9: widthIntervalStart=1.000000, widthIntervalPoint1=1.804931, widthIntervalPoint2=2.302406, widthIntervalEnd=3.107337
+-- ssePoint1=0.012982 ssePoint2=0.077910
+Interface fit iteration 10: widthIntervalStart=1.000000, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.804931, widthIntervalEnd=2.302406
+-- ssePoint1=0.002139 ssePoint2=0.012982
+Interface fit iteration 11: widthIntervalStart=1.000000, widthIntervalPoint1=1.307456, widthIntervalPoint2=1.497475, widthIntervalEnd=1.804931
+-- ssePoint1=0.010565 ssePoint2=0.002139
+Interface fit iteration 12: widthIntervalStart=1.307456, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.614913, widthIntervalEnd=1.804931
+-- ssePoint1=0.002139 ssePoint2=0.003050
+Interface fit iteration 13: widthIntervalStart=1.307456, widthIntervalPoint1=1.424894, widthIntervalPoint2=1.497475, widthIntervalEnd=1.614913
+-- ssePoint1=0.003825 ssePoint2=0.002139
+Interface fit iteration 14: widthIntervalStart=1.424894, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.542332, widthIntervalEnd=1.614913
+-- ssePoint1=0.002139 ssePoint2=0.001975
+Interface fit iteration 15: widthIntervalStart=1.497475, widthIntervalPoint1=1.542332, widthIntervalPoint2=1.570055, widthIntervalEnd=1.614913
+-- ssePoint1=0.001975 ssePoint2=0.002195
+Interface fit iteration 16: widthIntervalStart=1.497475, widthIntervalPoint1=1.525198, widthIntervalPoint2=1.542332, widthIntervalEnd=1.570055
+-- ssePoint1=0.001961 ssePoint2=0.001975
+Interface fit iteration 17: widthIntervalStart=1.497475, widthIntervalPoint1=1.514609, widthIntervalPoint2=1.525198, widthIntervalEnd=1.542332
+-- ssePoint1=0.001999 ssePoint2=0.001961
+Interface fit iteration 18: widthIntervalStart=1.514609, widthIntervalPoint1=1.525198, widthIntervalPoint2=1.531743, widthIntervalEnd=1.542332
+-- ssePoint1=0.001961 ssePoint2=0.001955
+Interface fit iteration 19: widthIntervalStart=1.525198, widthIntervalPoint1=1.531743, widthIntervalPoint2=1.535788, widthIntervalEnd=1.542332
+-- ssePoint1=0.001955 ssePoint2=0.001959
+Interface fit iteration 20: widthIntervalStart=1.525198, widthIntervalPoint1=1.529243, widthIntervalPoint2=1.531743, widthIntervalEnd=1.535788
+-- ssePoint1=0.001956 ssePoint2=0.001955
+Interface fit iteration 21: widthIntervalStart=1.529243, widthIntervalPoint1=1.531743, widthIntervalPoint2=1.533288, widthIntervalEnd=1.535788
+-- ssePoint1=0.001955 ssePoint2=0.001956
+Interface fit iteration 22: widthIntervalStart=1.529243, widthIntervalPoint1=1.530788, widthIntervalPoint2=1.531743, widthIntervalEnd=1.533288
+-- ssePoint1=0.001955 ssePoint2=0.001955
+Interface fit iteration 23: widthIntervalStart=1.529243, widthIntervalPoint1=1.530198, widthIntervalPoint2=1.530788, widthIntervalEnd=1.531743
+-- ssePoint1=0.001955 ssePoint2=0.001955
+Interface fit iteration 24: widthIntervalStart=1.530198, widthIntervalPoint1=1.530788, widthIntervalPoint2=1.531153, widthIntervalEnd=1.531743
+-- ssePoint1=0.001955 ssePoint2=0.001955
+determined interface width=1.531265 for (0.500000,0.500000)
+
+02: interfaceWidth=2.000000, kappa=0.100000, kappaFactor=4.842286, gammaMu=1.712106, gammaFactor=1.716354 (effective gammaMu=0.997525)
+
+nA0=0.600000	nB0=0.400000
+
+Fitting interface width for (0.600000,0.400000)...
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=1.000000 (effective gammaMu=1.518012)
+Instability detected: index 0
+Unstable simulation!!... width=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=1.000000...
+
+Fitting gammaMu value for (0.600000,0.400000) at kappa=0.100000, kappaFactor=1.000000...
+
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=1000.000000 (effective gammaMu=0.001518)
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=382.584045 (effective gammaMu=0.003968)
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=618.415955 (effective gammaMu=0.002455)
+GammaMu fit iteration 1: gammaIntervalStart=1.000000, gammaIntervalPoint1=382.584045, gammaIntervalPoint2=618.415955, gammaIntervalEnd=1000.000000
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=146.752136 (effective gammaMu=0.010344)
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=236.831910 (effective gammaMu=0.006410)
+GammaMu fit iteration 2: gammaIntervalStart=1.000000, gammaIntervalPoint1=146.752136, gammaIntervalPoint2=236.831910, gammaIntervalEnd=382.584045
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=56.672362 (effective gammaMu=0.026786)
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=91.079774 (effective gammaMu=0.016667)
+GammaMu fit iteration 3: gammaIntervalStart=1.000000, gammaIntervalPoint1=56.672362, gammaIntervalPoint2=91.079774, gammaIntervalEnd=146.752136
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=22.264950 (effective gammaMu=0.068179)
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=35.407412 (effective gammaMu=0.042873)
+GammaMu fit iteration 4: gammaIntervalStart=1.000000, gammaIntervalPoint1=22.264950, gammaIntervalPoint2=35.407412, gammaIntervalEnd=56.672362
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=9.122488 (effective gammaMu=0.166403)
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=14.142462 (effective gammaMu=0.107337)
+GammaMu fit iteration 5: gammaIntervalStart=1.000000, gammaIntervalPoint1=9.122488, gammaIntervalPoint2=14.142462, gammaIntervalEnd=22.264950
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=4.102514 (effective gammaMu=0.370020)
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=6.019974 (effective gammaMu=0.252163)
+GammaMu fit iteration 6: gammaIntervalStart=1.000000, gammaIntervalPoint1=4.102514, gammaIntervalPoint2=6.019974, gammaIntervalEnd=9.122488
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=2.185055 (effective gammaMu=0.694725)
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=2.917459 (effective gammaMu=0.520320)
+GammaMu fit iteration 7: gammaIntervalStart=1.000000, gammaIntervalPoint1=2.185055, gammaIntervalPoint2=2.917459, gammaIntervalEnd=4.102514
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=1.452651 (effective gammaMu=1.044995)
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=1.732404 (effective gammaMu=0.876246)
+GammaMu fit iteration 8: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.452651, gammaIntervalPoint2=1.732404, gammaIntervalEnd=2.185055
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=1.172897 (effective gammaMu=1.294242)
+Instability detected: index 0
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=1.279754 (effective gammaMu=1.186176)
+Instability detected: index 0
+GammaMu fit iteration 9: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.172897, gammaIntervalPoint2=1.279754, gammaIntervalEnd=1.452651
+-- stablePoint1=0 stablePoint2=0
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=1.345794 (effective gammaMu=1.127968)
+Instability detected: index 0
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=1.386610 (effective gammaMu=1.094765)
+GammaMu fit iteration 10: gammaIntervalStart=1.279754, gammaIntervalPoint1=1.345794, gammaIntervalPoint2=1.386610, gammaIntervalEnd=1.452651
+-- stablePoint1=0 stablePoint2=1
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=1.411835 (effective gammaMu=1.075205)
+GammaMu fit iteration 11: gammaIntervalStart=1.345794, gammaIntervalPoint1=1.386610, gammaIntervalPoint2=1.411835, gammaIntervalEnd=1.452651
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=1.361385 (effective gammaMu=1.115050)
+Instability detected: index 0
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=1.371020 (effective gammaMu=1.107214)
+Instability detected: index 0
+determined gammaFactor=1.428208, for (0.600000,0.400000) with interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.107214
+
+
+Fitting interface width for (0.600000,0.400000)...
+01: interfaceWidth=5.123413, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.518012, gammaFactor=1.428208 (effective gammaMu=1.062879)
+Interface fit iteration 1: widthIntervalStart=1.000000, widthIntervalPoint1=38.814635, widthIntervalPoint2=62.185365, widthIntervalEnd=100.000000
+-- ssePoint1=13.727267 ssePoint2=22.847874
+Interface fit iteration 2: widthIntervalStart=1.000000, widthIntervalPoint1=24.370730, widthIntervalPoint2=38.814635, widthIntervalEnd=62.185365
+-- ssePoint1=8.053934 ssePoint2=13.727267
+Interface fit iteration 3: widthIntervalStart=1.000000, widthIntervalPoint1=15.443905, widthIntervalPoint2=24.370730, widthIntervalEnd=38.814635
+-- ssePoint1=4.578702 ssePoint2=8.053934
+Interface fit iteration 4: widthIntervalStart=1.000000, widthIntervalPoint1=9.926824, widthIntervalPoint2=15.443905, widthIntervalEnd=24.370730
+-- ssePoint1=2.477323 ssePoint2=4.578702
+Interface fit iteration 5: widthIntervalStart=1.000000, widthIntervalPoint1=6.517081, widthIntervalPoint2=9.926824, widthIntervalEnd=15.443905
+-- ssePoint1=1.241278 ssePoint2=2.477323
+Interface fit iteration 6: widthIntervalStart=1.000000, widthIntervalPoint1=4.409744, widthIntervalPoint2=6.517081, widthIntervalEnd=9.926824
+-- ssePoint1=0.552711 ssePoint2=1.241278
+Interface fit iteration 7: widthIntervalStart=1.000000, widthIntervalPoint1=3.107337, widthIntervalPoint2=4.409744, widthIntervalEnd=6.517081
+-- ssePoint1=0.204428 ssePoint2=0.552711
+Interface fit iteration 8: widthIntervalStart=1.000000, widthIntervalPoint1=2.302406, widthIntervalPoint2=3.107337, widthIntervalEnd=4.409744
+-- ssePoint1=0.054804 ssePoint2=0.204428
+Interface fit iteration 9: widthIntervalStart=1.000000, widthIntervalPoint1=1.804931, widthIntervalPoint2=2.302406, widthIntervalEnd=3.107337
+-- ssePoint1=0.008272 ssePoint2=0.054804
+Interface fit iteration 10: widthIntervalStart=1.000000, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.804931, widthIntervalEnd=2.302406
+-- ssePoint1=0.006538 ssePoint2=0.008272
+Interface fit iteration 11: widthIntervalStart=1.000000, widthIntervalPoint1=1.307456, widthIntervalPoint2=1.497475, widthIntervalEnd=1.804931
+-- ssePoint1=0.019257 ssePoint2=0.006538
+Interface fit iteration 12: widthIntervalStart=1.307456, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.614913, widthIntervalEnd=1.804931
+-- ssePoint1=0.006538 ssePoint2=0.004242
+Interface fit iteration 13: widthIntervalStart=1.497475, widthIntervalPoint1=1.614913, widthIntervalPoint2=1.687493, widthIntervalEnd=1.804931
+-- ssePoint1=0.004242 ssePoint2=0.004715
+Interface fit iteration 14: widthIntervalStart=1.497475, widthIntervalPoint1=1.570055, widthIntervalPoint2=1.614913, widthIntervalEnd=1.687493
+-- ssePoint1=0.004656 ssePoint2=0.004242
+Interface fit iteration 15: widthIntervalStart=1.570055, widthIntervalPoint1=1.614913, widthIntervalPoint2=1.642636, widthIntervalEnd=1.687493
+-- ssePoint1=0.004242 ssePoint2=0.004259
+Interface fit iteration 16: widthIntervalStart=1.570055, widthIntervalPoint1=1.597779, widthIntervalPoint2=1.614913, widthIntervalEnd=1.642636
+-- ssePoint1=0.004334 ssePoint2=0.004242
+Interface fit iteration 17: widthIntervalStart=1.597779, widthIntervalPoint1=1.614913, widthIntervalPoint2=1.625502, widthIntervalEnd=1.642636
+-- ssePoint1=0.004242 ssePoint2=0.004224
+Interface fit iteration 18: widthIntervalStart=1.614913, widthIntervalPoint1=1.625502, widthIntervalPoint2=1.632047, widthIntervalEnd=1.642636
+-- ssePoint1=0.004224 ssePoint2=0.004228
+Interface fit iteration 19: widthIntervalStart=1.614913, widthIntervalPoint1=1.621457, widthIntervalPoint2=1.625502, widthIntervalEnd=1.632047
+-- ssePoint1=0.004227 ssePoint2=0.004224
+Interface fit iteration 20: widthIntervalStart=1.621457, widthIntervalPoint1=1.625502, widthIntervalPoint2=1.628002, widthIntervalEnd=1.632047
+-- ssePoint1=0.004224 ssePoint2=0.004224
+Interface fit iteration 21: widthIntervalStart=1.621457, widthIntervalPoint1=1.623957, widthIntervalPoint2=1.625502, widthIntervalEnd=1.628002
+-- ssePoint1=0.004225 ssePoint2=0.004224
+Interface fit iteration 22: widthIntervalStart=1.623957, widthIntervalPoint1=1.625502, widthIntervalPoint2=1.626457, widthIntervalEnd=1.628002
+-- ssePoint1=0.004224 ssePoint2=0.004224
+Interface fit iteration 23: widthIntervalStart=1.625502, widthIntervalPoint1=1.626457, widthIntervalPoint2=1.627047, widthIntervalEnd=1.628002
+-- ssePoint1=0.004224 ssePoint2=0.004224
+Interface fit iteration 24: widthIntervalStart=1.625502, widthIntervalPoint1=1.626092, widthIntervalPoint2=1.626457, widthIntervalEnd=1.627047
+-- ssePoint1=0.004224 ssePoint2=0.004224
+determined interface width=1.626570 for (0.600000,0.400000)
+
+02: interfaceWidth=2.000000, kappa=0.100000, kappaFactor=5.143665, gammaMu=1.518012, gammaFactor=1.428208 (effective gammaMu=1.062879)
+
+nA0=0.700000	nB0=0.300000
+
+Fitting interface width for (0.700000,0.300000)...
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=1.000000 (effective gammaMu=1.401254)
+Instability detected: index 0
+Unstable simulation!!... width=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=1.000000...
+
+Fitting gammaMu value for (0.700000,0.300000) at kappa=0.100000, kappaFactor=1.000000...
+
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=1000.000000 (effective gammaMu=0.001401)
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=382.584045 (effective gammaMu=0.003663)
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=618.415955 (effective gammaMu=0.002266)
+GammaMu fit iteration 1: gammaIntervalStart=1.000000, gammaIntervalPoint1=382.584045, gammaIntervalPoint2=618.415955, gammaIntervalEnd=1000.000000
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=146.752136 (effective gammaMu=0.009548)
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=236.831910 (effective gammaMu=0.005917)
+GammaMu fit iteration 2: gammaIntervalStart=1.000000, gammaIntervalPoint1=146.752136, gammaIntervalPoint2=236.831910, gammaIntervalEnd=382.584045
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=56.672362 (effective gammaMu=0.024726)
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=91.079774 (effective gammaMu=0.015385)
+GammaMu fit iteration 3: gammaIntervalStart=1.000000, gammaIntervalPoint1=56.672362, gammaIntervalPoint2=91.079774, gammaIntervalEnd=146.752136
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=22.264950 (effective gammaMu=0.062935)
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=35.407412 (effective gammaMu=0.039575)
+GammaMu fit iteration 4: gammaIntervalStart=1.000000, gammaIntervalPoint1=22.264950, gammaIntervalPoint2=35.407412, gammaIntervalEnd=56.672362
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=9.122488 (effective gammaMu=0.153604)
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=14.142462 (effective gammaMu=0.099081)
+GammaMu fit iteration 5: gammaIntervalStart=1.000000, gammaIntervalPoint1=9.122488, gammaIntervalPoint2=14.142462, gammaIntervalEnd=22.264950
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=4.102514 (effective gammaMu=0.341560)
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=6.019974 (effective gammaMu=0.232768)
+GammaMu fit iteration 6: gammaIntervalStart=1.000000, gammaIntervalPoint1=4.102514, gammaIntervalPoint2=6.019974, gammaIntervalEnd=9.122488
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=2.185055 (effective gammaMu=0.641290)
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=2.917459 (effective gammaMu=0.480300)
+GammaMu fit iteration 7: gammaIntervalStart=1.000000, gammaIntervalPoint1=2.185055, gammaIntervalPoint2=2.917459, gammaIntervalEnd=4.102514
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=1.452651 (effective gammaMu=0.964619)
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=1.732404 (effective gammaMu=0.808849)
+GammaMu fit iteration 8: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.452651, gammaIntervalPoint2=1.732404, gammaIntervalEnd=2.185055
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=1.172897 (effective gammaMu=1.194695)
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=1.279754 (effective gammaMu=1.094941)
+GammaMu fit iteration 9: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.172897, gammaIntervalPoint2=1.279754, gammaIntervalEnd=1.452651
+-- stablePoint1=1 stablePoint2=1
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=1.066041 (effective gammaMu=1.314447)
+Instability detected: index 0
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=1.106856 (effective gammaMu=1.265977)
+Instability detected: index 0
+GammaMu fit iteration 10: gammaIntervalStart=1.000000, gammaIntervalPoint1=1.066041, gammaIntervalPoint2=1.106856, gammaIntervalEnd=1.172897
+-- stablePoint1=0 stablePoint2=0
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=1.132082 (effective gammaMu=1.237768)
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=1.147672 (effective gammaMu=1.220954)
+determined gammaFactor=1.208084, for (0.700000,0.300000) with interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.220954
+
+
+Fitting interface width for (0.700000,0.300000)...
+01: interfaceWidth=4.413957, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.401254, gammaFactor=1.208084 (effective gammaMu=1.159898)
+Interface fit iteration 1: widthIntervalStart=1.000000, widthIntervalPoint1=38.814635, widthIntervalPoint2=62.185365, widthIntervalEnd=100.000000
+-- ssePoint1=11.000433 ssePoint2=18.424126
+Interface fit iteration 2: widthIntervalStart=1.000000, widthIntervalPoint1=24.370730, widthIntervalPoint2=38.814635, widthIntervalEnd=62.185365
+-- ssePoint1=6.387344 ssePoint2=11.000433
+Interface fit iteration 3: widthIntervalStart=1.000000, widthIntervalPoint1=15.443905, widthIntervalPoint2=24.370730, widthIntervalEnd=38.814635
+-- ssePoint1=3.569457 ssePoint2=6.387344
+Interface fit iteration 4: widthIntervalStart=1.000000, widthIntervalPoint1=9.926824, widthIntervalPoint2=15.443905, widthIntervalEnd=24.370730
+-- ssePoint1=1.876866 ssePoint2=3.569457
+Interface fit iteration 5: widthIntervalStart=1.000000, widthIntervalPoint1=6.517081, widthIntervalPoint2=9.926824, widthIntervalEnd=15.443905
+-- ssePoint1=0.895950 ssePoint2=1.876866
+Interface fit iteration 6: widthIntervalStart=1.000000, widthIntervalPoint1=4.409744, widthIntervalPoint2=6.517081, widthIntervalEnd=9.926824
+-- ssePoint1=0.366220 ssePoint2=0.895950
+Interface fit iteration 7: widthIntervalStart=1.000000, widthIntervalPoint1=3.107337, widthIntervalPoint2=4.409744, widthIntervalEnd=6.517081
+-- ssePoint1=0.114766 ssePoint2=0.366220
+Interface fit iteration 8: widthIntervalStart=1.000000, widthIntervalPoint1=2.302406, widthIntervalPoint2=3.107337, widthIntervalEnd=4.409744
+-- ssePoint1=0.021437 ssePoint2=0.114766
+Interface fit iteration 9: widthIntervalStart=1.000000, widthIntervalPoint1=1.804931, widthIntervalPoint2=2.302406, widthIntervalEnd=3.107337
+-- ssePoint1=0.005576 ssePoint2=0.021437
+Interface fit iteration 10: widthIntervalStart=1.000000, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.804931, widthIntervalEnd=2.302406
+-- ssePoint1=0.019548 ssePoint2=0.005576
+Interface fit iteration 11: widthIntervalStart=1.497475, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.994950, widthIntervalEnd=2.302406
+-- ssePoint1=0.005576 ssePoint2=0.006741
+Interface fit iteration 12: widthIntervalStart=1.497475, widthIntervalPoint1=1.687493, widthIntervalPoint2=1.804931, widthIntervalEnd=1.994950
+-- ssePoint1=0.008404 ssePoint2=0.005576
+Interface fit iteration 13: widthIntervalStart=1.687493, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.877512, widthIntervalEnd=1.994950
+-- ssePoint1=0.005576 ssePoint2=0.005225
+Interface fit iteration 14: widthIntervalStart=1.804931, widthIntervalPoint1=1.877512, widthIntervalPoint2=1.922369, widthIntervalEnd=1.994950
+-- ssePoint1=0.005225 ssePoint2=0.005509
+Interface fit iteration 15: widthIntervalStart=1.804931, widthIntervalPoint1=1.849789, widthIntervalPoint2=1.877512, widthIntervalEnd=1.922369
+-- ssePoint1=0.005238 ssePoint2=0.005225
+Interface fit iteration 16: widthIntervalStart=1.849789, widthIntervalPoint1=1.877512, widthIntervalPoint2=1.894646, widthIntervalEnd=1.922369
+-- ssePoint1=0.005225 ssePoint2=0.005289
+Interface fit iteration 17: widthIntervalStart=1.849789, widthIntervalPoint1=1.866922, widthIntervalPoint2=1.877512, widthIntervalEnd=1.894646
+-- ssePoint1=0.005213 ssePoint2=0.005225
+Interface fit iteration 18: widthIntervalStart=1.849789, widthIntervalPoint1=1.860378, widthIntervalPoint2=1.866922, widthIntervalEnd=1.877512
+-- ssePoint1=0.005216 ssePoint2=0.005213
+Interface fit iteration 19: widthIntervalStart=1.860378, widthIntervalPoint1=1.866922, widthIntervalPoint2=1.870967, widthIntervalEnd=1.877512
+-- ssePoint1=0.005213 ssePoint2=0.005215
+Interface fit iteration 20: widthIntervalStart=1.860378, widthIntervalPoint1=1.864423, widthIntervalPoint2=1.866922, widthIntervalEnd=1.870967
+-- ssePoint1=0.005213 ssePoint2=0.005213
+Interface fit iteration 21: widthIntervalStart=1.864423, widthIntervalPoint1=1.866922, widthIntervalPoint2=1.868467, widthIntervalEnd=1.870967
+-- ssePoint1=0.005213 ssePoint2=0.005213
+Interface fit iteration 22: widthIntervalStart=1.864423, widthIntervalPoint1=1.865968, widthIntervalPoint2=1.866922, widthIntervalEnd=1.868467
+-- ssePoint1=0.005213 ssePoint2=0.005213
+Interface fit iteration 23: widthIntervalStart=1.864423, widthIntervalPoint1=1.865378, widthIntervalPoint2=1.865968, widthIntervalEnd=1.866922
+-- ssePoint1=0.005213 ssePoint2=0.005213
+Interface fit iteration 24: widthIntervalStart=1.865378, widthIntervalPoint1=1.865968, widthIntervalPoint2=1.866332, widthIntervalEnd=1.866922
+-- ssePoint1=0.005213 ssePoint2=0.005213
+determined interface width=1.865855 for (0.700000,0.300000)
+
+02: interfaceWidth=2.000000, kappa=0.100000, kappaFactor=5.900351, gammaMu=1.401254, gammaFactor=1.208084 (effective gammaMu=1.159898)
+
+nA0=0.800000	nB0=0.200000
+
+Fitting interface width for (0.800000,0.200000)...
+01: interfaceWidth=3.735664, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.367519, gammaFactor=1.000000 (effective gammaMu=1.367519)
+Interface fit iteration 1: widthIntervalStart=1.000000, widthIntervalPoint1=38.814635, widthIntervalPoint2=62.185365, widthIntervalEnd=100.000000
+-- ssePoint1=6.629358 ssePoint2=11.300636
+Interface fit iteration 2: widthIntervalStart=1.000000, widthIntervalPoint1=24.370730, widthIntervalPoint2=38.814635, widthIntervalEnd=62.185365
+-- ssePoint1=3.737024 ssePoint2=6.629358
+Interface fit iteration 3: widthIntervalStart=1.000000, widthIntervalPoint1=15.443905, widthIntervalPoint2=24.370730, widthIntervalEnd=38.814635
+-- ssePoint1=1.987014 ssePoint2=3.737024
+Interface fit iteration 4: widthIntervalStart=1.000000, widthIntervalPoint1=9.926824, widthIntervalPoint2=15.443905, widthIntervalEnd=24.370730
+-- ssePoint1=0.959244 ssePoint2=1.987014
+Interface fit iteration 5: widthIntervalStart=1.000000, widthIntervalPoint1=6.517081, widthIntervalPoint2=9.926824, widthIntervalEnd=15.443905
+-- ssePoint1=0.392658 ssePoint2=0.959244
+Interface fit iteration 6: widthIntervalStart=1.000000, widthIntervalPoint1=4.409744, widthIntervalPoint2=6.517081, widthIntervalEnd=9.926824
+-- ssePoint1=0.117885 ssePoint2=0.392658
+Interface fit iteration 7: widthIntervalStart=1.000000, widthIntervalPoint1=3.107337, widthIntervalPoint2=4.409744, widthIntervalEnd=6.517081
+-- ssePoint1=0.016742 ssePoint2=0.117885
+Interface fit iteration 8: widthIntervalStart=1.000000, widthIntervalPoint1=2.302406, widthIntervalPoint2=3.107337, widthIntervalEnd=4.409744
+-- ssePoint1=0.005320 ssePoint2=0.016742
+Interface fit iteration 9: widthIntervalStart=1.000000, widthIntervalPoint1=1.804931, widthIntervalPoint2=2.302406, widthIntervalEnd=3.107337
+-- ssePoint1=0.029709 ssePoint2=0.005320
+Interface fit iteration 10: widthIntervalStart=1.804931, widthIntervalPoint1=2.302406, widthIntervalPoint2=2.609863, widthIntervalEnd=3.107337
+-- ssePoint1=0.005320 ssePoint2=0.003408
+Interface fit iteration 11: widthIntervalStart=2.302406, widthIntervalPoint1=2.609863, widthIntervalPoint2=2.799881, widthIntervalEnd=3.107337
+-- ssePoint1=0.003408 ssePoint2=0.006331
+Interface fit iteration 12: widthIntervalStart=2.302406, widthIntervalPoint1=2.492425, widthIntervalPoint2=2.609863, widthIntervalEnd=2.799881
+-- ssePoint1=0.003110 ssePoint2=0.003408
+Interface fit iteration 13: widthIntervalStart=2.302406, widthIntervalPoint1=2.419844, widthIntervalPoint2=2.492425, widthIntervalEnd=2.609863
+-- ssePoint1=0.003546 ssePoint2=0.003110
+Interface fit iteration 14: widthIntervalStart=2.419844, widthIntervalPoint1=2.492425, widthIntervalPoint2=2.537282, widthIntervalEnd=2.609863
+-- ssePoint1=0.003110 ssePoint2=0.003081
+Interface fit iteration 15: widthIntervalStart=2.492425, widthIntervalPoint1=2.537282, widthIntervalPoint2=2.565005, widthIntervalEnd=2.609863
+-- ssePoint1=0.003081 ssePoint2=0.003152
+Interface fit iteration 16: widthIntervalStart=2.492425, widthIntervalPoint1=2.520148, widthIntervalPoint2=2.537282, widthIntervalEnd=2.565005
+-- ssePoint1=0.003071 ssePoint2=0.003081
+Interface fit iteration 17: widthIntervalStart=2.492425, widthIntervalPoint1=2.509559, widthIntervalPoint2=2.520148, widthIntervalEnd=2.537282
+-- ssePoint1=0.003078 ssePoint2=0.003071
+Interface fit iteration 18: widthIntervalStart=2.509559, widthIntervalPoint1=2.520148, widthIntervalPoint2=2.526693, widthIntervalEnd=2.537282
+-- ssePoint1=0.003071 ssePoint2=0.003071
+Interface fit iteration 19: widthIntervalStart=2.509559, widthIntervalPoint1=2.516103, widthIntervalPoint2=2.520148, widthIntervalEnd=2.526693
+-- ssePoint1=0.003072 ssePoint2=0.003071
+Interface fit iteration 20: widthIntervalStart=2.516103, widthIntervalPoint1=2.520148, widthIntervalPoint2=2.522648, widthIntervalEnd=2.526693
+-- ssePoint1=0.003071 ssePoint2=0.003071
+Interface fit iteration 21: widthIntervalStart=2.520148, widthIntervalPoint1=2.522648, widthIntervalPoint2=2.524193, widthIntervalEnd=2.526693
+-- ssePoint1=0.003071 ssePoint2=0.003071
+Interface fit iteration 22: widthIntervalStart=2.520148, widthIntervalPoint1=2.521693, widthIntervalPoint2=2.522648, widthIntervalEnd=2.524193
+-- ssePoint1=0.003071 ssePoint2=0.003071
+Interface fit iteration 23: widthIntervalStart=2.520148, widthIntervalPoint1=2.521103, widthIntervalPoint2=2.521693, widthIntervalEnd=2.522648
+-- ssePoint1=0.003071 ssePoint2=0.003071
+Interface fit iteration 24: widthIntervalStart=2.521103, widthIntervalPoint1=2.521693, widthIntervalPoint2=2.522058, widthIntervalEnd=2.522648
+-- ssePoint1=0.003071 ssePoint2=0.003071
+determined interface width=2.522170 for (0.800000,0.200000)
+
+02: interfaceWidth=2.522170, kappa=0.100000, kappaFactor=7.975803, gammaMu=1.367519, gammaFactor=1.000000 (effective gammaMu=1.367519)
+(0.900000,0.100000) is not expected to phase separate... skipping.
+(1.000000,1.000000) is not expected to phase separate... skipping.
+(1.100000,1.100000) is not expected to phase separate... skipping.
+(1.200000,1.200000) is not expected to phase separate... skipping.
+(1.300000,1.300000) is not expected to phase separate... skipping.
+(1.400000,1.400000) is not expected to phase separate... skipping.
+(1.500000,1.500000) is not expected to phase separate... skipping.
+
+Processor time... 02:56:05
+Clock time... 00:51:42
+
+Done! 2-phase region LB simulations complete.
+
+Eigenstuff generated!
+
+
+-----------------------------------------------------
+Unstable simulations: (0.300000,1.000000)
+Manual parameter adjustment: gammaFactor=10.000000
+-----------------------------------------------------
+
+
+Fitting interface width for (0.300000,1.000000)...
+01: interfaceWidth=3.976744, kappa=0.100000, kappaFactor=1.000000, gammaMu=1.112056, gammaFactor=1.000000 (effective gammaMu=1.112056)
+Interface fit iteration 1: widthIntervalStart=1.000000, widthIntervalPoint1=38.814635, widthIntervalPoint2=62.185365, widthIntervalEnd=100.000000
+-- ssePoint1=16.132432 ssePoint2=26.970112
+Interface fit iteration 2: widthIntervalStart=1.000000, widthIntervalPoint1=24.370730, widthIntervalPoint2=38.814635, widthIntervalEnd=62.185365
+-- ssePoint1=9.396390 ssePoint2=16.132432
+Interface fit iteration 3: widthIntervalStart=1.000000, widthIntervalPoint1=15.443905, widthIntervalPoint2=24.370730, widthIntervalEnd=38.814635
+-- ssePoint1=5.277711 ssePoint2=9.396390
+Interface fit iteration 4: widthIntervalStart=1.000000, widthIntervalPoint1=9.926824, widthIntervalPoint2=15.443905, widthIntervalEnd=24.370730
+-- ssePoint1=2.798293 ssePoint2=5.277711
+Interface fit iteration 5: widthIntervalStart=1.000000, widthIntervalPoint1=6.517081, widthIntervalPoint2=9.926824, widthIntervalEnd=15.443905
+-- ssePoint1=1.354604 ssePoint2=2.798293
+Interface fit iteration 6: widthIntervalStart=1.000000, widthIntervalPoint1=4.409744, widthIntervalPoint2=6.517081, widthIntervalEnd=9.926824
+-- ssePoint1=0.567453 ssePoint2=1.354604
+Interface fit iteration 7: widthIntervalStart=1.000000, widthIntervalPoint1=3.107337, widthIntervalPoint2=4.409744, widthIntervalEnd=6.517081
+-- ssePoint1=0.186468 ssePoint2=0.567453
+Interface fit iteration 8: widthIntervalStart=1.000000, widthIntervalPoint1=2.302406, widthIntervalPoint2=3.107337, widthIntervalEnd=4.409744
+-- ssePoint1=0.038331 ssePoint2=0.186468
+Interface fit iteration 9: widthIntervalStart=1.000000, widthIntervalPoint1=1.804931, widthIntervalPoint2=2.302406, widthIntervalEnd=3.107337
+-- ssePoint1=0.006300 ssePoint2=0.038331
+Interface fit iteration 10: widthIntervalStart=1.000000, widthIntervalPoint1=1.497475, widthIntervalPoint2=1.804931, widthIntervalEnd=2.302406
+-- ssePoint1=0.020679 ssePoint2=0.006300
+Interface fit iteration 11: widthIntervalStart=1.497475, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.994950, widthIntervalEnd=2.302406
+-- ssePoint1=0.006300 ssePoint2=0.011528
+Interface fit iteration 12: widthIntervalStart=1.497475, widthIntervalPoint1=1.687493, widthIntervalPoint2=1.804931, widthIntervalEnd=1.994950
+-- ssePoint1=0.008171 ssePoint2=0.006300
+Interface fit iteration 13: widthIntervalStart=1.687493, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.877512, widthIntervalEnd=1.994950
+-- ssePoint1=0.006300 ssePoint2=0.007154
+Interface fit iteration 14: widthIntervalStart=1.687493, widthIntervalPoint1=1.760074, widthIntervalPoint2=1.804931, widthIntervalEnd=1.877512
+-- ssePoint1=0.006524 ssePoint2=0.006300
+Interface fit iteration 15: widthIntervalStart=1.760074, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.832655, widthIntervalEnd=1.877512
+-- ssePoint1=0.006300 ssePoint2=0.006452
+Interface fit iteration 16: widthIntervalStart=1.760074, widthIntervalPoint1=1.787797, widthIntervalPoint2=1.804931, widthIntervalEnd=1.832655
+-- ssePoint1=0.006316 ssePoint2=0.006300
+Interface fit iteration 17: widthIntervalStart=1.787797, widthIntervalPoint1=1.804931, widthIntervalPoint2=1.815521, widthIntervalEnd=1.832655
+-- ssePoint1=0.006300 ssePoint2=0.006332
+Interface fit iteration 18: widthIntervalStart=1.787797, widthIntervalPoint1=1.798387, widthIntervalPoint2=1.804931, widthIntervalEnd=1.815521
+-- ssePoint1=0.006296 ssePoint2=0.006300
+Interface fit iteration 19: widthIntervalStart=1.787797, widthIntervalPoint1=1.794342, widthIntervalPoint2=1.798387, widthIntervalEnd=1.804931
+-- ssePoint1=0.006300 ssePoint2=0.006296
+Interface fit iteration 20: widthIntervalStart=1.794342, widthIntervalPoint1=1.798387, widthIntervalPoint2=1.800886, widthIntervalEnd=1.804931
+-- ssePoint1=0.006296 ssePoint2=0.006296
+Interface fit iteration 21: widthIntervalStart=1.794342, widthIntervalPoint1=1.796842, widthIntervalPoint2=1.798387, widthIntervalEnd=1.800886
+-- ssePoint1=0.006297 ssePoint2=0.006296
+Interface fit iteration 22: widthIntervalStart=1.796842, widthIntervalPoint1=1.798387, widthIntervalPoint2=1.799342, widthIntervalEnd=1.800886
+-- ssePoint1=0.006296 ssePoint2=0.006296
+Interface fit iteration 23: widthIntervalStart=1.798387, widthIntervalPoint1=1.799342, widthIntervalPoint2=1.799932, widthIntervalEnd=1.800886
+-- ssePoint1=0.006296 ssePoint2=0.006296
+Interface fit iteration 24: widthIntervalStart=1.798387, widthIntervalPoint1=1.798977, widthIntervalPoint2=1.799342, widthIntervalEnd=1.799932
+-- ssePoint1=0.006296 ssePoint2=0.006296
+determined interface width=1.799454 for (0.300000,1.000000)
+
+02: interfaceWidth=2.000000, kappa=0.100000, kappaFactor=5.690374, gammaMu=1.112056, gammaFactor=1.000000 (effective gammaMu=1.112056)
+00: interfaceWidth=2.000000, kappa=0.100000, kappaFactor=5.690374, gammaMu=1.112056, gammaFactor=10.000000 (effective gammaMu=0.111206)
+
+maxA=0.499590	minA=0.090404
+maxB=1.498356	minB=0.473494
+
+
