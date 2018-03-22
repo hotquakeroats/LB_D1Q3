@@ -1,0 +1,2 @@
+plot "phaseDiagram_rhoVsTemp_theoretical.dat" with lines, "./phase-data-4/phase-data-gradP-CC-periodic.dat", "./phase-data-4/phase-data-gradP-AB-periodic.dat", "./phase-data-4/phase-data-gradMuFull-CC-periodic.dat", "./phase-data-4/phase-data-gradMuFull-AB-periodic.dat", "./phase-data-4/phase-data-gradP-CC-walls.dat", "./phase-data-4/phase-data-gradP-AB-walls.dat", "./phase-data-4/phase-data-gradMuFull-CC-walls.dat", "./phase-data-4/phase-data-gradMuFull-AB-walls.dat"
+
