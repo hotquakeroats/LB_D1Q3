@@ -1,0 +1,20 @@
+/**
+ * @file LB_collisions.c
+ * @author Kent S. Ridl
+ * @date 5 August 2016 (last modified: 8 May 2017)
+ *
+ * The module __LB_collisions.c__ contains functions to set the collision method to be used by the lattice Boltzmann simulation.
+ */
+
+#include "LB_D1Q3_2-components.h"
+
+
+/**
+ * @brief Function _setCollisionForcingNewChemicalPotentialGradient_ sets the forcing method used by the function _collision_ to be the gradient of a
+ * chemical potential.
+ */
+void setCollisionForcingNewChemicalPotentialGradient() {
+	collision = collisionForcingNewChemicalPotentialGradient;
+	printf("Using gradMu forcing - new...\n");
+} // end function setCollisionForcingNewChemicalPotentialGradient()
+

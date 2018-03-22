@@ -1,0 +1,123 @@
+#include <stdio.h>
+#include <math.h>
+
+double ann=-0.375,anm=-0.1,amm=-0.375,b=1./3.;
+
+double F(double T,double N,double M,double V){
+  double Fres;
+  if (V<0) Fres=-1e10;
+  else if (((N+M)*b>=V)||(N<0)||(M<0)) Fres=1e10;
+  else if ((N==0)&&(M==0)) Fres=0;
+  else if (N==0)
+    Fres=    M*T*log(M/(V-(N+M)*b))
+      +  amm*M*M/V;
+  else if (M==0)
+    Fres=  N*T*log(N/(V-(N+M)*b))
+      +  ann*N*N/V;
+  else
+    Fres=  N*T*log(N/(V-(N+M)*b))
+      +  M*T*log(M/(V-(N+M)*b))
+      +  ann*N*N/V
+      +2*anm*M*N/V
+      +  amm*M*M/V;
+  return Fres;
+}
+
+double F2(double T, double state[3],double Ntot, double Mtot){
+  return state[2]*F(T,state[0],state[1],state[2])
+    +(1-state[2])*F(T,Ntot-state[0],Mtot-state[1],1-state[2]);
+}
+
+double F3(double T, double state[6],double Ntot, double Mtot){
+  return state[4]*F(T,state[0],state[2],state[4])
+    +state[5]*F(T,state[1],state[3],state[5])
+    +(1-state[4]-state[5])*F(T,Ntot-state[0]-state[1],Mtot-state[2]-state[3],
+			     1-state[4]-state[5]);
+}
+
+int Minimize2(double T,double Ntot,double Mtot,double state[3]){
+  int dim=6;
+  
+  double F0,FF[dim],Disp[3];// n1,n2,m1,m2,v1,v2
+  double D=0.1;
+  int change=0;
+
+  while (D>0.000001){
+    F0=F2(T,state,Ntot,Mtot);
+    for (int i=0; i<dim; i++){
+      for (int j=0; j<3; j++)
+	Disp[j]=state[j];
+      Disp[i>>1]+= ((i&1)?1:-1)*D;
+      FF[i]=F2(T,Disp,Ntot,Mtot);
+    }
+    int min=-1;
+    double minF=F0;
+    for (int i=0;i<dim;i++)
+	  if (FF[i]<minF){
+	    min=i;
+	    minF=FF[i];
+	  }
+    if (min==-1) D/=2;
+    else {
+      change=1;
+      for (int j=0;j<3;j++)
+	state[j]=Disp[j];
+    }
+  }
+  return change;
+}
+
+int Minimize3(double T,double Ntot,double Mtot,double state[6]){
+  int dim=12;
+  
+  double F0,FF[dim],Disp[6];// n1,n2,m1,m2,v1,v2
+  double D=0.1;
+  int change=0;
+
+  while (D>0.000001){
+    F0=F3(T,state,Ntot,Mtot);
+    for (int i=0; i<dim; i++){
+      for (int j=0; j<6; j++)
+	Disp[j]=state[j];
+      Disp[i>>1]+= ((i&1)?1:-1)*D;
+      FF[i]=F3(T,Disp,Ntot,Mtot);
+    }
+    int min=-1;
+    double minF=F0;
+    for (int i=0;i<dim;i++)
+	  if (FF[i]<minF){
+	    min=i;
+	    minF=FF[i];
+	  }
+    if (min==-1) D/=2;
+    else {
+      change=1;
+      for (int j=0;j<6;j++)
+	state[j]=Disp[j];
+    }
+  }
+  return change;
+}
+
+int main(){
+  FILE *res,*res2,*res3;
+  char name[255], name2[255];
+  double Ntot,Mtot,T=0.3,state2[3],state3[6];
+  sprintf(name,"min2_T%f_b%f_ann%f_anm%f_amm%f.dat",T,b,ann,anm,amm);
+  sprintf(name2,"res2.dat");
+  res = fopen(name,"w");
+  res2 = fopen(name2,"w");
+  for (Ntot=0;Ntot<1/b;Ntot+=0.05)
+    for (Mtot=0;(Mtot+Ntot)<1/b;Mtot+=0.05){
+      state2[2]=0.5;
+      state2[0]=Ntot*state2[2];
+      state2[1]=Mtot*state2[2];
+      if (Minimize2(T,Ntot,Mtot,state2)){
+	
+	fprintf(res,"%e %e %e %e %e\n",T,state2[0]/state2[2],state2[1]/state2[2],(Ntot-state2[0])/(1-state2[2]),(Mtot-state2[1])/(1-state2[2]));
+	fprintf(res2,"%e %e\n",Ntot,Mtot);
+      }
+    }
+  fclose(res);
+  fclose(res2);
+}

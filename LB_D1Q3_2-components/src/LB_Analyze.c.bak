@@ -1,0 +1,3160 @@
+/*
+ * LB_Analyze.c
+ *
+ *  Created on: Jul 7, 2016
+ *      Author: clark
+ */
+
+
+#include "LB_D1Q3_2-components.h"
+
+
+/**
+ * @brief Function _gradient_ returns a spatial gradient at a specified location.
+ *
+ * This function calculates a spatial gradient for both periodic and solid boundaries of a simulation domain.
+ * It implements 2nd order forward, backward, and central differences.
+ * It does not implement a halo to account for gradients at edges of the domain.
+ *
+ * The global flag _useBoundaryConditionsPeriodic_ toggles between the periodic and solid boundary calculations.
+ * - 1: uses periodic boundary conditions (central difference only)
+ * - 0: uses solid walls at domain boundaries (forward, backward, central differences allowed)
+ *
+ * @param [in] *var An input array (pointer) representing values across space.
+ * @param [in] i The array index of the location for which the spatial gradient is to be calculated.
+ *
+ * @return The calculated spatial gradient.
+ */
+double gradient(double *var, int i) {
+
+	double result = 0;
+	int ipp = i + 2;
+	int ip = i + 1;
+	int im = i - 1;
+	int imm = i - 2;
+
+	// Gradient for a lattice with periodic BCs
+	if (useBoundaryConditionsPeriodic) {
+		if (ip == XDIM) {
+			ip = 0;
+		}
+		else if (im == -1) {
+			im = XDIM - 1;
+		}
+		result = 1./2. * (var[ip]-var[im]);
+	}
+	// Gradient for a lattice with walls at the boundaries
+	// Adjust for existence of the walls with forward/backward differencing
+	else {
+		if (ip == XDIM) { // backward difference
+			result = 1./2. * (var[imm] - 4.*var[im] + 3.*var[i]);
+		}
+		else if (im == -1) { // forward difference
+			result = 1./2. * (-3.*var[i] + 4.*var[ip] - var[ipp]);
+		}
+		else { // central difference... normal case
+			result = 1./2. * (var[ip]-var[im]);
+		}
+	}
+
+	return result;
+} // end function gradient()
+
+
+/**
+ * @brief Function _laplace_ returns a spatial laplacian at a specified location.
+ *
+ * This function calculates a laplacian for both periodic and solid boundaries of a simulation domain.
+ * It implements 2nd order forward, backward, and central differences.
+ * It does not implement a halo to account for the laplacian at edges of the domain.
+ *
+ * The global flag _useBoundaryConditionsPeriodic_ toggles between the periodic and solid boundary calculations.
+ * - 1: uses periodic boundary conditions (central difference only)
+ * - 0: uses solid walls at domain boundaries (forward, backward, central differences allowed)
+ *
+ * @param [in] *var An input array (pointer) representing values across space.
+ * @param [in] i The array index of the location for which the laplacian is to be calculated.
+ *
+ * @return The calculated laplacian.
+ */
+double laplace(double *var, int i) {
+
+	double result = 0;
+	int ippp = i + 3;
+	int ipp = i + 2;
+	int ip = i + 1;
+	int im = i - 1;
+	int imm = i - 2;
+	int immm = i - 3;
+
+	// Gradient for a lattice with periodic BCs
+	// Instead of a halo, re-set the out-of-bounds index to the opposite end of the lattice
+	if (useBoundaryConditionsPeriodic) {
+		if (ip == XDIM) {
+			ip = 0;
+		}
+		else if (im == -1) {
+			im = XDIM - 1;
+		}
+		result = var[ip] - 2.*var[i] + var[im];
+	}
+	// Gradient for a lattice with walls at the boundaries
+	// Adjust for existence of the walls with forward/backward differencing
+	else {
+		if (ip == XDIM) { // backward difference
+			result = -1.*var[immm] + 4.*var[imm] -5.*var[im] + 2.*var[i];
+		}
+		else if (im == -1) { // forward difference
+			result = 2.*var[i] - 5.*var[ip] + 4.*var[ipp] - var[ippp];
+		}
+		else { // central difference... normal case
+			result = var[ip] - 2.*var[i] + var[im];
+		}
+	}
+
+	return result;
+} // end function laplace()
+
+
+/**
+ * @brief Function _findIndexOfMinimumValue3DArray_ finds the minimum value of a given 3-dimensional array.
+ *
+ * This function returns the three indices of the array location containing the minimum value of that array.
+ * It will only handles square 3-D arrays.
+ *
+ * @note This function is only used when a free energy minimization allows for only 2 phases in a phase diagram.
+ *
+ * @param [in] array The input 3-D array.
+ * @param [out] *minIIndex Pointer to the variable to hold the I-index for the result.
+ * @param [out] *minJIndex Pointer to the variable to hold the J-index for the result.
+ * @param [out] *minKIndex Pointer to the variable to hold the K-index for the result.
+ */
+void findIndexOfMinimumValue3DArray(double array[3][3][3], int *minIIndex, int *minJIndex, int *minKIndex) {
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    int currentMinI = 1; // needed to adjust these to 1's instead of 0's; (1,1) appeared on the phase diagram otherwise
+    int currentMinJ = 1;
+    int currentMinK = 1;
+
+    for (i = 0; i < 3; i++) {
+    	for (j = 0; j < 3; j++) {
+    		for (k = 0; k < 3; k++) {
+    			if (array[i][j][k] < array[currentMinI][currentMinJ][currentMinK]) {
+    				currentMinI = i;
+    				currentMinJ = j;
+    				currentMinK = k;
+    			}
+    		}
+    	}
+    }
+
+    *minIIndex = currentMinI;
+    *minJIndex = currentMinJ;
+    *minKIndex = currentMinK;
+} // end function findIndexOfMinimumValue3DArray()
+
+
+/**
+ * @brief Function _findIndexOfMinimumValue6DArray_ finds the minimum value of a given 6-dimensional array.
+ *
+ * This function returns the three indices of the array location containing the minimum value of that array.
+ * It will only handles square 6-D arrays.
+ *
+ * @note This function is only used when a free energy minimization allows for only 3 phases in a phase diagram.
+ *
+ * @param [in] array The input 6-D array.
+ * @param [out] *minIIndex Pointer to the variable to hold the I-index for the result.
+ * @param [out] *minJIndex Pointer to the variable to hold the J-index for the result.
+ * @param [out] *minKIndex Pointer to the variable to hold the K-index for the result.
+ * @param [out] *minLIndex Pointer to the variable to hold the L-index for the result.
+ * @param [out] *minMIndex Pointer to the variable to hold the M-index for the result.
+ * @param [out] *minNIndex Pointer to the variable to hold the N-index for the result.
+ */
+void findIndexOfMinimumValue6DArray(struct FreeEnergy array[3][3][3][3][3][3],
+									int *minIIndex,
+									int *minJIndex,
+									int *minKIndex,
+									int *minLIndex,
+									int *minMIndex,
+									int *minNIndex) {
+    int currentMinI = 1;
+    int currentMinJ = 1;
+    int currentMinK = 1;
+    int currentMinL = 1;
+    int currentMinM = 1;
+    int currentMinN = 1;
+
+    for (int i = 0; i < 3; i++) {
+    	for (int j = 0; j < 3; j++) {
+    		for (int k = 0; k < 3; k++) {
+    		    for (int l = 0; l < 3; l++) {
+    		    	for (int m = 0; m < 3; m++) {
+    		    		for (int n = 0; n < 3; n++) {
+    		    			if (array[i][j][k][l][m][n].freeEnergyTotal < array[currentMinI][currentMinJ][currentMinK][currentMinL][currentMinM][currentMinN].freeEnergyTotal) {
+    		    				currentMinI = i;
+    		    				currentMinJ = j;
+    		    				currentMinK = k;
+    		    				currentMinL = l;
+    		    				currentMinM = m;
+    		    				currentMinN = n;
+    		    			}
+    		    		}
+    		    	}
+    		    }
+    		}
+    	}
+    }
+
+    *minIIndex = currentMinI;
+    *minJIndex = currentMinJ;
+    *minKIndex = currentMinK;
+    *minLIndex = currentMinL;
+    *minMIndex = currentMinM;
+    *minNIndex = currentMinN;
+} // end function findIndexOfMinimumValue6DArray()
+
+
+/**
+ * @brief Function _findIndicesOfMinMaxValues1DArray_ finds the minimum and maximum values of a given 1-dimensional array.
+ *
+ * This function returns index of the array location containing the minimum value of that array.
+ * This function also returns index of the array location containing the maximum value of that array.
+ * It will only handles square 1-D arrays.
+ *
+ * @note This function supports identification of liquid and vapor phases in the 2-phase regions of a phase diagram.
+ *
+ * @param [in] array The input 1-D array.
+ * @param [out] *minIndex Pointer to the variable to hold the index for the array minimum value.
+ * @param [out] *maxIndex Pointer to the variable to hold the index for the array maximum value.
+ */
+void findIndicesOfMinMaxValues1DArray(double *array, int *minIndex, int *maxIndex) {
+	int i = 0;
+	int tmpMinIndex = 0;
+	int tmpMaxIndex = 0;
+
+	for (i = 0; i < XDIM; i++) {
+		if (array[i] > array[tmpMaxIndex]) {
+			tmpMaxIndex = i;
+		}
+		else if (array[i] < array[tmpMinIndex]) {
+			tmpMinIndex = i;
+		}
+	}
+
+	*minIndex = tmpMinIndex;
+	*maxIndex = tmpMaxIndex;
+} // end function findIndicesOfMinMaxValues1DArray()
+
+
+/**
+ * @brief Function _arrayInsertBinodalPoint_ inserts a value into an array at a specified location.
+ *
+ * The insertion of a new value into an array can happen at any specified location, not just the end.
+ * All array elements at and after the insertion location are shifted right by 1 spot,
+ * and the new element is inserted at the desired location.
+ * The tail of the array is updated to reflect a successful insertion.
+ *
+ * @note As of now, this function will only operate on the data type _BinodalPoint_.
+ * @note This function currently assumes the input is error checked and the array will not overflow.
+ *
+ * @param [in,out] *array The array (pointer) in which to insert the value.
+ * @param [in] insertValue The value to insert into the array.
+ * @param [in] insertIndex The index of the array location where the new value is to be inserted.
+ * @param [in,out] *arrayTail A pointer to the index of the tail of the array.
+ *
+ * @todo: Handle failed array insertions.
+ * @todo: Update to handle any data type, then refactor function name to just _arrayInsert_
+ */
+void arrayInsertBinodalPoint(struct BinodalPoint *array, struct BinodalPoint insertValue, int insertIndex, int *arrayTail) {
+	int i = 0;
+
+	for (i = *arrayTail; i >= insertIndex; i--) {
+		array[i+1] = array[i];
+	}
+
+	array[insertIndex] = insertValue;
+
+	*arrayTail += 1;
+	//TODO: handle failed array insertions
+	//TODO: refactor to handle any data type
+} // end function arrayInsertBinodalPoint()
+
+
+/**
+ * @brief Function _printRunTime_ formats benchmark times and prints them to the console.
+ *
+ * This function is used to output benchmark data collected in select functions.
+ * The number of processor cycles is scaled by the global constant CLOCKS_PER_SEC.
+ * Both the processor time and wall clock time are output to the console in HH:MM:SS format.
+ *
+ * @param [in] processorRunTime The number of processor clock cycles.
+ * @param [in] clockRunTime The wall clock time (seconds).
+ */
+void printRunTime(clock_t processorRunTime, double clockRunTime) {
+	int hours = 0;
+	int minutes = 0;
+	int seconds = 0;
+
+	processorRunTime /= CLOCKS_PER_SEC;
+
+	hours = processorRunTime / 3600;
+	processorRunTime = processorRunTime % 3600;
+	minutes = processorRunTime / 60;
+	processorRunTime = processorRunTime % 60;
+	seconds = processorRunTime;
+
+	printf("Processor time... %.2d:%.2d:%.2d\n", hours, minutes, seconds);
+
+	hours = clockRunTime / 3600;
+	clockRunTime = (int) clockRunTime % 3600;
+	minutes = clockRunTime / 60;
+	clockRunTime = (int) clockRunTime % 60;
+	seconds = clockRunTime;
+
+	printf("Clock time... %.2d:%.2d:%.2d\n", hours, minutes, seconds);
+} // end function printRunTime()
+
+
+/**
+ * @brief Function _gnuplotTwoComponentTwoPhase_ creates a gnuplot script to display phase diagrams with 2 components and 2 phases allowed.
+ *
+ * @see gnuplot documentation for additional details.
+ */
+void gnuplotTwoComponentTwoPhase() {
+	FILE * gnuplotScript;
+	char *gnuplotScript_name = "/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/plot-multicomponent-twoPhase-diagram.gnuplot";
+	gnuplotScript = fopen(gnuplotScript_name, "w");
+
+	fprintf(gnuplotScript, "set xrange [0:3]\n");
+	fprintf(gnuplotScript, "set yrange [0:3]\n");
+	fprintf(gnuplotScript, "set size square");
+	fprintf(gnuplotScript, "set key box\n");
+	fprintf(gnuplotScript, "plot \"twoPhaseDiagram-densities-theoretical_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 2:3\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "replot \"twoPhaseDiagram-densities-theoretical_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 4:5\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "replot \"twoPhaseDiagram-spinodal_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "replot \"twoPhaseDiagram-tie-lines-theoretical_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" with lines lc rgb 'red'\n", tcA, tcB, aA, aAB, aB);
+
+	fclose(gnuplotScript);
+} // end function gnuplotTwoComponentTwoPhase()
+
+
+/**
+ * @brief Function _gnuplotTwoComponentThreePhase_ creates gnuplot scripts to display results with 2 components and 2 phases allowed.
+ *
+ * This function creates five gnuplot scripts.  Each script is named according to the information displayed and appended by
+ * van der Waals parameters and critical temperatures that characterize the components in the simulation.
+ * - gnuplot_plot-multicomponent-density-threePhase-diagram: Plots full phase diagram and binodal lines, theoretical tie lines, and 2- and 3-phase LB simulation results.
+ * - gnuplot_plot-threePhase: Plots phase diagram and binodal points for 3-phase region, theoretical tie lines, and 3-phase LB simulation results.
+ * - gnuplot_plot-twoPhase: Plots phase diagram and binodal points for 2-phase region, theoretical tie lines, and 2-phase LB simulation results.
+ * - gnuplot_plot-pressure-deviations: Plots theoretical pressure deviations among 3 phases of a free energy minimization to confirm equilibrium.
+ * - gnuplot_plot-chemical-potential-deviations: Plots theoretical chemical potential deviations among 3 phases of a free energy minimization to confirm equilibrium.
+ *
+ * @see gnuplot documentation for additional details.
+ */
+void gnuplotTwoComponentThreePhase() {
+	FILE * gnuplotScript;
+	char gnuplotScript_name[255];
+
+	// Plot the entire phase diagram
+	sprintf(gnuplotScript_name, "/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/plot-multicomponent-threePhase-diagram_tcA%f_tcB%f_aA%f_aAB%f_aB%f.gnuplot", tcA, tcB, aA, aAB, aB);
+	gnuplotScript = fopen(gnuplotScript_name, "w");
+	fprintf(gnuplotScript, "set xlabel \"Component A Density\"\n");
+	fprintf(gnuplotScript, "set ylabel \"Component B Density\"\n");
+	fprintf(gnuplotScript, "set size square\n");
+	fprintf(gnuplotScript, "set grid\n\n");
+	fprintf(gnuplotScript, "plot \"threePhaseDiagram-densities-twoPhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 1:2 with points pointtype 13 lc rgb 'light-grey' title \"Minimization 2-phase Test Point\", \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"threePhaseDiagram-densities-threePhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 1:2 with points pointtype 13 lc rgb 'dark-grey' title \"Minimization 3-phase Test Point\", \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"three-phase-region-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 1:2 with points pointtype 7 lc rgb 'black' title \"3-phase region coordinates\", \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"threePhaseDiagram-tie-lines-theoretical_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" with lines lc rgb 'brown' title \"Theoretical Tie line\", \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"threePhaseDiagram-binodal_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" with lines lc rgb 'black' title \"Theoretical Binodal\", \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"LB-phase-data-1_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 1:2 with points pointtype 7 lc rgb 'light-blue' title \"LB 2-phase region (1)\", \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"LB-phase-data-2_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 1:2 with points pointtype 7 lc rgb 'blue' title \"LB 2-phase region\", \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"LB-phase-data-3_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 1:2 with points pointtype 7 lc rgb 'cyan' title \"LB 2-phase region (3)\", \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"LB-three-2-phase-region_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 1:2 with points pointtype 7 lc rgb 'red' title \"LB 3-phase region\", \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"LB-three-phase-region_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 1:2 with points pointtype 7 lc rgb 'gold' title \"LB 3-phase region\", \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"three-phase-region-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 1:2 with points pointtype 7 lc rgb 'black' notitle, \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"three-phase-region-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 3:4 with points pointtype 7 lc rgb 'black' notitle, \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"three-phase-region-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 5:6 with points pointtype 7 lc rgb 'black' notitle, \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"singularity-line-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" with lines lc rgb 'black' notitle\n\n", tcA, tcB, aA, aAB, aB);
+	fclose(gnuplotScript);
+
+	// Plot only the 3-phase region
+	sprintf(gnuplotScript_name, "/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/plot-threePhase_tcA%f_tcB%f_aA%f_aAB%f_aB%f.gnuplot", tcA, tcB, aA, aAB, aB);
+	gnuplotScript = fopen(gnuplotScript_name, "w");
+	fprintf(gnuplotScript, "set xrange [0:3]\n");
+	fprintf(gnuplotScript, "set yrange [0:3]\n");
+	fprintf(gnuplotScript, "set size square\n");
+	fprintf(gnuplotScript, "set grid\n");
+	fprintf(gnuplotScript, "set key box\n");
+	fprintf(gnuplotScript, "plot \"threePhaseDiagram-densities-threePhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 1:2 with points pointtype 3 lc rgb 'grey' title \"Test point\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "replot \"threePhaseDiagram-tie-lines-theoretical_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" with lines lc rgb 'red' title \"Tie line\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "replot \"threePhaseDiagram-binodal_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" with lines lc rgb 'black' title \"Binodal\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "\n");
+	fprintf(gnuplotScript, "replot \"threePhaseDiagram-densities-threePhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 3:4 with points pointtype 1 lc rgb 'red' title \"Phase 1 (3)\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "replot \"threePhaseDiagram-densities-threePhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 5:6 with points pointtype 2 lc rgb 'green' title \"Phase 2 (3)\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "replot \"threePhaseDiagram-densities-threePhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 7:8 with points pointtype 25 lc rgb 'black' title \"Phase 3 (3)\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "\n");
+	fprintf(gnuplotScript, "replot \"LB-three-phase-region_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 1:2 with points pointtype 7 lc rgb 'gold' title \"LB 3-phase region\" # indigo color\n", tcA, tcB, aA, aAB, aB);
+	fclose(gnuplotScript);
+
+	// Plot only the 2-phase region
+	sprintf(gnuplotScript_name, "/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/plot-twoPhase_tcA%f_tcB%f_aA%f_aAB%f_aB%f.gnuplot", tcA, tcB, aA, aAB, aB);
+	gnuplotScript = fopen(gnuplotScript_name, "w");
+	fprintf(gnuplotScript, "set xrange [0:3]\n");
+	fprintf(gnuplotScript, "set yrange [0:3]\n");
+	fprintf(gnuplotScript, "set size square\n");
+	fprintf(gnuplotScript, "set grid\n");
+	fprintf(gnuplotScript, "set key box\n");
+	fprintf(gnuplotScript, "plot \"threePhaseDiagram-densities-twoPhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 1:2 with points pointtype 3 lc rgb 'grey' title \"Test point\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "replot \"threePhaseDiagram-tie-lines-theoretical_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" with lines lc rgb 'red' title \"Tie line\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "replot \"threePhaseDiagram-binodal_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" with lines lc rgb 'black' title \"Binodal\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "\n");
+	fprintf(gnuplotScript, "replot \"threePhaseDiagram-densities-twoPhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 3:4 with points pointtype 1 lc rgb 'red' title \"Phase 1 (2)\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "replot \"threePhaseDiagram-densities-twoPhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 5:6 with points pointtype 2 lc rgb 'green' title \"Phase 2 (2)\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "replot \"threePhaseDiagram-densities-twoPhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 7:8 with points pointtype 25 lc rgb 'black' title \"Phase '3' (2)\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "\n");
+	fprintf(gnuplotScript, "replot \"LB-phase-data-2_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 1:2 with points pointtype 7 lc rgb 'blue' title \"LB 2-phase region\"\n", tcA, tcB, aA, aAB, aB);
+	fclose(gnuplotScript);
+
+	// Plot the pressure differences among the three phases
+	sprintf(gnuplotScript_name, "/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/plot-pressure-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.gnuplot", tcA, tcB, aA, aAB, aB);
+	gnuplotScript = fopen(gnuplotScript_name, "w");
+	fprintf(gnuplotScript, "# Deviations from each other in each phase\n");
+	fprintf(gnuplotScript, "set key box\n");
+	fprintf(gnuplotScript, "plot \"pressure-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 3 with lines title \"Pressure deviations\"\n\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "# Actual pressures for each phase\n");
+	fprintf(gnuplotScript, "replot \"pressure-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 4 with lines title \"pressure1\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "replot \"pressure-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 5 with lines title \"pressure2\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "replot \"pressure-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 6 with lines title \"pressure3\"", tcA, tcB, aA, aAB, aB);
+	fclose(gnuplotScript);
+
+	sprintf(gnuplotScript_name, "/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/plot-pressure-map_tcA%f_tcB%f_aA%f_aAB%f_aB%f.gnuplot", tcA, tcB, aA, aAB, aB);
+	gnuplotScript = fopen(gnuplotScript_name, "w");
+	fprintf(gnuplotScript, "# Deviations from each other in each phase\n");
+	fprintf(gnuplotScript, "set size square\n");
+	fprintf(gnuplotScript, "set grid\n");
+	fprintf(gnuplotScript, "stats \"pressure-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 3\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "set cbrange [STATS_min:STATS_max]\n");
+	fprintf(gnuplotScript, "set logscale cb\n\n");
+	fprintf(gnuplotScript, "plot \"pressure-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 1:2:3 with points pointtype 7 pointsize 0.5 palette title \"Pressure Deviations\", \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"threePhaseDiagram-tie-lines-theoretical_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" with lines lc rgb 'black' notitle, \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"threePhaseDiagram-binodal_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" with lines lc rgb 'black' notitle, \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"three-phase-region-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 1:2 with points pointtype 7 lc rgb 'black' notitle, \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"three-phase-region-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 3:4 with points pointtype 7 lc rgb 'black' notitle, \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"three-phase-region-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 5:6 with points pointtype 7 lc rgb 'black' notitle, \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"singularity-line-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" with lines lc rgb 'black' notitle\n", tcA, tcB, aA, aAB, aB);
+	fclose(gnuplotScript);
+
+	// Plot the chemical potential difference among the three phases for each component
+	sprintf(gnuplotScript_name, "/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/plot-chemical-potential-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.gnuplot", tcA, tcB, aA, aAB, aB);
+	gnuplotScript = fopen(gnuplotScript_name, "w");
+	fprintf(gnuplotScript, "# Deviations from each other in each phase\n");
+	fprintf(gnuplotScript, "set key box\n");
+	fprintf(gnuplotScript, "plot \"chemical-potential-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 3 with lines title \"A deviations\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "replot \"chemical-potential-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 4 with lines title \"B deviations\"\n\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "# Actual chemical potentials\n");
+	fprintf(gnuplotScript, "replot \"chemical-potential-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 5 with lines title \"A1\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "replot \"chemical-potential-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 6 with lines title \"B1\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "replot \"chemical-potential-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 7 with lines title \"A2\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "replot \"chemical-potential-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 8 with lines title \"B2\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "replot \"chemical-potential-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 9 with lines title \"A3\"\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "replot \"chemical-potential-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 10 with lines title \"B3\"\n", tcA, tcB, aA, aAB, aB);
+	fclose(gnuplotScript);
+
+	sprintf(gnuplotScript_name, "/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/plot-chemical-potential-A-map_tcA%f_tcB%f_aA%f_aAB%f_aB%f.gnuplot", tcA, tcB, aA, aAB, aB);
+	gnuplotScript = fopen(gnuplotScript_name, "w");
+	fprintf(gnuplotScript, "# Deviations from each other in each phase\n");
+	fprintf(gnuplotScript, "set size square\n");
+	fprintf(gnuplotScript, "set grid\n");
+	fprintf(gnuplotScript, "stats \"chemical-potential-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 3\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "set cbrange [1e-8:STATS_max]\n");
+	fprintf(gnuplotScript, "set logscale cb\n\n");
+	fprintf(gnuplotScript, "plot \"chemical-potential-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 1:2:3 with points pointtype 7 pointsize 0.5 palette title \"Chemical Potential Deviations - A\", \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"threePhaseDiagram-tie-lines-theoretical_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" with lines lc rgb 'black' notitle, \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"threePhaseDiagram-binodal_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" with lines lc rgb 'black' notitle, \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"three-phase-region-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 1:2 with points pointtype 7 lc rgb 'black' notitle, \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"three-phase-region-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 3:4 with points pointtype 7 lc rgb 'black' notitle, \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"three-phase-region-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 5:6 with points pointtype 7 lc rgb 'black' notitle, \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"singularity-line-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" with lines lc rgb 'black' notitle\n", tcA, tcB, aA, aAB, aB);
+	fclose(gnuplotScript);
+
+	sprintf(gnuplotScript_name, "/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/plot-chemical-potential-B-map_tcA%f_tcB%f_aA%f_aAB%f_aB%f.gnuplot", tcA, tcB, aA, aAB, aB);
+	gnuplotScript = fopen(gnuplotScript_name, "w");
+	fprintf(gnuplotScript, "# Deviations from each other in each phase\n");
+	fprintf(gnuplotScript, "set size square\n");
+	fprintf(gnuplotScript, "set grid\n");
+	fprintf(gnuplotScript, "stats \"chemical-potential-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 4\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, "set cbrange [1e-8:STATS_max]\n");
+	fprintf(gnuplotScript, "set logscale cb\n\n");
+	fprintf(gnuplotScript, "plot \"chemical-potential-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 1:2:4 with points pointtype 7 pointsize 0.5 palette title \"Chemical Potential Deviations - B\", \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"threePhaseDiagram-tie-lines-theoretical_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" with lines lc rgb 'black' notitle, \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"threePhaseDiagram-binodal_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" with lines lc rgb 'black' notitle, \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"three-phase-region-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 1:2 with points pointtype 7 lc rgb 'black' notitle, \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"three-phase-region-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 3:4 with points pointtype 7 lc rgb 'black' notitle, \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"three-phase-region-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" using 5:6 with points pointtype 7 lc rgb 'black' notitle, \\\n", tcA, tcB, aA, aAB, aB);
+	fprintf(gnuplotScript, " \"singularity-line-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat\" with lines lc rgb 'black' notitle\n", tcA, tcB, aA, aAB, aB);
+	fclose(gnuplotScript);
+
+} // end function gnuplotTwoComponentThreePhase()
+
+
+/**
+ * @brief Function _logVDWParameters_ logs the van der Waals parameters that were used to create a phase diagram.
+ */
+void logVDWParameters() {
+	FILE * vdwParametersLog;
+	char vdwParametersLog_name[255];
+	sprintf(vdwParametersLog_name, "/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/vdw-parameters-log_tcA%f_tcB%f_aA%f_aAB%f_aB%f", tcA, tcB, aA, aAB, aB);
+	vdwParametersLog = fopen(vdwParametersLog_name, "w");
+	fprintf(vdwParametersLog, "Degrees of freedom:\n");
+	fprintf(vdwParametersLog, "tcA = %f\ntcB = %f\nncB = %f\nVDW interaction factor = %f\n\n", tcA, tcB, ncB, vdwInteractionFactor);
+	fprintf(vdwParametersLog, "Determined values:\n");
+	fprintf(vdwParametersLog, "ncA = %f\npcA = %f\npcB = %f\naA = %f\naAB = %f\naB = %f\n\n", ncA, pcA, pcB, aA, aAB, aB);
+	fclose(vdwParametersLog);
+} // end function logVDWParameters()
+
+
+/**
+ * @brief Function _checkVaporPhase_ enforces ordering to the phases in the various log files and initialization functions.
+ *
+ * This function accepts pointers to a set of densities and reorders them to result in the following:
+ * - Phase 1 is the A-rich phase.
+ * - Phase 2 is the B-rich phase.
+ * - Phase 3 is the vapor phase.
+ *
+ * In the case where the resulting A-rich phase also happens to have the highest concentration of B particles and there are more total B particles
+ * than total A particles, phases 1 and 2 will be flipped to ensure phase 2 has the highest concentration of B particles.
+ *
+ * @param [in,out] *rhoA1 Pointer to the A component density in phase 1.
+ * @param [in,out] *rhoB1 Pointer to the B component density in phase 1.
+ * @param [in,out] *rhoA2 Pointer to the A component density in phase 2.
+ * @param [in,out] *rhoB2 Pointer to the B component density in phase 2.
+ * @param [in,out] *rhoA3 Pointer to the A component density in phase 3.
+ * @param [in,out] *rhoB3 Pointer to the B component density in phase 3.
+ * @param [in] particlesATotal Total number of A particles associated with a set of densities.
+ * @param [in] particlesBTotal Total number of B particles associated with a set of densities.
+ */
+void checkVaporPhase(double *rhoA1, double *rhoB1, double *rhoA2, double *rhoB2, double *rhoA3, double *rhoB3, double particlesATotal, double particlesBTotal) {
+	double tmpDouble = 0.0;
+
+	// Bubble the highest concentration of A particles down to phase 1
+	if (*rhoA3 > *rhoA2) {
+		tmpDouble = *rhoA2;
+		*rhoA2 = *rhoA3;
+		*rhoA3 = tmpDouble;
+
+		tmpDouble = *rhoB2;
+		*rhoB2 = *rhoB3;
+		*rhoB3 = tmpDouble;
+	}
+	if (*rhoA2 > *rhoA1) {
+		tmpDouble = *rhoA2;
+		*rhoA2 = *rhoA1;
+		*rhoA1 = tmpDouble;
+
+		tmpDouble = *rhoB2;
+		*rhoB2 = *rhoB1;
+		*rhoB1 = tmpDouble;
+	}
+
+	// Bubble the higher B concentration down to phase 2
+	if (*rhoB3 > *rhoB2) {
+		tmpDouble = *rhoA2;
+		*rhoA2 = *rhoA3;
+		*rhoA3 = tmpDouble;
+
+		tmpDouble = *rhoB2;
+		*rhoB2 = *rhoB3;
+		*rhoB3 = tmpDouble;
+	}
+
+	// In isolated cases where the largest A and largest B values are both in phase 1, double check
+	// to make sure the largest B is in phase 2, but only when there are more B particles present
+	if ( (particlesBTotal > particlesATotal) && (*rhoB1 > *rhoB2) ) {
+		tmpDouble = *rhoA2;
+		*rhoA2 = *rhoA1;
+		*rhoA1 = tmpDouble;
+
+		tmpDouble = *rhoB2;
+		*rhoB2 = *rhoB1;
+		*rhoB1 = tmpDouble;
+	}
+} // end function checkVaporPhase()
+
+
+/**
+ * @brief Function _calculateFreeEnergyMinimumTwoPhaseTrial_ calculates the free energy of a 2-component mixture allowing for 2 phases.
+ *
+ * This function calculates the free energy of a mixture of 2 components, assuming only 2 phases are possible.
+ * It conserves both particle counts and volume by using the input parameters to calculate the particles and volume for phase 2.
+ * Particle counts and volumes are checked for validity to prevent the free energy logarithm from exploding.
+ * - When a valid free energy cannot be calculated for a phase, an invalid free energy value is used for that phase.
+ * - When only a single component exists, the the Helmholtz free energy is calculated as a van der Waals fluid for only that component.
+ * - When A and B components are present, the Helmholtz free energy is calculated as a mixture of van der Waals fluids with appropriate component interactions.
+ *
+ * @note The value (1000 x component A critical density) is assumed to be a sufficiently large invalid free energy so as to not affect the minimization.
+ * @note The free energy calculated in this function is a total free energy, not a free energy density.
+ *
+ * @param [in] theta The temperature of the mixture.
+ * @param [in] particlesA1 The number of A particles in phase 1.
+ * @param [in] particlesB1 The number of B particles in phase 1.
+ * @param [in] volume1 The volume occupied by phase 1.
+ * @param [in] particlesATotal The total number of A particles in the mixture.
+ * @param [in] particlesBTotal The total number of B particles in the mixture.
+ * @param [in] volumeTotal The total volume occupied by the mixture.
+ *
+ * @return The total free energy (i.e. the sum of the free energy of phase 1 and free energy of phase 2).
+ */
+double calculateFreeEnergyMinimumTwoPhaseTrial(double theta,
+											   double particlesA1,
+											   double particlesB1,
+											   double volume1,
+											   double particlesATotal,
+											   double particlesBTotal,
+											   double volumeTotal){
+	double volume2 = volumeTotal - volume1;
+	double particlesA2 = particlesATotal - particlesA1;
+	double particlesB2 = particlesBTotal - particlesB1;
+
+	double excludedVolume1 = 0;
+	double excludedVolume2 = 0;
+	double freeEnergy1 = 0;
+	double freeEnergy2 = 0;
+	double invalidFreeEnergy = 1000.* ncA;
+
+	excludedVolume1 = particlesA1*bA + particlesB1*bB;
+	if ((excludedVolume1 >= volume1) || (particlesA1 < 0) || (particlesB1 < 0) || (volume1 < 0)) {
+		freeEnergy1 = invalidFreeEnergy;
+	}
+	else if ((particlesA1 == 0) && (particlesB1 == 0)) {
+		freeEnergy1 = 0;
+	}
+	else if (particlesA1 == 0) {
+		freeEnergy1 = particlesB1*theta*log(particlesB1/(volume1-excludedVolume1)) - aB*particlesB1*particlesB1/volume1;
+	}
+	else if (particlesB1 == 0) {
+		freeEnergy1 = particlesA1*theta*log(particlesA1/(volume1-excludedVolume1)) - aA*particlesA1*particlesA1/volume1;
+	}
+	else {
+		freeEnergy1 = particlesA1*theta*log(particlesA1/(volume1-excludedVolume1)) + particlesB1*theta*log(particlesB1/(volume1-excludedVolume1))
+			 	 	  - aA*particlesA1*particlesA1/volume1 - 2*aAB*particlesB1*particlesA1/volume1 - aB*particlesB1*particlesB1/volume1;
+	}
+
+	excludedVolume2 = particlesA2*bA + particlesB2*bB;
+	if ((excludedVolume2 >= volume2) || (particlesA2 < 0) || (particlesB2 < 0) || (volume2 < 0)) {
+		freeEnergy2 = invalidFreeEnergy;
+	}
+	else if ((particlesA2 == 0) && (particlesB2 == 0)) {
+		freeEnergy2 = 0;
+	}
+	else if (particlesA2 == 0) {
+		freeEnergy2 = particlesB2*theta*log(particlesB2/(volume2-excludedVolume2)) - aB*particlesB2*particlesB2/volume2;
+	}
+	else if (particlesB2 == 0) {
+		freeEnergy2 = particlesA2*theta*log(particlesA2/(volume2-excludedVolume2)) - aA*particlesA2*particlesA2/volume2;
+	}
+	else {
+		freeEnergy2 = particlesA2*theta*log(particlesA2/(volume2-excludedVolume2)) + particlesB2*theta*log(particlesB2/(volume2-excludedVolume2))
+			 	 	  - aA*particlesA2*particlesA2/volume2 - 2*aAB*particlesB2*particlesA2/volume2 - aB*particlesB2*particlesB2/volume2;
+	}
+
+	return freeEnergy1 + freeEnergy2;
+} // end function calculateFreeEnergyMinimumTwoPhaseTrial()
+
+
+/**
+ * @brief Function _calculateFreeEnergyMinimumThreePhaseTrial_ calculates the free energy of a 2-component mixture allowing for 3 phases.
+ *
+ * This function calculates the free energy of a mixture of 2 components, assuming 3 phases are possible.
+ * It conserves both particle counts and volume by using the input parameters to calculate the particles and volume for phase 3.
+ * Particle counts and volumes are checked for validity to prevent the free energy logarithm from exploding.
+ * - When only a single component exists, the the Helmholtz free energy is calculated as a van der Waals fluid for only that component.
+ * - When A and B components are present, the Helmholtz free energy is calculated as a mixture of van der Waals fluids with appropriate component interactions.
+ *
+ * @note The value (1000 x component A critical density) is assumed to be a sufficiently large invalid free energy so as to not affect the minimization.
+ * @note The free energy calculated is the total free energy summed over the specific volumina in each allowed phase (not free energy densities).
+ *
+ * @param [in] theta The temperature of the mixture.
+ * @param [in] particlesA1 The number of A particles in phase 1.
+ * @param [in] particlesB1 The number of B particles in phase 1.
+ * @param [in] volume1 The volume occupied by phase 1.
+ * @param [in] particlesA2 The number of A particles in phase 2.
+ * @param [in] particlesB2 The number of B particles in phase 2.
+ * @param [in] volume2 The volume occupied by phase 2.
+ * @param [in] particlesATotal The total number of A particles in the mixture.
+ * @param [in] particlesBTotal The total number of B particles in the mixture.
+ * @param [in] volumeTotal The total volume occupied by the mixture.
+ * @param [out] *freeEnergy1 Pointer to store the free energy of phase 1.
+ * @param [out] *freeEnergy2 Pointer to store the free energy of phase 2.
+ * @param [out] *freeEnergy3 Pointer to store the free energy of phase 3.
+ *
+ * @return The total free energy (i.e. the sum of *freeEnergy1, *freeEnergy2, and *freeEnergy3).
+ */
+double calculateFreeEnergyMinimumThreePhaseTrial(double theta,
+												 double particlesA1,
+												 double particlesB1,
+												 double volume1,
+												 double particlesA2,
+												 double particlesB2,
+												 double volume2,
+												 double particlesATotal,
+												 double particlesBTotal,
+												 double volumeTotal,
+												 double *freeEnergy1,
+												 double *freeEnergy2,
+												 double *freeEnergy3){
+	double volume3 = volumeTotal - volume1 - volume2;
+	double particlesA3 = particlesATotal - particlesA1 - particlesA2;
+	double particlesB3 = particlesBTotal - particlesB1 - particlesB2;
+	double excludedVolume1 = 0;
+	double excludedVolume2 = 0;
+	double excludedVolume3 = 0;
+	double invalidFreeEnergy = 1000.* ncA;
+
+	excludedVolume1 = particlesA1*bA + particlesB1*bB;
+	if ((excludedVolume1 >= volume1) || (particlesA1 < 0) || (particlesB1 < 0) || (volume1 < 0)) {
+		*freeEnergy1 = invalidFreeEnergy;
+	}
+	else if ( (particlesA1 == 0) && (particlesB1 == 0) ) {
+		*freeEnergy1 = 0;
+	}
+	else if (particlesA1 == 0) {
+		*freeEnergy1 = particlesB1*theta*log(particlesB1/(volume1-excludedVolume1)) - aB*particlesB1*particlesB1/volume1 - theta*particlesB1;
+	}
+	else if (particlesB1 == 0) {
+		*freeEnergy1 = particlesA1*theta*log(particlesA1/(volume1-excludedVolume1)) - aA*particlesA1*particlesA1/volume1 - theta*particlesA1;
+	}
+	else {
+		*freeEnergy1 = particlesA1*theta*log(particlesA1/(volume1-excludedVolume1)) + particlesB1*theta*log(particlesB1/(volume1-excludedVolume1))
+			 	 	  - aA*particlesA1*particlesA1/volume1 - 2*aAB*particlesB1*particlesA1/volume1 - aB*particlesB1*particlesB1/volume1 - theta*(particlesA1+particlesB1);
+	}
+
+	excludedVolume2 = particlesA2*bA + particlesB2*bB;
+	if ((excludedVolume2 >= volume2) || (particlesA2 < 0) || (particlesB2 < 0) || (volume2 < 0)) {
+		*freeEnergy2 = invalidFreeEnergy;
+	}
+	else if ( (particlesA2 == 0) && (particlesB2 == 0) ) {
+		*freeEnergy2 = 0;
+	}
+	else if (particlesA2 == 0) {
+		*freeEnergy2 = particlesB2*theta*log(particlesB2/(volume2-excludedVolume2)) - aB*particlesB2*particlesB2/volume2 - theta*particlesB2;
+	}
+	else if (particlesB2 == 0) {
+		*freeEnergy2 = particlesA2*theta*log(particlesA2/(volume2-excludedVolume2)) - aA*particlesA2*particlesA2/volume2 - theta*particlesA2;
+	}
+	else {
+		*freeEnergy2 = particlesA2*theta*log(particlesA2/(volume2-excludedVolume2)) + particlesB2*theta*log(particlesB2/(volume2-excludedVolume2))
+			 	 	  - aA*particlesA2*particlesA2/volume2 - 2*aAB*particlesB2*particlesA2/volume2 - aB*particlesB2*particlesB2/volume2 - theta*(particlesA2+particlesB2);
+	}
+
+	excludedVolume3 = particlesA3*bA + particlesB3*bB;
+	if ((excludedVolume3 >= volume3) || (particlesA3 < 0) || (particlesB3 < 0) || (volume3 < 0)) {
+		*freeEnergy3 = invalidFreeEnergy;
+	}
+	else if ( (particlesA3 == 0) && (particlesB3 == 0) ) {
+		*freeEnergy3 = 0;
+	}
+	else if (particlesA3 == 0) {
+		*freeEnergy3 = particlesB3*theta*log(particlesB3/(volume3-excludedVolume3)) - aB*particlesB3*particlesB3/volume3 - theta*particlesB3;
+	}
+	else if (particlesB3 == 0) {
+		*freeEnergy3 = particlesA3*theta*log(particlesA3/(volume3-excludedVolume3)) - aA*particlesA3*particlesA3/volume3 - theta*particlesA3;
+	}
+	else {
+		*freeEnergy3 = particlesA3*theta*log(particlesA3/(volume3-excludedVolume3)) + particlesB3*theta*log(particlesB3/(volume3-excludedVolume3))
+			 	 	  - aA*particlesA3*particlesA3/volume3 - 2*aAB*particlesB3*particlesA3/volume3 - aB*particlesB3*particlesB3/volume3 - theta*(particlesA3+particlesB3);
+	}
+
+	return *freeEnergy1 + *freeEnergy2 + *freeEnergy3;
+} // end function calculateFreeEnergyMinimumThreePhaseTrial()
+
+
+/**
+ * @brief Function _minimizeFreeEnergyTwoComponentsThreePhases_ determines the configuration that minimizes the free energy at a given test point.
+ *
+ * This function will determine the configuration of particles and volumes among 3 phases that minimizes the free energy of a given test point
+ * from a theoretical phase diagram.  An initial allocation of particles and volumes among the 3 phases must be provided to start the minimization.
+ * The minimization is governed by a loop that iterates until reaching a specified convergence threshold which dictates when the free energy
+ * minimization is "good enough."  Within each loop iteration, a matrix is constructed that holds the trial values for each physical degree of
+ * freedom that are used to calculate the candidate free energies.  Each physical value is modified by a defined step above and below a reference
+ * value.  The configuration of particles and volumes that provides the minimal free energy value is returned.
+ * - If the free energy resulting from a minimization is invalid, the loop is broken; however, the invalid values will be returned.
+ * - If the loop iteration results in a new minimal free energy configuration, the loop continues to minimize with the new configuration; the step size remains unchanged.
+ * - If the loop iteration results in an unchanged minimal free energy, the step size is halved for the next iteration.
+ * - The loop terminates when the trial step size for physical quantities is less than a given threshold.
+ *
+ * @note The trial matrix for 2 components, 3 phases is a 6-dimensional matrix with 720 entries to test per iteration of the minimization loop.
+ * @note The current threshold to determine when a free energy has been minimized is when the trial step size is less than 1e-12.
+ *
+ * @param [in] temperature The temperature of the mixture.
+ * @param [in] particlesATotal The total number of A particles in the mixture.
+ * @param [in] particlesBTotal The total number of B particles in the mixture.
+ * @param [in] volumeTotal The total volume occupied by the mixture.
+ * @param [in,out] *particlesA1 Pointer to the number of A particles in phase 1.
+ * @param [in,out] *particlesB1 Pointer to the number of B particles in phase 1.
+ * @param [in,out] *volume1 Pointer to the volume occupied by phase 1.
+ * @param [in,out] *particlesA2 Pointer to the number of A particles in phase 2.
+ * @param [in,out] *particlesB2 Pointer to the number of B particles in phase 2.
+ * @param [in,out] *volume2 Pointer to the volume occupied by phase 2.
+ * @param [out] *freeEnergyReturn Pointer to store the total minimized free energy.
+ * @param [out] *freeEnergy1Return Pointer to store the free energy of phase 1.
+ * @param [out] *freeEnergy2Return Pointer to store the free energy of phase 2.
+ * @param [out] *freeEnergy3Return Pointer to store the free energy of phase 3.
+ *
+ * @return A boolean flag indicating if the free energy minimization produced a phase change.
+ */
+int minimizeFreeEnergyTwoComponentsThreePhases(double temperature,
+											   double particlesATotal,
+											   double particlesBTotal,
+											   double volumeTotal,
+											   double *particlesA1,
+											   double *particlesB1,
+											   double *volume1,
+											   double *particlesA2,
+											   double *particlesB2,
+											   double *volume2,
+											   double *freeEnergyReturn,
+											   double *freeEnergy1Return,
+											   double *freeEnergy2Return,
+											   double *freeEnergy3Return) {
+	int phaseChangeOccurred = 0;
+	int freeEnergyMinimumIndexA1 = 1; // default to the center of the 6-D free energy trial matrix (1,1,1,1,1,1) as the initial minimum
+	int freeEnergyMinimumIndexB1 = 1;
+	int freeEnergyMinimumIndexV1 = 1;
+	int freeEnergyMinimumIndexA2 = 1;
+	int freeEnergyMinimumIndexB2 = 1;
+	int freeEnergyMinimumIndexV2 = 1;
+	int i = 0;
+	int j = 0;
+	int k = 0;
+	int l = 0;
+	int m = 0;
+	int n = 0;
+	double freeEnergyMinimum;
+	double freeEnergy1 = 0;
+	double freeEnergy2 = 0;
+	double freeEnergy3 = 0;
+	double invalidFreeEnergy = 500.* ncA;
+	double freeEnergyThreshold = 1e-12;
+	double freeEnergyComparisonThreshold = 1e-12; // asymmetric phase diagrams had invalid phase separations along singularity line with 1e-13
+
+	// This is the modification to each physical quantity (degree of freedom) for the trial free energy calculations
+	// dummy defaults to 0.1 (10% of step size used to calculate the theoretical phase diagram)
+	double trialStepSize = dummy * minimizationParticlesStepSize;
+
+	// 6-D array to hold trial free energies from which to choose the minimum value (particlesA1, particlesB1, volume1, particlesA2, particlesB2, volume2)
+	// Each physical quantity - degree of freedom - has 3 trial values (reference value - step size, reference value, reference value + step size)
+	struct FreeEnergy freeEnergyTrialArray[3][3][3][3][3][3];
+
+	#ifdef DEBUG_MINIMIZATION_ON
+	double debugValue = 0.51;
+	double * debugVariable = &particlesATotal;
+	FILE * debugData;
+	char debugData_name[255];
+	if ( (*debugVariable < debugValue+freeEnergyThreshold) && (*debugVariable > debugValue-freeEnergyThreshold) ) {
+		sprintf(debugData_name, "/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/debug/threePhaseDiagram-debugData_%f_%f.dat", particlesATotal, particlesBTotal);
+		debugData = fopen(debugData_name, "w");
+	}
+	#endif
+
+	// Initialize the minimum free energy to be that of the current test point on the phase diagram
+	freeEnergyMinimum = calculateFreeEnergyMinimumThreePhaseTrial(temperature,
+																  *particlesA1,
+																  *particlesB1,
+																  *volume1,
+																  *particlesA2,
+																  *particlesB2,
+																  *volume2,
+																  particlesATotal,
+																  particlesBTotal,
+																  volumeTotal,
+																  &freeEnergy1,
+																  &freeEnergy2,
+																  &freeEnergy3);
+
+	#ifdef DEBUG_MINIMIZATION_ON
+	if ((*debugVariable < debugValue+freeEnergyThreshold) && (*debugVariable > debugValue-freeEnergyThreshold)) {
+		fprintf(debugData, "Starting free energy minimum = %.15f\t%.15f\t%.15f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\n",
+				freeEnergyMinimum,
+				particlesATotal,
+				particlesBTotal,
+				volumeTotal,
+				*particlesA1,
+				*particlesB1,
+				*volume1,
+				*particlesA2,
+				*particlesB2,
+				*volume2);
+		fprintf(debugData, "Total particles = %.15f\t(loop limit %.15f)\n\n", (particlesATotal+particlesBTotal), (1/b));
+	}
+	#endif
+
+	//
+	// Minimize the free energy at a given test point on the phase diagram
+	//
+
+	while (trialStepSize > freeEnergyThreshold) {
+		#pragma omp parallel for collapse(6) firstprivate(freeEnergy1, freeEnergy2, freeEnergy3) // OpenMP parallelizes this 6-level for loop
+		for (i = 0; i < 3; i++) { // particlesA1 trials
+			for (j = 0; j < 3; j++) { // particlesB1 trials
+				for (k = 0; k < 3; k++){ // volume1 trials
+					for (l = 0; l < 3; l++) { // particlesA2 trials
+						for (m = 0; m < 3; m++) { // particlesB2 trials
+							for (n = 0; n < 3; n++){ // volume2 trials
+// Figure out why it doesn't work to determine phase 2 parameters now and then pass those in instead of passing in the totals
+//							tmpN1 = N1+D*(i-1);
+//							tmpM1 = M1+D*(j-1);
+//							tmpV1 = V1+D*(k-1);
+//							V2=1-V1;
+//							N2=Ntot-tmpN1;
+//							M2=Mtot-tmpM1;
+								freeEnergyTrialArray[i][j][k][l][m][n].freeEnergyTotal = calculateFreeEnergyMinimumThreePhaseTrial(temperature,
+										*particlesA1+trialStepSize*(i-1),
+										*particlesB1+trialStepSize*(j-1),
+										*volume1+trialStepSize*(k-1),
+										*particlesA2+trialStepSize*(l-1),
+										*particlesB2+trialStepSize*(m-1),
+										*volume2+trialStepSize*(n-1),
+										particlesATotal,
+										particlesBTotal,
+										volumeTotal,
+										&freeEnergy1,
+										&freeEnergy2,
+										&freeEnergy3);
+								freeEnergyTrialArray[i][j][k][l][m][n].freeEnergy1 = freeEnergy1;
+								freeEnergyTrialArray[i][j][k][l][m][n].freeEnergy2 = freeEnergy2;
+								freeEnergyTrialArray[i][j][k][l][m][n].freeEnergy3 = freeEnergy3;
+
+								#ifdef DEBUG_MINIMIZATION_ON
+								if ((*debugVariable < debugValue+freeEnergyThreshold) && (*debugVariable > debugValue-freeEnergyThreshold)) {
+									fprintf(debugData, "%.15f %.15f %.15f %.15f %.15f %.15f %.15f %i %i %i %i %i %i %.15f\n",
+											freeEnergyTrialArray[i][j][k][l][m][n].freeEnergyTotal,
+											*particlesA1+trialStepSize*(i-1),
+											*particlesB1+trialStepSize*(j-1),
+											*volume1+trialStepSize*(k-1),
+											*particlesA2+trialStepSize*(l-1),
+											*particlesB2+trialStepSize*(m-1),
+											*volume2+trialStepSize*(n-1),
+											i,
+											j,
+											k,
+											l,
+											m,
+											n,
+											trialStepSize);
+								}
+								#endif
+
+							} // end for n
+						} // end for m
+					} // end for l
+				} // end for k
+			} // end for j
+		} // end for i
+
+		#ifdef DEBUG_MINIMIZATION_ON
+		if ((*debugVariable < debugValue+freeEnergyThreshold) && (*debugVariable > debugValue-freeEnergyThreshold)) {
+			fprintf(debugData, "\n");
+		}
+		#endif
+
+		findIndexOfMinimumValue6DArray(freeEnergyTrialArray,
+									   &freeEnergyMinimumIndexA1,
+									   &freeEnergyMinimumIndexB1,
+									   &freeEnergyMinimumIndexV1,
+									   &freeEnergyMinimumIndexA2,
+									   &freeEnergyMinimumIndexB2,
+									   &freeEnergyMinimumIndexV2);
+
+		#ifdef DEBUG_MINIMIZATION_ON
+		if ((*debugVariable < debugValue+freeEnergyThreshold) && (*debugVariable > debugValue-freeEnergyThreshold)) {
+			fprintf(debugData, "Current free energy minimum = %.15f\tCompared to... %.15f\t%i %i %i %i %i %i\n\n",
+					freeEnergyMinimum,
+					freeEnergyTrialArray[freeEnergyMinimumIndexA1][freeEnergyMinimumIndexB1][freeEnergyMinimumIndexV1]
+					                    [freeEnergyMinimumIndexA2][freeEnergyMinimumIndexB2][freeEnergyMinimumIndexV2].freeEnergyTotal,
+					freeEnergyMinimumIndexA1,
+					freeEnergyMinimumIndexB1,
+					freeEnergyMinimumIndexV1,
+					freeEnergyMinimumIndexA2,
+					freeEnergyMinimumIndexB2,
+					freeEnergyMinimumIndexV2);
+		}
+		#endif
+
+		// If the initial free energy is not valid, dope the trial step size to skip the minimization while loop
+		// Shouldn't matter if this is the first or second time around
+		if (freeEnergyTrialArray[freeEnergyMinimumIndexA1][freeEnergyMinimumIndexB1][freeEnergyMinimumIndexV1]
+		                        [freeEnergyMinimumIndexA2][freeEnergyMinimumIndexB2][freeEnergyMinimumIndexV2].freeEnergyTotal > invalidFreeEnergy) {
+			trialStepSize = freeEnergyThreshold / 10;
+		}
+		// If a new minimum free energy is found, indicate a phase change has occurred and save the minimum information
+		else if ( (freeEnergyTrialArray[freeEnergyMinimumIndexA1][freeEnergyMinimumIndexB1][freeEnergyMinimumIndexV1]
+		                               [freeEnergyMinimumIndexA2][freeEnergyMinimumIndexB2][freeEnergyMinimumIndexV2].freeEnergyTotal + freeEnergyComparisonThreshold) < freeEnergyMinimum) {
+			phaseChangeOccurred = 1;
+
+			#ifdef DEBUG_MINIMIZATION_ON
+			if ((*debugVariable < debugValue+freeEnergyThreshold) && (*debugVariable > debugValue-freeEnergyThreshold)) {
+				fprintf(debugData, "Phase change occurred... replacing %.15f with %.15f\t%i %i %i %i %i %i\n\n",
+						freeEnergyMinimum,
+						freeEnergyTrialArray[freeEnergyMinimumIndexA1][freeEnergyMinimumIndexB1][freeEnergyMinimumIndexV1][freeEnergyMinimumIndexA2][freeEnergyMinimumIndexB2][freeEnergyMinimumIndexV2].freeEnergyTotal,
+						freeEnergyMinimumIndexA1,
+						freeEnergyMinimumIndexB1,
+						freeEnergyMinimumIndexV1,
+						freeEnergyMinimumIndexA2,
+						freeEnergyMinimumIndexB2,
+						freeEnergyMinimumIndexV2);
+			}
+			#endif
+
+			*particlesA1 += (freeEnergyMinimumIndexA1-1) * trialStepSize;
+			*particlesB1 += (freeEnergyMinimumIndexB1-1) * trialStepSize;
+			*volume1 += (freeEnergyMinimumIndexV1-1) * trialStepSize;
+
+			*particlesA2 += (freeEnergyMinimumIndexA2-1) * trialStepSize;
+			*particlesB2 += (freeEnergyMinimumIndexB2-1) * trialStepSize;
+			*volume2 += (freeEnergyMinimumIndexV2-1) * trialStepSize;
+
+			freeEnergyMinimum = freeEnergyTrialArray[freeEnergyMinimumIndexA1][freeEnergyMinimumIndexB1][freeEnergyMinimumIndexV1]
+			                                        [freeEnergyMinimumIndexA2][freeEnergyMinimumIndexB2][freeEnergyMinimumIndexV2].freeEnergyTotal;
+		}
+		// If there is not a new free energy minimum (previous step is still the min), reduce the step size for the next iteration
+		else {
+			trialStepSize /= 2;
+		}
+	} // end while loop; free energy minimization complete
+
+	#ifdef DEBUG_MINIMIZATION_ON
+	if ((*debugVariable < debugValue+freeEnergyThreshold) && (*debugVariable > debugValue-freeEnergyThreshold)) {
+		fclose(debugData);
+	}
+	#endif
+
+	//
+	// Return the free energy minimum and if a phase change occurred
+	//
+
+	*freeEnergyReturn = freeEnergyMinimum;
+	*freeEnergy1Return = freeEnergyTrialArray[freeEnergyMinimumIndexA1][freeEnergyMinimumIndexB1][freeEnergyMinimumIndexV1]
+	                                         [freeEnergyMinimumIndexA2][freeEnergyMinimumIndexB2][freeEnergyMinimumIndexV2].freeEnergy1;
+	*freeEnergy2Return = freeEnergyTrialArray[freeEnergyMinimumIndexA1][freeEnergyMinimumIndexB1][freeEnergyMinimumIndexV1]
+	                                         [freeEnergyMinimumIndexA2][freeEnergyMinimumIndexB2][freeEnergyMinimumIndexV2].freeEnergy2;
+	*freeEnergy3Return = freeEnergyTrialArray[freeEnergyMinimumIndexA1][freeEnergyMinimumIndexB1][freeEnergyMinimumIndexV1]
+	                                         [freeEnergyMinimumIndexA2][freeEnergyMinimumIndexB2][freeEnergyMinimumIndexV2].freeEnergy3;
+	return phaseChangeOccurred;
+} // end function minimizeFreeEnergyTwoComponentsThreePhases()
+
+
+/**
+ * @brief Function _detectTwoOrThreePhaseRegion_ determines if a particle, volume configuration for a free energy is in a 2- or 3-phase region and
+ * logs the configuration to an output file.
+ *
+ * This function accepts a particle and volume configuration associated with a free energy, calculates the densities of the A and B components,
+ * and compares the densities among all 3 phases to determine if a phase separation occurred in the 2-phase or 3-phase region of a theoretical
+ * phase diagram.  The number of phases in the configuration (2 or 3) is prepended to the particle, volume free energy configuration and
+ * logged to an output file.
+ *
+ * @param [in] phaseDetectionThreshold Threshold to use for determining if one phase's density is equal to another.
+ * @param [out] densities_file Pointer to the file to which the free energy configuration is written.
+ * @param [in,out] particlesATotal The total number of A particles in the mixture.
+ * @param [in,out] particlesBTotal The total number of B particles in the mixture.
+ * @param [in,out] volumeTotal The total volume occupied by the mixture.
+ * @param [in,out] particlesA1 The number of A particles in phase 1.
+ * @param [in,out] particlesB1 The number of B particles in phase 1.
+ * @param [in,out] volume1 The volume occupied by phase 1.
+ * @param [in,out] particlesA2 The number of A particles in phase 2.
+ * @param [in,out] particlesB2 The number of B particles in phase 2.
+ * @param [in,out] volume2 The volume occupied by phase 2.
+ * @param [out] freeEnergy The total minimized free energy.
+ * @param [out] freeEnergy1 The free energy of phase 1.
+ * @param [out] freeEnergy2 The free energy of phase 2.
+ * @param [out] freeEnergy3 The free energy of phase 3.
+ *
+ * @return Integer indicating if the configuration is in the 2-phase (2) or 3-phase (3) region.  (invalid returns 0)
+ */
+int detectTwoOrThreePhaseRegion(double phaseDetectionThreshold,
+								FILE * densities_file,
+								double particlesATotal,
+								double particlesBTotal,
+								double volumeTotal,
+								double particlesA1,
+								double particlesB1,
+								double volume1,
+								double particlesA2,
+								double particlesB2,
+								double volume2,
+								double freeEnergy,
+								double freeEnergy1,
+								double freeEnergy2,
+								double freeEnergy3) {
+	int twoOrThreePhases = 0;
+
+	// Calculate the densities from the minimization
+	double rhoA1 = particlesA1 / volume1;
+	double rhoA2 = particlesA2 / volume2;
+	double rhoA3 = (particlesATotal-particlesA1-particlesA2) / (volumeTotal-volume1-volume2);
+	double rhoB1 = particlesB1 / volume1;
+	double rhoB2 = particlesB2 / volume2;
+	double rhoB3 = (particlesBTotal-particlesB1-particlesB2) / (volumeTotal-volume1-volume2);
+
+	if (isEqual(rhoA1, rhoA2, phaseDetectionThreshold) && isEqual(rhoB1, rhoB2, phaseDetectionThreshold)) {  // two-phase region 1=2
+		twoOrThreePhases = 2;
+	}
+	else if (isEqual(rhoA1, rhoA3, phaseDetectionThreshold) && isEqual(rhoB1, rhoB3, phaseDetectionThreshold)) {  // two-phase region 1=3
+		twoOrThreePhases = 2;
+	}
+	else if (isEqual(rhoA2, rhoA3, phaseDetectionThreshold) && isEqual(rhoB2, rhoB3, phaseDetectionThreshold)) { // two-phase region 2=3
+		twoOrThreePhases = 2;
+	}
+	else { // three-phase region 1!=2, 2!=3, 3!=1
+		twoOrThreePhases = 3;
+	}
+
+	fprintf(densities_file, "%i %.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f\n",
+			twoOrThreePhases,
+			particlesATotal,
+			particlesBTotal,
+			volumeTotal,
+			particlesA1,
+			particlesB1,
+			volume1,
+			particlesA2,
+			particlesB2,
+			volume2,
+			freeEnergy,
+			freeEnergy1,
+			freeEnergy2,
+			freeEnergy3);
+
+	return twoOrThreePhases;
+} // end function detectTwoOrThreePhases()
+
+
+/**
+ * @brief Function _readThreePhaseRegionCoordinates_ reads the coordinates defining the 3-phase region of a phase diagram into a global array.
+ *
+ * The coordinates defining the 3-phase region of a phase diagram are stored in the global array _threePhaseRegion[]_ for runtime use.  When a
+ * function needs this information but a phase diagram has not been created, this function will read in the coordinates that were logged from
+ * a previous phase diagram creation and store them in _threePhaseRegion[]_.
+ */
+void readThreePhaseRegionCoordinates() {
+	FILE * three_phase_coords;
+	char three_phase_coords_name[255];
+	sprintf(three_phase_coords_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/three-phase-region-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	three_phase_coords = fopen(three_phase_coords_name, "r");
+
+	fscanf(three_phase_coords, "%lf %lf %lf %lf %lf %lf",&threePhaseRegion[0], &threePhaseRegion[1], &threePhaseRegion[2], &threePhaseRegion[3], &threePhaseRegion[4], &threePhaseRegion[5]);
+
+	fclose(three_phase_coords);
+	setThreePhaseRegion = 0; // coordinates no longer need to be set
+} // end function readThreePhaseRegionCoordinates()
+
+
+/**
+ * @brief Function _readMaxThreePhaseParticleCount_ determines the phase diagram test point with the largest number of total particles that
+ * produced a 3-phase separation.
+ *
+ * This function will scan the log file for the 3-phase region of a phase diagram and determine which test point has the largest total number
+ * of particles.  The total particle count is saved to the global variable _maxThreePhaseParticleCount_.  This value is used to help determine
+ * when a test point is on the "back" side (liquid-liquid region) of a phase diagram.
+ */
+void readMaxThreePhaseParticleCount() {
+	int readEOF = 0;
+	double particlesATotal = 0.0;
+	double particlesBTotal = 0.0;
+
+	FILE * three_phase_coords;
+	char three_phase_coords_name[255];
+	sprintf(three_phase_coords_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/threePhaseDiagram-densities-threePhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	three_phase_coords = fopen(three_phase_coords_name, "r");
+
+	readEOF = fscanf(three_phase_coords, "%lf %lf %*lf %*lf %*lf %*lf %*lf %*lf %*lf %*lf %*lf %*lf", &particlesATotal, &particlesBTotal);
+	while (readEOF != EOF) {
+		if (particlesATotal+particlesBTotal > maxThreePhaseParticleCount) {
+			maxThreePhaseParticleCount = particlesATotal + particlesBTotal;
+		}
+
+		readEOF = fscanf(three_phase_coords, "%lf %lf %*lf %*lf %*lf %*lf %*lf %*lf %*lf %*lf %*lf %*lf", &particlesATotal, &particlesBTotal);
+	}
+
+	fclose(three_phase_coords);
+} // end function readMaxThreePhaseParticleCount()
+
+
+/**
+ * @brief Function _insideThreePhaseRegion_ determines if a phase diagram test point is inside of a defined 3-phase region.
+ *
+ * It is assumed that the 3-phase region of a phase diagram is given by a triangular shape.  The coordinates of the 3-phase region are
+ * given by the global array _threePhaseRegion[]_.  The global flag _setThreePhaseRegion_ indicates if the triangle coordinates have already
+ * been set of they need to be read from a file.
+ *
+ * This function takes a point and a triangle and determines if the point is bounded by the triangle.
+ * The calculation is in terms of barycentric coordinates.
+ * - particlesATotal = x
+ * - particlesBTotal = y
+ * - threePhaseRegion coordinate indices: 0 = x1, 1 = y1, 2 = x2, 3 = y2, 4 = x3, 5 = y3
+ *
+ * @param [in] particlesATotal Total number of A particles in the given phase diagram test point.
+ * @param [in] particlesBTotal Total number of B particles in the given phase diagram test point.
+ *
+ * @return Boolean value indicating if the point is inside (1) or outside (0) the triangle.
+ */
+int insideThreePhaseRegion(double particlesATotal, double particlesBTotal) {
+	double a;
+	double b;
+	double c;
+	double denominator;
+
+	if (setThreePhaseRegion) {
+		readThreePhaseRegionCoordinates();
+	}
+
+	denominator = ( (threePhaseRegion[3]-threePhaseRegion[5])*(threePhaseRegion[0]-threePhaseRegion[4]) +
+			        (threePhaseRegion[4]-threePhaseRegion[2])*(threePhaseRegion[1]-threePhaseRegion[5]) );
+	a = ( (threePhaseRegion[3]-threePhaseRegion[5])*(particlesATotal-threePhaseRegion[4]) +
+		  (threePhaseRegion[4]-threePhaseRegion[2])*(particlesBTotal-threePhaseRegion[5]) ) / denominator;
+	b = ( (threePhaseRegion[5]-threePhaseRegion[1])*(particlesATotal-threePhaseRegion[4]) +
+		  (threePhaseRegion[0]-threePhaseRegion[4])*(particlesBTotal-threePhaseRegion[5]) ) / denominator;
+	c = 1 - a - b;
+
+	return 0 <= a && a <= 1 && 0 <= b && b <= 1 && 0 <= c && c <= 1;
+} // end function insideThreePhaseRegion()
+
+
+/**
+ * @brief Function _defineThreePhaseRegion_ uses coordinates from 3-phase free energy configurations to define the triangular bounds of the region.
+ *
+ * This function sets the coordinates that define a triangular 3-phase region of a phase diagram.  The region is determined by maximizing the area
+ * of the triangle that bounds the region.  A local static variable tracks the maximum area, and the coordinates of the triangle are written
+ * to the global array _threePhaseRegion[]_.
+ *
+ * @param [in] x1 X-coordinate of the triangle's 1st vertex.
+ * @param [in] y1 Y-coordinate of the triangle's 1st vertex.
+ * @param [in] x2 X-coordinate of the triangle's 2nd vertex.
+ * @param [in] y2 Y-coordinate of the triangle's 2nd vertex.
+ * @param [in] x3 X-coordinate of the triangle's 3rd vertex.
+ * @param [in] y3 Y-coordinate of the triangle's 3rd vertex.
+ */
+void defineThreePhaseRegion(double x1, double y1, double x2, double y2, double x3, double y3) {
+	double area = 0.0;
+
+	area = fabs(0.5 * (x1*(y2-y3) + x2*(y3-y1) + x3*(y1-y2)));
+
+	if (area > maxArea) {
+		threePhaseRegion[0] = x1;
+		threePhaseRegion[1] = y1;
+		threePhaseRegion[2] = x2;
+		threePhaseRegion[3] = y2;
+		threePhaseRegion[4] = x3;
+		threePhaseRegion[5] = y3;
+		maxArea = area;
+	}
+} // end function defineThreePhaseRegion()
+
+
+/**
+ * @brief Function _tieLineNeeded_ determines if a theoretical tie line is to be drawn for a given phase diagram test point.
+ *
+ * This function compares a phase diagram test point to a list of points for which theoretical tie lines are to be drawn.  If the test point
+ * is equal to a point in the list, a tie line is needed.
+ *
+ * @param [in] particlesA Number of A particles in the test point.
+ * @param [in] particlesB Number of B particles in the test point.
+ *
+ * @return Boolean indicating if a tie line is to be drawn (1) or not (0).
+ */
+int tieLineNeeded(double particlesA, double particlesB) {
+	int i = 0;
+	int particlePairs = 0;
+	int tieLineNeeded = 0;
+	double threshold = 1e-6;
+
+	// Static arrays that determine the A,B particle phase diagram test point for which theoretical tie lines are to be drawn
+	static double A[] = {0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.1, 1.2, 1.3, 1.4};
+	static double B[] = {0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.1, 1.2, 1.3, 1.4};
+
+	particlePairs = *(&A + 1) - A; // equivalent to sizeof(A)/sizeof(double);
+
+	for (i = 0; i < particlePairs; i++) {
+		if (isEqual(A[i], particlesA, threshold)) {
+			if (isEqual(B[i], particlesB, threshold)) {
+				tieLineNeeded = 1;
+				break;
+			}
+		}
+	}
+
+	return tieLineNeeded;
+} // end function tieLineNeeded()
+
+
+/**
+ * @brief Function _backSideOfPhaseDiagram_ determines if a given phase diagram test point is in the liquid-liquid region of the phase diagram.
+ *
+ * This function determines if a test point is on the "back" of the phase diagram (liquid-liquid phase region) by comparing the point to a line
+ * which defines the "front" and "back" parts of the phase diagram.
+ *
+ * @note It is assumed the points defining the line are on the X,Y axes of the phase diagram so the other coordinates are automatically zero.
+ *
+ * @param [in] pointX X-coordinate of the test point.
+ * @param [in] pointY Y-coordinate of the test point.
+ * @param [in] lineX X-axis coordinate of the phase diagram for the dividing line.
+ * @param [in] lineY Y-axis coordinate of the phase diagram for the dividing line.
+ *
+ * @return Integer indicating if the test point is on the front (+1) or back (-1) of the phase diagram (0 is on the line).
+ */
+int backSideOfPhaseDiagram(double pointX, double pointY, double lineX, double lineY) {
+	double position;
+	position = (0.0 - lineX)*(pointY - 0.0) - (lineY - 0.0)*(pointX - lineX);
+
+	if (position > 0.0) {
+		return 1;
+	}
+	else if (position < 0.0) { // - slope on phase diagram, so this is the true/positive result
+		return -1;
+	}
+	else { // on the line
+		return 0;
+	}
+} // end function backSideOfPhaseDiagram()
+
+
+/**
+ * @brief Function _generatePhaseDiagramBinodalLines_ generates files that define the binodal lines of a phase diagram.
+ *
+ * This function reads the log file for the 2-phase points of the phase diagram and builds phase diagram binodals from the densities in phases
+ * 1 and 2.  Binodals are divided into six segments, and densities are sorted and saved into six arrays (1 array per binodal segment).  The sorting
+ * logic determines if a density is in the A-rich liquid-vapor region, B-rich liquid-vapor, or A/B liquid-liquid region of the phase diagram.
+ * The densities are ordered such that the binodals in the liquid-vapor regions originate on the phase diagram axes and the binodals on the "back"
+ * side (liquid-liquid) of the phase diagram originate on the 3-phase region boundary.  The arrays are then output to binodal log files in an
+ * order suitable for plotting with gnuplot.
+ */
+void generatePhaseDiagramBinodalLines() {
+	int i = 0;
+	int readEOF = 0;
+	int binodalArraySize = 0;
+	int binodalInsertIndex = 0;
+	int binodalAVaporTail = -1;
+	int binodalALiquidTail = -1;
+	int binodalARichTail = -1;
+	int binodalBVaporTail = -1;
+	int binodalBLiquidTail = -1;
+	int binodalBRichTail = -1;
+	double particlesATotal = 0.0;
+	double particlesBTotal = 0.0;
+	double rhoA1 = 0;
+	double rhoA2 = 0;
+	double rhoA3 = 0;
+	double rhoB1 = 0;
+	double rhoB2 = 0;
+	double rhoB3 = 0;
+	double phaseDetectionThreshold = 1e-4;
+
+	int setLineAPoint = 1;
+	int setLineBPoint = 1;
+	double lineAPoint = 0;
+	double lineBPoint = 0;
+
+	binodalArraySize = 0.5 * pow((3.0/minimizationParticlesStepSize), 2.0);  // full triangle of possible points that phase separate
+
+	struct BinodalPoint binodalPoint1;
+	struct BinodalPoint binodalPoint2;
+	struct BinodalPoint * binodalAVaporArray = calloc(binodalArraySize, sizeof(binodalPoint1));
+	struct BinodalPoint * binodalALiquidArray = calloc(binodalArraySize, sizeof(binodalPoint1));
+	struct BinodalPoint * binodalARichArray = calloc(binodalArraySize, sizeof(binodalPoint1));
+	struct BinodalPoint * binodalBVaporArray = calloc(binodalArraySize, sizeof(binodalPoint1));
+	struct BinodalPoint * binodalBLiquidArray = calloc(binodalArraySize, sizeof(binodalPoint1));
+	struct BinodalPoint * binodalBRichArray = calloc(binodalArraySize, sizeof(binodalPoint1));
+
+	FILE * two_phase_coords;
+	FILE * phaseDiagram_binodal;
+	char two_phase_coords_name[255];
+	char phaseDiagram_binodal_name[255];
+	sprintf(two_phase_coords_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/threePhaseDiagram-densities-twoPhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	sprintf(phaseDiagram_binodal_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/threePhaseDiagram-binodal_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	two_phase_coords = fopen(two_phase_coords_name, "r");
+	phaseDiagram_binodal = fopen(phaseDiagram_binodal_name, "w");
+
+	if (isEqual(maxThreePhaseParticleCount, 0.0, phaseDetectionThreshold)) {
+		readMaxThreePhaseParticleCount();
+	}
+
+	// Build line to divide back of the phase diagram in case there are no 3-phase points to do so
+	// Connects the largest B-axis phase-separated density to the largest A-axis phase separated density
+	// TODO: need another method for when a component is above the critical temperature and there is no density on the axis to use
+	readEOF = fscanf(two_phase_coords, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf", &particlesATotal, &particlesBTotal, &rhoA1, &rhoB1, &rhoA2, &rhoB2, &rhoA3, &rhoB3);
+	while (readEOF != EOF) {
+		checkVaporPhase(&rhoA1, &rhoB1, &rhoA2, &rhoB2, &rhoA3, &rhoB3, particlesATotal, particlesBTotal);
+		if (setLineBPoint) {
+			if (isEqual(rhoA2, 0.0, phaseDetectionThreshold)) { // phase 2 is the B-rich phase
+				lineBPoint = rhoB2;
+				setLineBPoint = 0;
+			}
+		}
+		else if (setLineAPoint) {
+			if (isEqual(rhoB1, 0.0, phaseDetectionThreshold)) { // phase 1 is the A-rich phase
+				lineAPoint = rhoA1;
+				setLineAPoint = 0;
+			}
+		}
+		else {
+			break;
+		}
+		readEOF = fscanf(two_phase_coords, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf", &particlesATotal, &particlesBTotal, &rhoA1, &rhoB1, &rhoA2, &rhoB2, &rhoA3, &rhoB3);
+	}
+
+	fseek(two_phase_coords, 0, SEEK_SET); // reset the file pointer to the start
+	readEOF = fscanf(two_phase_coords, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf", &particlesATotal, &particlesBTotal, &rhoA1, &rhoB1, &rhoA2, &rhoB2, &rhoA3, &rhoB3);
+	while (readEOF != EOF) {
+		if (!insideThreePhaseRegion(particlesATotal, particlesBTotal)) { // filter out weird metastable 2-phase contributions to the binodal
+			binodalPoint1.particlesA = particlesATotal;
+			binodalPoint1.particlesB = particlesBTotal;
+			binodalPoint2.particlesA = particlesATotal;
+			binodalPoint2.particlesB = particlesBTotal;
+
+			checkVaporPhase(&rhoA1, &rhoB1, &rhoA2, &rhoB2, &rhoA3, &rhoB3, particlesATotal, particlesBTotal);
+
+			binodalPoint1.rhoA = rhoA1;
+			binodalPoint1.rhoB = rhoB1;
+			binodalPoint2.rhoA = rhoA2;
+			binodalPoint2.rhoB = rhoB2;
+
+			// Insert the binodal points in pairs depending on where in the phase diagram the parent/spinodal region point is located
+			// Uses 2 methods to detect if on the "back" of the phase diagram (i.e. in the liquid-liquid coexistence region)
+			binodalInsertIndex = 0;
+			if ( (!isEqual(maxThreePhaseParticleCount, 0.0, phaseDetectionThreshold) && particlesATotal+particlesBTotal > maxThreePhaseParticleCount) ||
+				 (isEqual(maxThreePhaseParticleCount, 0.0, phaseDetectionThreshold) && backSideOfPhaseDiagram(particlesATotal, particlesBTotal, lineAPoint, lineBPoint) == -1) ) {
+				for (i = 0; i <= binodalARichTail; i++) {
+					if (rhoA1 >= binodalARichArray[i].rhoA) {
+						binodalInsertIndex = i + 1;
+					}
+				}
+				arrayInsertBinodalPoint(binodalARichArray, binodalPoint1, binodalInsertIndex, &binodalARichTail);
+				arrayInsertBinodalPoint(binodalBRichArray, binodalPoint2, binodalInsertIndex, &binodalBRichTail);
+			}
+			else if ( (particlesATotal > particlesBTotal) && (!isEqual(rhoA1, rhoA2, phaseDetectionThreshold)) ) {
+				for (i = 0; i <= binodalAVaporTail; i++) {
+					if (rhoB2 >= binodalAVaporArray[i].rhoB) {
+						binodalInsertIndex = i + 1;
+					}
+				}
+				arrayInsertBinodalPoint(binodalAVaporArray, binodalPoint2, binodalInsertIndex, &binodalAVaporTail);
+				arrayInsertBinodalPoint(binodalALiquidArray, binodalPoint1, binodalInsertIndex, &binodalALiquidTail);
+			}
+			else if ( (particlesBTotal > particlesATotal) && (!isEqual(rhoB1, rhoB2, phaseDetectionThreshold)) ) {
+				for (i = 0; i <= binodalBVaporTail; i++) {
+					if (rhoA1 >= binodalBVaporArray[i].rhoA) {
+						binodalInsertIndex = i + 1;
+					}
+				}
+				arrayInsertBinodalPoint(binodalBVaporArray, binodalPoint1, binodalInsertIndex, &binodalBVaporTail);
+				arrayInsertBinodalPoint(binodalBLiquidArray, binodalPoint2, binodalInsertIndex, &binodalBLiquidTail);
+			}
+		}
+
+		readEOF = fscanf(two_phase_coords, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf", &particlesATotal, &particlesBTotal, &rhoA1, &rhoB1, &rhoA2, &rhoB2, &rhoA3, &rhoB3);
+	}
+
+	//
+	// Read out arrays to binodal files in the order needed for gnuplot
+	//
+
+	// Vapor binodal line
+	for (i = 0; i <= binodalBVaporTail; i++) { // read B-vapor forwards
+		fprintf(phaseDiagram_binodal, "%.15f %.15f\n", binodalBVaporArray[i].rhoA, binodalBVaporArray[i].rhoB);
+	}
+	fprintf(phaseDiagram_binodal, "\n\n");
+	for (i = binodalAVaporTail; i >= 0; i--) { // read A-vapor backwards to connect to end of B-vapor line
+		fprintf(phaseDiagram_binodal, "%.15f %.15f\n", binodalAVaporArray[i].rhoA, binodalAVaporArray[i].rhoB);
+	}
+	fprintf(phaseDiagram_binodal, "\n\n");
+
+	// B binodal line
+	for (i = 0; i <= binodalBLiquidTail; i++) { // read B-liquid forwards
+		fprintf(phaseDiagram_binodal, "%.15f %.15f\n", binodalBLiquidArray[i].rhoA, binodalBLiquidArray[i].rhoB);
+	}
+	fprintf(phaseDiagram_binodal, "\n\n");
+	for (i = 0; i <= binodalBRichTail; i++) { // read B-rich forwards
+		fprintf(phaseDiagram_binodal, "%.15f %.15f\n", binodalBRichArray[i].rhoA, binodalBRichArray[i].rhoB);
+	}
+	fprintf(phaseDiagram_binodal, "\n\n");
+
+	// A binodal line
+	for (i = 0; i <= binodalALiquidTail; i++) { // read A-liquid forwards
+		fprintf(phaseDiagram_binodal, "%.15f %.15f\n", binodalALiquidArray[i].rhoA, binodalALiquidArray[i].rhoB);
+	}
+	fprintf(phaseDiagram_binodal, "\n\n");
+	for (i = 0; i <= binodalARichTail; i++) { // read A-rich forwards
+		fprintf(phaseDiagram_binodal, "%.15f %.15f\n", binodalARichArray[i].rhoA, binodalARichArray[i].rhoB);
+	}
+
+	free(binodalAVaporArray);
+	free(binodalALiquidArray);
+	free(binodalARichArray);
+	free(binodalBVaporArray);
+	free(binodalBLiquidArray);
+	free(binodalBRichArray);
+
+	fclose(two_phase_coords);
+	fclose(phaseDiagram_binodal);
+
+	printf("Binodal lines complete\n");
+} // end function generatePhaseDiagramBinodalLines()
+
+
+/**
+ * @brief Function _generateMinimizedPressureAndMuDeviations_ calculates deviations among the theoretical pressure and chemical potential values for
+ * each phase of a free energy minimization to confirm correct equilibrium behavior.
+ *
+ * This function is used to calculate the pressures and chemical potentials of the densities found in free energy minimization.
+ * It calculates differences between the 2 or 3 phases and logs them for plotting.
+ * A difference of zero means the 2 phases have the same pressure and/or chemical potential in equilibrium (way it should be).
+ * Only calculates pressures and chemical potentials in the bulk phases.
+ */
+void generateMinimizedPressureAndMuDeviations() {
+	int readEOF = 0;
+	double particlesATotal = 0.0;
+	double particlesBTotal = 0.0;
+	double rhoA1 = 0.0;
+	double rhoB1 = 0.0;
+	double rhoA2 = 0.0;
+	double rhoB2 = 0.0;
+	double rhoA3 = 0.0;
+	double rhoB3 = 0.0;
+	double pressure1 = 0.0;
+	double muA1 = 0.0;
+	double muB1 = 0.0;
+	double pressure2 = 0.0;
+	double muA2 = 0.0;
+	double muB2 = 0.0;
+	double pressure3 = 0.0;
+	double muA3 = 0.0;
+	double muB3 = 0.0;
+	double maxPressureDeviation = 0.0;
+	double maxMuADeviation = 0.0;
+	double maxMuBDeviation = 0.0;
+
+	FILE * phaseDiagram_densities_twoPhases;
+	FILE * phaseDiagram_densities_threePhases;
+	FILE * pressure_deviations_theoretical;
+	FILE * mu_deviations_theoretical;
+	char phaseDiagram_densities_twoPhases_name[255];
+	char phaseDiagram_densities_threePhases_name[255];
+	char pressure_deviations_theoretical_name[255];
+	char mu_deviations_theoretical_name[255];
+	sprintf(phaseDiagram_densities_twoPhases_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/threePhaseDiagram-densities-twoPhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	sprintf(phaseDiagram_densities_threePhases_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/threePhaseDiagram-densities-threePhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	sprintf(pressure_deviations_theoretical_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/pressure-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	sprintf(mu_deviations_theoretical_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/chemical-potential-deviations_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	phaseDiagram_densities_twoPhases = fopen(phaseDiagram_densities_twoPhases_name, "r");
+	phaseDiagram_densities_threePhases = fopen(phaseDiagram_densities_threePhases_name, "r");
+	pressure_deviations_theoretical = fopen(pressure_deviations_theoretical_name,"w");
+	mu_deviations_theoretical = fopen(mu_deviations_theoretical_name,"w");
+
+	printf("processing 2-phase densities...\n");
+	readEOF = fscanf(phaseDiagram_densities_twoPhases, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf",
+			&particlesATotal, &particlesBTotal, &rhoA1, &rhoB1, &rhoA2, &rhoB2, &rhoA3, &rhoB3);
+	while (readEOF != EOF) {
+
+		//
+		// Calculate bulk chemical potentials for each phase
+		//
+		if (particlesATotal == 0) {
+			muB1 = theta*log(rhoB1/(1.-bB*rhoB1)) + theta*bB*rhoB1/(1.-bB*rhoB1) + theta - 2.*aB*rhoB1;
+			muB2 = theta*log(rhoB2/(1.-bB*rhoB2)) + theta*bB*rhoB2/(1.-bB*rhoB2) + theta - 2.*aB*rhoB2;
+			muB3 = theta*log(rhoB3/(1.-bB*rhoB3)) + theta*bB*rhoB3/(1.-bB*rhoB3) + theta - 2.*aB*rhoB3;
+			muA1 = 0;
+			muA2 = 0;
+			muA3 = 0;
+		}
+		else if (particlesBTotal == 0) {
+			muA1 = theta*log(rhoA1/(1.-bA*rhoA1)) + theta*bA*rhoA1/(1.-bA*rhoA1) + theta - 2.*aA*rhoA1;
+			muA2 = theta*log(rhoA2/(1.-bA*rhoA2)) + theta*bA*rhoA2/(1.-bA*rhoA2) + theta - 2.*aA*rhoA2;
+			muA3 = theta*log(rhoA3/(1.-bA*rhoA3)) + theta*bA*rhoA3/(1.-bA*rhoA3) + theta - 2.*aA*rhoA3;
+			muB1 = 0;
+			muB2 = 0;
+			muB3 = 0;
+		}
+		else {
+			muA1 = theta*log(rhoA1/(1.-bA*rhoA1-bB*rhoB1)) + theta*bA*(rhoA1+rhoB1)/(1.-bA*rhoA1-bB*rhoB1) + theta - 2*aA*rhoA1 - 2*aAB*rhoB1;
+			muB1 = theta*log(rhoB1/(1.-bA*rhoA1-bB*rhoB1)) + theta*bB*(rhoA1+rhoB1)/(1.-bA*rhoA1-bB*rhoB1) + theta - 2*aB*rhoB1 - 2*aAB*rhoA1;
+			muA2 = theta*log(rhoA2/(1.-bA*rhoA2-bB*rhoB2)) + theta*bA*(rhoA2+rhoB2)/(1.-bA*rhoA2-bB*rhoB2) + theta - 2*aA*rhoA2 - 2*aAB*rhoB2;
+			muB2 = theta*log(rhoB2/(1.-bA*rhoA2-bB*rhoB2)) + theta*bB*(rhoA2+rhoB2)/(1.-bA*rhoA2-bB*rhoB2) + theta - 2*aB*rhoB2 - 2*aAB*rhoA2;
+			muA3 = theta*log(rhoA3/(1.-bA*rhoA3-bB*rhoB3)) + theta*bA*(rhoA3+rhoB3)/(1.-bA*rhoA3-bB*rhoB3) + theta - 2*aA*rhoA3 - 2*aAB*rhoB3;
+			muB3 = theta*log(rhoB3/(1.-bA*rhoA3-bB*rhoB3)) + theta*bB*(rhoA3+rhoB3)/(1.-bA*rhoA3-bB*rhoB3) + theta - 2*aB*rhoB3 - 2*aAB*rhoA3;
+		}
+
+		// Determine chemical potential deviations among phases
+		maxMuADeviation = fabs(muA1-muA2);
+		if (fabs(muA1-muA3) > maxMuADeviation) {
+			maxMuADeviation = fabs(muA1-muA3);
+		}
+		if (fabs(muA2-muA3) > maxMuADeviation) {
+			maxMuADeviation = fabs(muA2-muA3);
+		}
+		maxMuBDeviation = fabs(muB1-muB2);
+		if (fabs(muB1-muB3) > maxMuBDeviation) {
+			maxMuBDeviation = fabs(muB1-muB3);
+		}
+		if (fabs(muB2-muB3) > maxMuBDeviation) {
+			maxMuBDeviation = fabs(muB2-muB3);
+		}
+
+		//
+		// Determine bulk pressures
+		//
+		pressure1 = (rhoA1+rhoB1)*theta*(1 + (bA*rhoA1+bB*rhoB1)/(1.-bA*rhoA1-bB*rhoB1)) - aA*rhoA1*rhoA1 - 2*aAB*rhoA1*rhoB1 - aB*rhoB1*rhoB1;
+		pressure2 = (rhoA2+rhoB2)*theta*(1 + (bA*rhoA2+bB*rhoB2)/(1.-bA*rhoA2-bB*rhoB2)) - aA*rhoA2*rhoA2 - 2*aAB*rhoA2*rhoB2 - aB*rhoB2*rhoB2;
+		pressure3 = (rhoA3+rhoB3)*theta*(1 + (bA*rhoA3+bB*rhoB3)/(1.-bA*rhoA3-bB*rhoB3)) - aA*rhoA3*rhoA3 - 2*aAB*rhoA3*rhoB3 - aB*rhoB3*rhoB3;
+		//			pressure1 = rhoA1*muA1 + rhoB1*muB1 - (rhoA1*theta*log(rhoA1/(1.-rhoA1*bA-rhoB1*bB)) + rhoB1*theta*log(rhoB1/(1.-rhoA1*bA-rhoB1*bB)) - aA*rhoA1*rhoA1 - 2*aAB*rhoB1*rhoA1 - aB*rhoB1*rhoB1);
+		//			pressure2 = rhoA2*muA2 + rhoB2*muB2 - (rhoA2*theta*log(rhoA2/(1.-rhoA2*bA-rhoB2*bB)) + rhoB2*theta*log(rhoB2/(1.-rhoA2*bA-rhoB2*bB)) - aA*rhoA2*rhoA2 - 2*aAB*rhoB2*rhoA2 - aB*rhoB2*rhoB2);
+		//			pressure3 = rhoA3*muA3 + rhoB3*muB3 - (rhoA3*theta*log(rhoA3/(1.-rhoA3*bA-rhoB3*bB)) + rhoB3*theta*log(rhoB3/(1.-rhoA3*bA-rhoB3*bB)) - aA*rhoA3*rhoA3 - 2*aAB*rhoB3*rhoA3 - aB*rhoB3*rhoB3);
+
+		// Determine pressure deviations among phases
+		maxPressureDeviation = fabs(pressure1-pressure2);
+		if (fabs(pressure1-pressure3) > maxPressureDeviation) {
+			maxPressureDeviation = fabs(pressure1-pressure3);
+		}
+		if (fabs(pressure2-pressure3) > maxPressureDeviation) {
+			maxPressureDeviation = fabs(pressure2-pressure3);
+		}
+
+		fprintf(pressure_deviations_theoretical,"%.15f %.15f %.15f %.15f %.15f %.15f\n", particlesATotal, particlesBTotal, maxPressureDeviation, pressure1, pressure2, pressure3);
+		fprintf(mu_deviations_theoretical,"%.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f\n", particlesATotal, particlesBTotal, maxMuADeviation, maxMuBDeviation, muA1, muB1, muA2, muB2, muA2, muB3);
+		readEOF = fscanf(phaseDiagram_densities_twoPhases, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf",
+				&particlesATotal, &particlesBTotal, &rhoA1, &rhoB1, &rhoA2, &rhoB2, &rhoA3, &rhoB3);
+	}
+
+	// Mark the data sets to divide the 2-phase from the 3-phase densities
+	fprintf(pressure_deviations_theoretical,"%.15f\n", -0.1);
+	fprintf(mu_deviations_theoretical,"%.15f %.15f\n", -0.1, -0.1);
+
+	printf("processing 3-phase densities...\n");
+	readEOF = fscanf(phaseDiagram_densities_threePhases, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf",
+			&particlesATotal, &particlesBTotal, &rhoA1, &rhoB1, &rhoA2, &rhoB2, &rhoA3, &rhoB3);
+	while (readEOF != EOF) {
+
+		//
+		// Calculate bulk chemical potentials for each phase
+		//
+		if (particlesATotal == 0) {
+			muB1 = theta*log(rhoB1/(1.-bB*rhoB1)) + theta*bB*rhoB1/(1.-bB*rhoB1) + theta - 2.*aB*rhoB1;
+			muB2 = theta*log(rhoB2/(1.-bB*rhoB2)) + theta*bB*rhoB2/(1.-bB*rhoB2) + theta - 2.*aB*rhoB2;
+			muB3 = theta*log(rhoB3/(1.-bB*rhoB3)) + theta*bB*rhoB3/(1.-bB*rhoB3) + theta - 2.*aB*rhoB3;
+			muA1 = muB1;
+			muA2 = muB2;
+			muA3 = muB3;
+		}
+		else if (particlesBTotal == 0) {
+			muA1 = theta*log(rhoA1/(1.-bA*rhoA1)) + theta*bA*rhoA1/(1.-bA*rhoA1) + theta - 2.*aA*rhoA1;
+			muA2 = theta*log(rhoA2/(1.-bA*rhoA2)) + theta*bA*rhoA2/(1.-bA*rhoA2) + theta - 2.*aA*rhoA2;
+			muA3 = theta*log(rhoA3/(1.-bA*rhoA3)) + theta*bA*rhoA3/(1.-bA*rhoA3) + theta - 2.*aA*rhoA3;
+			muB1 = muA1;
+			muB2 = muA2;
+			muB3 = muA3;
+		}
+		else {
+			muA1 = theta*log(rhoA1/(1.-bA*rhoA1-bB*rhoB1)) + theta*bA*(rhoA1+rhoB1)/(1.-bA*rhoA1-bB*rhoB1) + theta - 2*aA*rhoA1 - 2*aAB*rhoB1;
+			muB1 = theta*log(rhoB1/(1.-bA*rhoA1-bB*rhoB1)) + theta*bB*(rhoA1+rhoB1)/(1.-bA*rhoA1-bB*rhoB1) + theta - 2*aB*rhoB1 - 2*aAB*rhoA1;
+			muA2 = theta*log(rhoA2/(1.-bA*rhoA2-bB*rhoB2)) + theta*bA*(rhoA2+rhoB2)/(1.-bA*rhoA2-bB*rhoB2) + theta - 2*aA*rhoA2 - 2*aAB*rhoB2;
+			muB2 = theta*log(rhoB2/(1.-bA*rhoA2-bB*rhoB2)) + theta*bB*(rhoA2+rhoB2)/(1.-bA*rhoA2-bB*rhoB2) + theta - 2*aB*rhoB2 - 2*aAB*rhoA2;
+			muA3 = theta*log(rhoA3/(1.-bA*rhoA3-bB*rhoB3)) + theta*bA*(rhoA3+rhoB3)/(1.-bA*rhoA3-bB*rhoB3) + theta - 2*aA*rhoA3 - 2*aAB*rhoB3;
+			muB3 = theta*log(rhoB3/(1.-bA*rhoA3-bB*rhoB3)) + theta*bB*(rhoA3+rhoB3)/(1.-bA*rhoA3-bB*rhoB3) + theta - 2*aB*rhoB3 - 2*aAB*rhoA3;
+		}
+
+		// Determine chemical potential deviations among phases
+		maxMuADeviation = fabs(muA1-muA2);
+		if (fabs(muA1-muA3) > maxMuADeviation) {
+			maxMuADeviation = fabs(muA1-muA3);
+		}
+		if (fabs(muA2-muA3) > maxMuADeviation) {
+			maxMuADeviation = fabs(muA2-muA3);
+		}
+		maxMuBDeviation = fabs(muB1-muB2);
+		if (fabs(muB1-muB3) > maxMuBDeviation) {
+			maxMuBDeviation = fabs(muB1-muB3);
+		}
+		if (fabs(muB2-muB3) > maxMuBDeviation) {
+			maxMuBDeviation = fabs(muB2-muB3);
+		}
+
+		//
+		// Determine bulk pressures
+		//
+		pressure1 = (rhoA1+rhoB1)*theta*(1 + (bA*rhoA1+bB*rhoB1)/(1.-bA*rhoA1-bB*rhoB1)) - aA*rhoA1*rhoA1 - 2*aAB*rhoA1*rhoB1 - aB*rhoB1*rhoB1;
+		pressure2 = (rhoA2+rhoB2)*theta*(1 + (bA*rhoA2+bB*rhoB2)/(1.-bA*rhoA2-bB*rhoB2)) - aA*rhoA2*rhoA2 - 2*aAB*rhoA2*rhoB2 - aB*rhoB2*rhoB2;
+		pressure3 = (rhoA3+rhoB3)*theta*(1 + (bA*rhoA3+bB*rhoB3)/(1.-bA*rhoA3-bB*rhoB3)) - aA*rhoA3*rhoA3 - 2*aAB*rhoA3*rhoB3 - aB*rhoB3*rhoB3;
+
+		// Determine pressure deviations among phases
+		maxPressureDeviation = fabs(pressure1-pressure2);
+		if (fabs(pressure1-pressure3) > maxPressureDeviation) {
+			maxPressureDeviation = fabs(pressure1-pressure3);
+		}
+		if (fabs(pressure2-pressure3) > maxPressureDeviation) {
+			maxPressureDeviation = fabs(pressure2-pressure3);
+		}
+
+		fprintf(pressure_deviations_theoretical,"%.15f %.15f %.15f %.15f %.15f %.15f\n", particlesATotal, particlesBTotal, maxPressureDeviation, pressure1, pressure2, pressure3);
+				fprintf(mu_deviations_theoretical,"%.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f\n", particlesATotal, particlesBTotal, maxMuADeviation, maxMuBDeviation, muA1, muB1, muA2, muB2, muA2, muB3);
+		readEOF = fscanf(phaseDiagram_densities_threePhases, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf",
+				&particlesATotal, &particlesBTotal, &rhoA1, &rhoB1, &rhoA2, &rhoB2, &rhoA3, &rhoB3);
+	}
+
+	fclose(phaseDiagram_densities_twoPhases);
+	fclose(phaseDiagram_densities_threePhases);
+	fclose(pressure_deviations_theoretical);
+	fclose(mu_deviations_theoretical);
+
+	printf("Pressure and chemical potential deviations complete\n\n");
+} // end function generateMinimizedPressureAndMuDeviations()
+
+
+/**
+ * @brief Function _calculatePhaseDiagramRhoAVsRhoBTwoPhasesTheoretical_ calculates a theoretical binary phase diagram that allows for 2 phases to co-exist.
+ */
+void calculatePhaseDiagramRhoAVsRhoBTwoPhasesTheoretical(){
+	int phaseChangeOccurred = 0;
+	int freeEnergyMinimumIndexA = 1;
+	int freeEnergyMinimumIndexB = 1;
+	int freeEnergyMinimumIndexV = 1;
+	double freeEnergyMinimum;
+	double particlesATotal;
+	double particlesBTotal;
+	double particlesA1;
+	double particlesB1;
+	double volume1 = 0.5;
+	double volumeTotal = 1;
+	double tmpTheta = theta;
+	double particlesStepSize = 0.05;
+	double trialStepSize = 0.1;
+	double freeEnergyThreshold = 1e-6;
+	double freeEnergyTrialArray[3][3][3];
+
+	FILE * phaseDiagram_densities_theoretical;
+	FILE * phaseDiagram_spinodal;
+	FILE * phaseDiagram_tieLines;
+	char phaseDiagram_densities_theoretical_name[255];
+	char phaseDiagram_spinodal_name[255];
+	char phaseDiagram_tieLines_name[255];
+	sprintf(phaseDiagram_densities_theoretical_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/twoPhaseDiagram-densities-theoretical_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	sprintf(phaseDiagram_spinodal_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/twoPhaseDiagram-spinodal_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	sprintf(phaseDiagram_tieLines_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/twoPhaseDiagram-tie-lines-theoretical_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	phaseDiagram_densities_theoretical = fopen(phaseDiagram_densities_theoretical_name, "w");
+	phaseDiagram_spinodal = fopen(phaseDiagram_spinodal_name, "w");
+	phaseDiagram_tieLines = fopen(phaseDiagram_tieLines_name, "w");
+
+	#ifdef DEBUG_MINIMIZATION_ON
+	double debugValue = 2.5;
+	double * debugVariable = &particlesBTotal;
+	FILE * debugData;
+	char * debugData_name = "/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/twoPhaseDiagram-debugData.dat";
+	debugData = fopen(debugData_name, "w");
+	#endif
+
+	for (particlesATotal = 0; particlesATotal < (1/b-freeEnergyThreshold); particlesATotal += particlesStepSize) {
+		for (particlesBTotal = 0; (particlesBTotal+particlesATotal) < (1/b-freeEnergyThreshold); particlesBTotal += particlesStepSize) {
+			//printf("Testing... particlesATotal %.15f, particlesBTotal %.15f\n", particlesATotal, particlesBTotal);
+			volume1 = 0.5 * volumeTotal;
+			particlesA1 = particlesATotal * volume1;
+			particlesB1 = particlesBTotal * volume1;
+
+			trialStepSize=0.1;
+			phaseChangeOccurred = 0;
+
+			// initialize the minimum free energy to be that of the current test point and see if the while loop converges elsewhere
+			freeEnergyMinimum = calculateFreeEnergyMinimumTwoPhaseTrial(tmpTheta, particlesA1, particlesB1, volume1, particlesATotal, particlesBTotal, volumeTotal);
+
+			#ifdef DEBUG_MINIMIZATION_ON
+			if ((*debugVariable < debugValue+freeEnergyThreshold) && (*debugVariable > debugValue-freeEnergyThreshold)) {
+				fprintf(debugData, "Starting free energy minimum = %.15f\t%.15f\t%.15f\t%f\t%f\t%f\t%f\n",
+						freeEnergyMinimum,
+						particlesATotal,
+						particlesBTotal,
+						volumeTotal,
+						particlesA1,
+						particlesB1,
+						volume1);
+				fprintf(debugData, "Total particles = %.15f\t(loop limit %.15f)\n\n", (particlesATotal+particlesBTotal), (1/b));
+			}
+			#endif
+
+			while (trialStepSize > freeEnergyThreshold) {
+				for (int i = 0; i < 3; i++) {
+					for (int j = 0; j < 3; j++) {
+						for (int k = 0; k < 3; k++){
+							freeEnergyTrialArray[i][j][k] = calculateFreeEnergyMinimumTwoPhaseTrial(tmpTheta,
+																									particlesA1+trialStepSize*(i-1),
+																									particlesB1+trialStepSize*(j-1),
+																									volume1+trialStepSize*(k-1),
+																									particlesATotal,
+																									particlesBTotal,
+																									volumeTotal);
+
+							#ifdef DEBUG_MINIMIZATION_ON
+							if ((*debugVariable < debugValue+freeEnergyThreshold) && (*debugVariable > debugValue-freeEnergyThreshold)) {
+								fprintf(debugData, "%.15f %.15f %.15f %.15f %i %i %i %.15f\n",
+										freeEnergyTrialArray[i][j][k],
+										particlesA1+trialStepSize*(i-1),
+										particlesB1+trialStepSize*(j-1),
+										volume1+trialStepSize*(k-1),
+										i,
+										j,
+										k,
+										trialStepSize);
+							}
+							#endif
+						}
+					}
+				}
+
+				#ifdef DEBUG_MINIMIZATION_ON
+				if ((*debugVariable < debugValue+freeEnergyThreshold) && (*debugVariable > debugValue-freeEnergyThreshold)) {
+					fprintf(debugData, "\n");
+				}
+				#endif
+
+				findIndexOfMinimumValue3DArray(freeEnergyTrialArray, &freeEnergyMinimumIndexA, &freeEnergyMinimumIndexB, &freeEnergyMinimumIndexV);
+
+				#ifdef DEBUG_MINIMIZATION_ON
+				if ((*debugVariable < debugValue+freeEnergyThreshold) && (*debugVariable > debugValue-freeEnergyThreshold)) {
+					fprintf(debugData, "Current free energy minimum = %.15f\tCompared to... %.15f\t%i %i %i\n\n",
+							freeEnergyMinimum,
+							freeEnergyTrialArray[freeEnergyMinimumIndexA][freeEnergyMinimumIndexB][freeEnergyMinimumIndexV],
+							freeEnergyMinimumIndexA,
+							freeEnergyMinimumIndexB,
+							freeEnergyMinimumIndexV);
+				}
+				#endif
+
+				if (freeEnergyTrialArray[freeEnergyMinimumIndexA][freeEnergyMinimumIndexB][freeEnergyMinimumIndexV] < freeEnergyMinimum) {
+					phaseChangeOccurred = 1;
+
+					#ifdef DEBUG_MINIMIZATION_ON
+					if ((*debugVariable < debugValue+freeEnergyThreshold) && (*debugVariable > debugValue-freeEnergyThreshold)) {
+						fprintf(debugData, "Phase change occurred... replacing %.15f with %.15f\t%i %i %i\n\n",
+								freeEnergyMinimum,
+								freeEnergyTrialArray[freeEnergyMinimumIndexA][freeEnergyMinimumIndexB][freeEnergyMinimumIndexV],
+								freeEnergyMinimumIndexA,
+								freeEnergyMinimumIndexB,
+								freeEnergyMinimumIndexV);
+					}
+					#endif
+
+					particlesA1 += (freeEnergyMinimumIndexA-1) * trialStepSize;
+					particlesB1 += (freeEnergyMinimumIndexB-1) * trialStepSize;
+					volume1 += (freeEnergyMinimumIndexV-1) * trialStepSize;
+					freeEnergyMinimum = freeEnergyTrialArray[freeEnergyMinimumIndexA][freeEnergyMinimumIndexB][freeEnergyMinimumIndexV];
+				}
+				else {
+					trialStepSize /= 2;
+				}
+			} // end while loop
+
+			if (phaseChangeOccurred) {
+				fprintf(phaseDiagram_densities_theoretical, "%e %e %e %e\n", particlesA1/volume1, particlesB1/volume1, (particlesATotal-particlesA1)/(1-volume1), (particlesBTotal-particlesB1)/(1-volume1));
+				fprintf(phaseDiagram_spinodal, "%e %e\n", particlesATotal, particlesBTotal);
+				if (tieLineNeeded(particlesATotal, particlesBTotal)) {
+					fprintf(phaseDiagram_tieLines, "%e %e\n%e %e\n\n", particlesA1/volume1, particlesB1/volume1, (particlesATotal-particlesA1)/(1-volume1), (particlesBTotal-particlesB1)/(1-volume1));
+				}
+			}
+
+		} // end for loop (B particles)
+	} // end for loop (A particles)
+
+	printf("Done!\n");
+	fclose(phaseDiagram_densities_theoretical);
+	fclose(phaseDiagram_spinodal);
+	fclose(phaseDiagram_tieLines);
+
+	#ifdef DEBUG_MINIMIZATION_ON
+	fclose(debugData);
+	#endif
+
+	gnuplotTwoComponentTwoPhase(tmpTheta);
+} // end function calculatePhaseDiagramRhoAVsRhoBTwoPhasesTheoretical()
+
+
+/**
+ * @brief Function _calculatePhaseDiagramRhoAVsRhoBThreePhasesTheoretical_ calculates a theoretical binary phase diagram that allows for 3 phases to co-exist.
+ *
+ * This function generates a theoretical phase diagram by looping over all possible (A,B) density pairs and performing a minimization of the
+ * Helmholtz free energy for a binary van der Waals fluid mixture.  The limits of the density pairs to test are defined by the global parameter _b_,
+ * which is proportional to the diameter of a hard-core particle (i.e. related to excluded volume).  Using this as the limit avoids a singularity in
+ * the free energy calculation.
+ *
+ * @note The global parameter _b_ is defaults to equal to 1/3.
+ * @note The local parameter _phaseDetectionThreshold_ controls the sensitivity that determines if a test point is classified as a 2-phase or 3-phase
+ * minimization (tighter thresholds will classify more points as 3-phase).
+ */
+void calculatePhaseDiagramRhoAVsRhoBThreePhasesTheoretical(){
+	int phaseChangeOccurred = 0;
+	int twoOrThreePhases = 0;
+	int readEOF = 0;
+	double freeEnergy = 0;
+	double freeEnergy1 = 0;
+	double freeEnergy2 = 0;
+	double freeEnergy3 = 0;
+	double particlesATotal;
+	double particlesBTotal;
+	double particlesA1;
+	double particlesB1;
+	double particlesA2;
+	double particlesB2;
+	double volume1 = 0.5;
+	double volume2 = 0.5;
+	double volumeTotal = 1;
+	double rhoA1 = 0;
+	double rhoA2 = 0;
+	double rhoA3 = 0;
+	double rhoB1 = 0;
+	double rhoB2 = 0;
+	double rhoB3 = 0;
+	double tmpTheta = theta;
+	double particleSizeThreshold = 1e-6;
+	double phaseDetectionThreshold = 1e-3; // also tested 1e-4, 0.01, 1e-9, 1e-5
+
+	FILE * phaseDiagram_densities_twoPhases;
+	FILE * phaseDiagram_densities_threePhases;
+	FILE * phaseDiagram_tieLines;
+	FILE * densities_tmp;
+	char phaseDiagram_densities_twoPhases_name[255];
+	char phaseDiagram_densities_threePhases_name[255];
+	char phaseDiagram_tieLines_name[255];
+	char densities_tmp_name[255];
+	sprintf(phaseDiagram_densities_twoPhases_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/threePhaseDiagram-densities-twoPhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	sprintf(phaseDiagram_densities_threePhases_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/threePhaseDiagram-densities-threePhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	sprintf(phaseDiagram_tieLines_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/threePhaseDiagram-tie-lines-theoretical_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	sprintf(densities_tmp_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/densities-tmp_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	phaseDiagram_densities_twoPhases = fopen(phaseDiagram_densities_twoPhases_name, "w");
+	phaseDiagram_densities_threePhases = fopen(phaseDiagram_densities_threePhases_name, "w");
+	phaseDiagram_tieLines = fopen(phaseDiagram_tieLines_name, "w");
+	densities_tmp = fopen(densities_tmp_name, "w+"); // read/write
+
+	time_t clockRunTime;
+	clock_t processorRunTime;
+	clockRunTime = time(NULL);
+	processorRunTime = clock();
+	printf("Minimizing free energy... 2 components, 3 phases allowed...\n");
+
+	// Write line coordinates of points connecting component A and component B excluded volume b parameters
+	FILE * singularity_coords;
+	char singularity_coords_name[255];
+	sprintf(singularity_coords_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/singularity-line-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	singularity_coords = fopen(singularity_coords_name, "w");
+	fprintf(singularity_coords, "%.15f %.15f\n%.15f %.15f",	0.0, 1/bB, 1/bA, 0.0);
+	fclose(singularity_coords);
+
+	for (particlesATotal = 0; particlesATotal < (1/bA-particleSizeThreshold); particlesATotal += minimizationParticlesStepSize) {
+		for (particlesBTotal = 0; (particlesBTotal+particlesATotal) < (1/bB-particleSizeThreshold); particlesBTotal += minimizationParticlesStepSize) {
+
+			volume1 = volumeTotal / 3.;
+			volume2 = volumeTotal / 3.;
+			particlesA1 = particlesATotal * volume1;
+			particlesB1 = particlesBTotal * volume1;
+			particlesA2 = particlesATotal * volume2;
+			particlesB2 = particlesBTotal * volume2;
+
+			phaseChangeOccurred = minimizeFreeEnergyTwoComponentsThreePhases(tmpTheta,
+																			 particlesATotal,
+																			 particlesBTotal,
+																			 volumeTotal,
+																			 &particlesA1,
+																			 &particlesB1,
+																			 &volume1,
+																			 &particlesA2,
+																			 &particlesB2,
+																			 &volume2,
+																			 &freeEnergy,
+																			 &freeEnergy1,
+																			 &freeEnergy2,
+																			 &freeEnergy3);
+
+			if (phaseChangeOccurred) {
+
+				// Determine if the first minimization resulted in 2 or 3 phases, and write all to a temp file
+				twoOrThreePhases = detectTwoOrThreePhaseRegion(phaseDetectionThreshold,
+															   densities_tmp,
+															   particlesATotal,
+															   particlesBTotal,
+															   volumeTotal,
+															   particlesA1,
+															   particlesB1,
+															   volume1,
+															   particlesA2,
+															   particlesB2,
+															   volume2,
+															   freeEnergy,
+															   freeEnergy1,
+															   freeEnergy2,
+															   freeEnergy3);
+
+				// Evaluate 3-phase points to set the bounds of the 3-phase region
+				if (twoOrThreePhases == 3) {
+
+					// This helps to determine when on the "back" side of the 3-phase region (i.e. in the liquid-liquid region)
+					if (particlesATotal+particlesBTotal > maxThreePhaseParticleCount) {
+						maxThreePhaseParticleCount = particlesATotal + particlesBTotal;
+					}
+
+					defineThreePhaseRegion(particlesA1 / volume1,
+							particlesB1 / volume1,
+							particlesA2 / volume2,
+							particlesB2 / volume2,
+							(particlesATotal-particlesA1-particlesA2) / (volumeTotal-volume1-volume2),
+							(particlesBTotal-particlesB1-particlesB2) / (volumeTotal-volume1-volume2));
+				}
+			} // end if (phaseChangeOccurred)
+
+		} // end for loop (B particles)
+	} // end for loop (A particles)
+
+	// Write 3-phase coordinates to a file so future program runs that do not minimize free energy don't need to re-define them
+	FILE * three_phase_coords;
+	char three_phase_coords_name[255];
+	sprintf(three_phase_coords_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/three-phase-region-coords_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	three_phase_coords = fopen(three_phase_coords_name, "w");
+	fprintf(three_phase_coords, "%.15f %.15f %.15f %.15f %.15f %.15f",
+			threePhaseRegion[0], threePhaseRegion[1], threePhaseRegion[2], threePhaseRegion[3], threePhaseRegion[4], threePhaseRegion[5]);
+	fclose(three_phase_coords);
+	setThreePhaseRegion = 0;
+
+	// Write the phase-separated points to log files specific to the 2- or 3-phase regions of the phase diagram
+	fseek(densities_tmp, 0, SEEK_SET); // reset the file pointer to the start
+	readEOF = fscanf(densities_tmp, "%i %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf",
+			&twoOrThreePhases, &particlesATotal, &particlesBTotal, &volumeTotal, &particlesA1, &particlesB1, &volume1, &particlesA2, &particlesB2, &volume2, &freeEnergy, &freeEnergy1, &freeEnergy2, &freeEnergy3);
+	while (readEOF != EOF) {
+		rhoA1 = particlesA1 / volume1;
+		rhoA2 = particlesA2 / volume2;
+		rhoA3 = (particlesATotal-particlesA1-particlesA2) / (volumeTotal-volume1-volume2);
+		rhoB1 = particlesB1 / volume1;
+		rhoB2 = particlesB2 / volume2;
+		rhoB3 = (particlesBTotal-particlesB1-particlesB2) / (volumeTotal-volume1-volume2);
+
+//		// Old code...
+//		// A point previously separated into 2 phases, but it is identified as being inside the 3-phase region
+//		// For such points, recalculate free energy with the previous end state as the initial condition
+//		// This attempts to provide a "flucutation" of sorts to force a metastable 2-phase point to separate into 3 phases
+//		if (twoOrThreePhases == 2 && insideThreePhaseRegion(particlesATotal, particlesBTotal)) {
+//
+//			// Re-pack the phases from the first minimization to be the initial conditions for the second minimization
+//			if (isEqual(rhoA1, rhoA2, phaseDetectionThreshold) && isEqual(rhoB1, rhoB2, phaseDetectionThreshold)) {
+//				volume1 += volume2;
+//				particlesA1 += particlesA2;
+//				particlesB1 += particlesB2;
+//				volume2 = volumeTotal - volume1;
+//				particlesA2 = particlesATotal - particlesA1;
+//				particlesB2 = particlesBTotal - particlesB1;
+//			}
+//			else if (isEqual(rhoA1, rhoA3, phaseDetectionThreshold) && isEqual(rhoB1, rhoB3, phaseDetectionThreshold)) {
+//				volume1 += (volumeTotal-volume1-volume2);
+//				particlesA1 += (particlesATotal-particlesA1-particlesA2);
+//				particlesB1 += (particlesBTotal-particlesB1-particlesB2);
+//			}
+//			else if (isEqual(rhoA2, rhoA3, phaseDetectionThreshold) && isEqual(rhoB2, rhoB3, phaseDetectionThreshold)) {
+//				volume2 += (volumeTotal-volume1-volume2);
+//				particlesA2 += (particlesATotal-particlesA1-particlesA2);
+//				particlesB2 += (particlesBTotal-particlesB1-particlesB2);
+//			}
+//
+//			// Do the second free energy minimization
+//			phaseChangeOccurred = minimizeFreeEnergyTwoComponentsThreePhases(tmpTheta,
+//					particlesATotal,
+//					particlesBTotal,
+//					volumeTotal,
+//					&particlesA1,
+//					&particlesB1,
+//					&volume1,
+//					&particlesA2,
+//					&particlesB2,
+//					&volume2,
+//					&freeEnergy,
+//					&freeEnergy1,
+//					&freeEnergy2,
+//					&freeEnergy3);
+//
+//			// If this happens, an old 2-phase was just identified as really a 3-phase
+//			if (phaseChangeOccurred) {
+//
+//				// twoOrThreePhases = 3;
+//				//				twoOrThreePhases = detectTwoOrThreePhaseRegion(phaseDetectionThreshold,
+//				//						densities_tmp,
+//				//						particlesATotal,
+//				//						particlesBTotal,
+//				//						volumeTotal,
+//				//						particlesA1,
+//				//						particlesB1,
+//				//						volume1,
+//				//						particlesA2,
+//				//						particlesB2,
+//				//						volume2,
+//				//						freeEnergy,
+//				//						freeEnergy1,
+//				//						freeEnergy2,
+//				//						freeEnergy3);
+//
+//				// Calculate the new phase-separated densities
+//				rhoA1 = particlesA1 / volume1;
+//				rhoA2 = particlesA2 / volume2;
+//				rhoA3 = (particlesATotal-particlesA1-particlesA2) / (volumeTotal-volume1-volume2);
+//				rhoB1 = particlesB1 / volume1;
+//				rhoB2 = particlesB2 / volume2;
+//				rhoB3 = (particlesBTotal-particlesB1-particlesB2) / (volumeTotal-volume1-volume2);
+//			}
+//
+//		} // end if (twoOrThreePhases == 2 && insideThreePhaseRegion)
+
+		if (twoOrThreePhases == 2) {
+			fprintf(phaseDiagram_densities_twoPhases, "%.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f\n",
+					particlesATotal, particlesBTotal, rhoA1, rhoB1, rhoA2, rhoB2, rhoA3, rhoB3, freeEnergy, freeEnergy1, freeEnergy2, freeEnergy3);
+		}
+		else if (twoOrThreePhases == 3) {
+
+			if (rhoA3 == 0 && rhoB3 == 0) {
+				printf("(%.15f,%.15f) identified 3-phase; appears to be meta-stable with 2 phases\n", particlesATotal, particlesBTotal);
+				printf("rhoA1 = %.18f\trhoB1 = %.18f\n", rhoA1, rhoB1);
+				printf("rhoA2 = %.18f\trhoB2 = %.18f\n", rhoA2, rhoB2);
+				printf("rhoA3 = %.18f\trhoB3 = %.18f\n", rhoA3, rhoB3);
+				printf("... assigning 3 = 1\n\n");
+
+				rhoA3 = rhoA1;
+				rhoB3 = rhoB1;
+			}
+
+			fprintf(phaseDiagram_densities_threePhases, "%.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f\n",
+					particlesATotal, particlesBTotal, rhoA1, rhoB1, rhoA2, rhoB2, rhoA3, rhoB3, freeEnergy, freeEnergy1, freeEnergy2, freeEnergy3);
+		}
+		else {
+			printf("Unphysical phase detected... %i %.15f %.15f %.15f %.15f %.15f %.15f %.15f %.15f\n", twoOrThreePhases, particlesATotal, particlesBTotal, rhoA1, rhoB1, rhoA2, rhoB2, rhoA3, rhoB3);
+		}
+
+		// Automatically generate tie lines and write
+		if (tieLineNeeded(particlesATotal, particlesBTotal)) {
+			fprintf(phaseDiagram_tieLines, "%.15f %.15f\n%.15f %.15f\n%.15f %.15f\n\n", rhoA1, rhoB1, rhoA2, rhoB2, rhoA3, rhoB3);
+		}
+
+		#ifdef DEBUG_TIELINES_ON
+		FILE * single_tieLine_points;
+		FILE * single_tieLine;
+		char single_tieLine_points_name[255];
+		sprintf(single_tieLine_points_name, "/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/tie-lines/tieLines-points_%f_%f.dat", particlesATotal, particlesBTotal);
+		single_tieLine_points = fopen(single_tieLine_points_name, "w");
+		fprintf(single_tieLine_points, "%e %e %e %e %e %e %e %e\n", particlesATotal, particlesBTotal, theoreticalDensityA1, rhoB1, rhoA2, rhoB2, rhoA3, rhoB3);
+		fclose(single_tieLine_points);
+
+		char single_tieLine_name[255];
+		sprintf(single_tieLine_name, "/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/tie-lines/tieLines_%f_%f.dat", particlesATotal, particlesBTotal);
+		single_tieLine = fopen(single_tieLine_name, "w");
+		fprintf(single_tieLine, "%e %e\n%e %e\n%e %e\n", theoreticalDensityA1, rhoB1, rhoA2, rhoB2, rhoA3, rhoB3);
+		fclose(single_tieLine);
+		#endif
+
+		readEOF = fscanf(densities_tmp, "%i %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf",
+				&twoOrThreePhases, &particlesATotal, &particlesBTotal, &volumeTotal, &particlesA1, &particlesB1, &volume1, &particlesA2, &particlesB2, &volume2, &freeEnergy, &freeEnergy1, &freeEnergy2, &freeEnergy3);
+	} // end while
+
+	fclose(phaseDiagram_densities_twoPhases);
+	fclose(phaseDiagram_densities_threePhases);
+	fclose(phaseDiagram_tieLines);
+	fclose(densities_tmp);
+	generateMinimizedPressureAndMuDeviations();
+	generatePhaseDiagramBinodalLines();
+	gnuplotTwoComponentThreePhase();
+	logVDWParameters();
+
+	printRunTime( (clock()-processorRunTime), difftime(time(NULL),clockRunTime) );
+	printf("\nDone! Free energy minimization complete.\n\n");
+} // end function calculatePhaseDiagramRhoAVsRhoBThreePhasesTheoretical()
+
+
+/**
+ * @brief Function _calculatePhaseDiagramRhoVsPressureTheoretical_ calculates the theoretical density vs. pressure curve.
+ *
+ * @note This function is only applicable for single-component van der Waals pressure calculations.
+ * @note The densities produced by calculatePhaseDiagramRhoVsTempTheoretical() for the density vs. temp phase diagram are required as input.
+ */
+void calculatePhaseDiagramRhoVsPressureTheoretical() {
+
+	int readEOF = 0;
+	double tmpTheta = theta;
+	double tmpRho = 0;
+	double tmpPressure = 0;
+
+	FILE *phaseDiagram_rhoVsPressure_theoretical; // write new pressure data here
+	FILE *phaseDiagram_densities_theoretical; // read the densities from this file
+	phaseDiagram_rhoVsPressure_theoretical = fopen("/home/clark/school/Lattice Boltzmann/Maxwell construction/phaseDiagram_rhoVsPressure_theoretical.dat","w");
+	phaseDiagram_densities_theoretical = fopen("/home/clark/school/Lattice Boltzmann/Maxwell construction/phaseDiagram_densities_theoretical.dat","r");
+
+	readEOF = fscanf(phaseDiagram_densities_theoretical, "%lf", &tmpRho);
+	while (readEOF != EOF) {
+		printf("next density...%.15f\n", tmpRho);
+
+		tmpPressure = tmpRho*tmpTheta + (bA*tmpRho*tmpRho*tmpTheta)/(1.-bA*tmpRho) - aA*tmpRho*tmpRho;
+		fprintf(phaseDiagram_rhoVsPressure_theoretical,"%.15f %.15f\n", tmpRho, tmpPressure);
+		readEOF = fscanf(phaseDiagram_densities_theoretical, "%lf", &tmpRho);
+	}
+
+	fclose(phaseDiagram_rhoVsPressure_theoretical);
+	fclose(phaseDiagram_densities_theoretical);
+	printf("Rho vs Pressure phase diagram complete!\n\n");
+
+} // end function calculatePhaseDiagramRhoVsPressureTheoretical()
+
+
+/**
+ * @brief Function _calculatePhaseDiagramRhoVsMuTheoretical_ calculates the theoretical density vs. chemical potential curve.
+ *
+ * @note This function is only applicable for single-component van der Waals chemical potential calculations.
+ * @note The densities produced by calculatePhaseDiagramRhoVsTempTheoretical() for the density vs. temp phase diagram are required as input.
+ */
+void calculatePhaseDiagramRhoVsMuTheoretical() {
+
+	int readEOF = 0;
+	double tmpTheta = theta;
+	double tmpRho = 0;
+	double tmpMu = 0;
+
+	FILE *phaseDiagram_rhoVsMu_theoretical; // write new pressure data here
+	FILE *phaseDiagram_densities_theoretical; // read the densities from this file
+	phaseDiagram_rhoVsMu_theoretical = fopen("/home/clark/school/Lattice Boltzmann/Maxwell construction/phaseDiagram_rhoVsMu_theoretical.dat","w");
+	phaseDiagram_densities_theoretical = fopen("/home/clark/school/Lattice Boltzmann/Maxwell construction/phaseDiagram_densities_theoretical.dat","r");
+
+	readEOF = fscanf(phaseDiagram_densities_theoretical, "%lf", &tmpRho);
+	while (readEOF != EOF) {
+		printf("next density...%.15f\n", tmpRho);
+
+		tmpMu = tmpTheta*log(tmpRho/(1.-bA*tmpRho)) + tmpTheta*bA*tmpRho/(1.-bA*tmpRho) + tmpTheta - 2.*aA*tmpRho;
+		fprintf(phaseDiagram_rhoVsMu_theoretical,"%.15f %.15f\n", tmpRho, tmpMu);
+		readEOF = fscanf(phaseDiagram_densities_theoretical, "%lf", &tmpRho);
+	}
+
+	fclose(phaseDiagram_rhoVsMu_theoretical);
+	fclose(phaseDiagram_densities_theoretical);
+	printf("Rho vs Mu phase diagram complete!\n\n");
+
+} // end function calculatePhaseDiagramRhoVsMuTheoretical()
+
+
+void setLBInitializationProfile() {
+	switch (useTwoPhaseStepInitialization) {
+	case 1:
+		setInitializeRandom();
+		break;
+	case 2:
+		setInitializeTheoreticalTwoPhases();
+		break;
+	case 3:
+		setInitializeTheoreticalThreePhases();
+		break;
+	}
+} // end function setTwoPhaseInitialization()
+
+
+/**
+ * @brief Function _getPhaseDiagramRhoAVsRhoBTwoPhaseRegion_ runs LB simulations in the 2-phase regions of a phase diagram.
+ *
+ * This function runs lattice Boltzmann simulations in the 2-phase regions of a phase diagram at test points defined by the global values
+ * _nA0_, _nB0_ for A- and B-component total particles.  All test points are automatically looped through, and a test point is excluded if it
+ * falls within a defined 3-phase region of the phase diagram.  The LB simulation points are along the lines defined as follows:
+ * - The A-axis at [1,0] (the value 1e-12 is used instead of 0 to avoid discontinuities).
+ * - The B-axis at [0,1] (again using 1e-12 instead of 0).
+ * - Vertically from the A-axis (1,0) to the point [1,1] inclusive in steps of +0.1.
+ * - Horizontally from the B-axis (0,1) to the point (1,1) exclusive in steps of +0.1.
+ * - Diagonally from the B-axis (0,1) to the A-axis (1,0) exclusive in steps of (+0.1,-0.1).
+ * - Diagonally from the point (1,1) exclusive to the point [1.4,1.4] inclusive in steps of (+0.1,+0.1).
+ *
+ * Test points on the A- and B-axes are initialized with a randomized density profile centered on the global values _nA0_ and _nB0_.
+ * All other test points are initialized by default in a 2-phase step profile with densities given by the theoretical minimization.
+ *
+ * @note The loop for the last diagonal line of test points automatically adjusts the global values _kappa_ and _gammaMu_ to "soften"
+ * the simulation at the interfaces and help keep the simulation stable.
+ * @note The global parameter _useTwoPhaseStepInitialization_ can change the method used to initialize the LB simulations (1 = random,
+ * 2 = 2-phase steps, 3 = 3-phase steps).
+ */
+void getPhaseDiagramRhoAVsRhoBTwoPhaseRegion() {
+	int i = 0;
+	double tmpKappa = kappa;
+	double tmpGammaMu = gammaMu;
+	double lbStepSize = 0.1;
+	double particleThreshold = 1e-2;
+
+	FILE *phase_results;
+	char phase_results_name[255];
+	sprintf(phase_results_name, "/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/LB-phase-data-%i_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat",
+			useChemicalPotentialForcingMethod, tcA, tcB, aA, aAB, aB);
+	phase_results = fopen(phase_results_name,"w");
+
+	// Start benchmarking to compare the processor time used to the wall clock time taken to execute
+	time_t clockRunTime;
+	clock_t processorRunTime;
+	clockRunTime = time(NULL);
+	processorRunTime = clock();
+
+	//
+	// Hack the A-component axis
+	//
+	kappa = 0.25;
+	nA0 = 1.0;
+	nB0 = 1e-12;
+	setInitializeRandom();
+	printf("nA0=%f\tnB0=%f\n", nA0, nB0);
+	for (i=0; i < phase_iterations; i++) {
+		iteration();
+	}
+
+	findIndicesOfMinMaxValues1DArray(n1, &phase1Index, &phase2Index);
+	if (!isEqual(n1[phase1Index], nA0, particleThreshold) && !isEqual(n1[phase2Index], nA0, particleThreshold)) {
+		fprintf(phase_results,"%f %f %f %f\n", n1[phase1Index], n2[phase1Index], nA0, nB0);
+		fprintf(phase_results,"%f %f %f %f\n", n1[phase2Index], n2[phase2Index], nA0, nB0);
+	}
+	Events(1);
+	DrawGraphs();
+
+	//
+	// Hack the B-component axis
+	//
+	nA0 = 1e-12;
+	nB0 = 1.0;
+	setInitializeRandom(); // set theoretical densities from a true single-component case
+	printf("nA0=%f\tnB0=%f\n", nA0, nB0);
+	for (i=0; i < phase_iterations; i++) {
+		iteration();
+	}
+
+	findIndicesOfMinMaxValues1DArray(n2, &phase1Index, &phase2Index);
+	if (!isEqual(n2[phase1Index], nB0, particleThreshold) && !isEqual(n2[phase2Index], nB0, particleThreshold)) {
+		fprintf(phase_results,"%f %f %f %f\n", n1[phase1Index], n2[phase1Index], nA0, nB0);
+		fprintf(phase_results,"%f %f %f %f\n", n1[phase2Index], n2[phase2Index], nA0, nB0);
+	}
+	Events(1);
+	DrawGraphs();
+
+	setThreePhaseRegion = 1; // ensure the correct boundaries are being used
+
+	//
+	// Move vertically from A-component axis to [1,1]
+	//
+	kappa = 0.1;
+	nA0 = 1.0;
+	for (nB0 = 0.1; nB0 <= 1.0; nB0 += lbStepSize) {
+
+		// Only handle expected 2-phase region points here... separate function to do the 3-phase LB simulations
+		if (insideThreePhaseRegion(nA0, nB0)) {
+			continue;
+		}
+
+		setLBInitializationProfile(); // do this every time in case no theoretical data forces random initialization but step is wanted
+		printf("nA0=%f\tnB0=%f\n", nA0, nB0);
+		for (i=0; i < phase_iterations; i++) {
+			iteration();
+		}
+
+		if (!isEqual(n1[phase1Index], nA0, particleThreshold) && !isEqual(n2[phase1Index], nB0, particleThreshold)) {
+			fprintf(phase_results,"%f %f %f %f\n", n1[phase1Index], n2[phase1Index], nA0, nB0);
+			fprintf(phase_results,"%f %f %f %f\n", n1[phase2Index], n2[phase2Index], nA0, nB0);
+		}
+		Events(1);
+		DrawGraphs();
+	}
+
+	//
+	// Move horizontally from B-component axis to [1,1]
+	//
+	nB0 = 1.0;
+	for (nA0 = 0.1; nA0 < 1.0-particleThreshold; nA0 += lbStepSize) {
+
+		// Only handle expected 2-phase region points here... separate function to do the 3-phase LB simulations
+		if (insideThreePhaseRegion(nA0, nB0)) {
+			continue;
+		}
+
+		setLBInitializationProfile(); // do this every time in case no theoretical data forces random initialization but step is wanted
+		printf("nA0=%f\tnB0=%f\n", nA0, nB0);
+		for (i=0; i < phase_iterations; i++) {
+			iteration();
+		}
+
+		if (!isEqual(n1[phase1Index], nA0, particleThreshold) && !isEqual(n2[phase1Index], nB0, particleThreshold)) {
+			fprintf(phase_results,"%f %f %f %f\n", n1[phase1Index], n2[phase1Index], nA0, nB0);
+			fprintf(phase_results,"%f %f %f %f\n", n1[phase2Index], n2[phase2Index], nA0, nB0);
+		}
+		Events(1);
+		DrawGraphs();
+	}
+
+	//
+	// Move diagonally from B-axis (0.0,1.0) to A-axis (1.0,0.0)
+	//
+	nB0 = 0.9;
+	for (nA0 = 0.1; nA0 < 1.0-particleThreshold; nA0 += lbStepSize) {
+
+		// Only handle expected 2-phase region points here... separate function to do the 3-phase LB simulations
+		if (insideThreePhaseRegion(nA0, nB0)) {
+			continue;
+		}
+
+		setLBInitializationProfile(); // do this every time in case no theoretical data forces random initialization but step is wanted
+		printf("nA0=%f\tnB0=%f\n", nA0, nB0);
+		for (i=0; i < phase_iterations; i++) {
+			iteration();
+		}
+
+		// This region may have maxA/maxB and minA/minB paired together instead of the usual maxA/minB, minA/maxB
+		// TODO: some parameter combinations resulted in unstable simulations throughout this region
+		if (!isEqual(n1[phase1Index], nA0, particleThreshold) && !isEqual(n2[phase1Index], nB0, particleThreshold)) {
+			fprintf(phase_results,"%f %f %f %f\n", n1[phase1Index], n2[phase1Index], nA0, nB0);
+			fprintf(phase_results,"%f %f %f %f\n", n1[phase2Index], n2[phase2Index], nA0, nB0);
+		}
+		Events(1);
+		DrawGraphs();
+
+		nB0 -= lbStepSize;
+	}
+
+	//
+	// Move diagonally from [1.1,1.1] to (1.5,1.5) - expect only 2-phase behavior in this region
+	//
+	nA0 = 1.1;
+	nB0 = 1.1;
+	gammaMu *= 0.5;
+	kappa += 0.4;
+	while ( (nA0 <= 1.5-particleThreshold) && (nB0 < 1.5-particleThreshold) ) {
+		setLBInitializationProfile(); // do this every time in case no theoretical data forces random initialization but step is wanted
+		printf("nA0=%f\tnB0=%f\n", nA0, nB0);
+		for (i=0; i < phase_iterations; i++) {
+			iteration();
+		}
+
+		if (!isEqual(n1[phase1Index], nA0, particleThreshold) && !isEqual(n2[phase1Index], nB0, particleThreshold)) {
+			fprintf(phase_results,"%f %f %f %f\n", n1[phase1Index], n2[phase1Index], nA0, nB0);
+			fprintf(phase_results,"%f %f %f %f\n", n1[phase2Index], n2[phase2Index], nA0, nB0);
+		}
+		Events(1);
+		DrawGraphs();
+
+		nA0 += 0.1;
+		nB0 += 0.1;
+		gammaMu *= 0.5;
+		kappa += 0.1;
+	}
+
+	clockRunTime = time(NULL) - clockRunTime;
+	processorRunTime = clock() - processorRunTime;
+
+	fclose(phase_results);
+	useTheoreticalDensities = 1;
+	kappa = tmpKappa;
+	gammaMu = tmpGammaMu;
+
+	printRunTime(processorRunTime, clockRunTime);
+	printf("\nDone! 2-phase region LB simulations complete.\n\n");
+
+	// TODO: manual exploration of 2-phase LB results with high-density ratios
+	// [0.6,0.4]: vdw1.5, k1.0, gMu0.025; 10 step chunks -> <740 steps; interface width 0.01*XDIM (2)
+	//	 		                                    <1000 steps; width 0.05*XDIM (10)
+	//          : vdw1.5, k0.6, gMu0.0005; <100,000 steps; width 10
+	// [1.4,1.4]: vdw0.25, k0.6, gMu0.0005; <100,000 steps; width 10
+
+} // end function getPhaseDiagramRhoAVsRhoBTwoPhaseRegion()
+
+
+/**
+ * @brief Function _getPhaseDiagramRhoAVsRhoBThreePhaseRegion_ runs LB simulations in the 3-phase region of a phase diagram.
+ *
+ * This function exhaustively tests the 3-phase region of a phase diagram with lattice Boltzmann simulations.  Test points are defined by the
+ * global values _nA0_, _nB0_ for A- and B-component total particles.  Tests include both "full" 3-phase points and 2-phase points that exist
+ * in the 3-phase region and phase separate into metastable densities.
+ * - Test points classified as "full" 3-phase points are initialized by default in a 3-phase step profile.
+ * - Test points that are 2-phase metastable within the 3-phase region are initialized by default in a 2-phase step profile.
+ *
+ * @note The global boolean _useThreePhaseStepInitialization_ can toggle the initialization of the LB simulations between a step profile
+ * (on) and one with random noise about the A- and B-component test point values (off).
+ * @note The global boolean _checkOnlyTwoPhasePoints_ can be used to test only the 2-phase metastable points and exclude all "full" 3-phase
+ * points from the simulations.
+ */
+void getPhaseDiagramRhoAVsRhoBThreePhaseRegion() {
+	int i = 0;
+	int readEOF = 0;
+	int minNIndex = 0;
+	int maxAIndex = 0;
+	int maxBIndex = 0;
+	double particlesATotal;
+	double particlesBTotal;
+
+	FILE *phaseDiagram_densities_theoretical;
+	char phaseDiagram_densities_threePhases_name[255];
+
+	FILE *phase_results;
+	char phase_results_name[255];
+
+	if (useThreePhaseStepInitialization) {
+		setInitializeTheoreticalThreePhases();
+	}
+	else {
+		setInitializeRandom();
+	}
+
+	// Start benchmarking to compare the processor time used to the wall clock time taken to execute
+	time_t clockRunTime;
+	clock_t processorRunTime;
+	clockRunTime = time(NULL);
+	processorRunTime = clock();
+
+// TODO: manually look at 3-phase points from diagrams where LB calls 3 phases but looks like just a critical point
+// Theoretical phases 1, 3 differed by 1e-3; threshold for equivalence was 1e-4
+// Manual run w/ 3-phase init gave equal pressure, mu to 1e-8 (close to 1e-9)
+// Manual run w/ 2-phase init gave equal pressure, mu to 1e-7
+
+	if (!checkOnlyTwoPhasePoints) { // exclude 3-phase points to save time and only simulate 2-phase metastable points in the 3-phase region
+		sprintf(phaseDiagram_densities_threePhases_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/threePhaseDiagram-densities-threePhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+		phaseDiagram_densities_theoretical = fopen(phaseDiagram_densities_threePhases_name,"r");
+
+		sprintf(phase_results_name, "/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/LB-three-phase-region_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+		phase_results = fopen(phase_results_name,"w");
+
+		readEOF = fscanf(phaseDiagram_densities_theoretical, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf ",
+				&particlesATotal, &particlesBTotal, &theoreticalDensityA1, &theoreticalDensityB1, &theoreticalDensityA2, &theoreticalDensityB2, &theoreticalDensityA3, &theoreticalDensityB3);
+		while (readEOF != EOF) {
+			nA0 = particlesATotal;
+			nB0 = particlesBTotal;
+			initialize();
+			printf("nA0=%f\tnB0=%f\n", nA0, nB0);
+			for (i = 0; i < phase_iterations; i++) {
+				iteration();
+			}
+
+			// After phases settle, identify the min/max values across the lattice
+			minNIndex = 0;
+			maxAIndex = 0;
+			maxBIndex = 0;
+			for (i = 0; i < XDIM; i++) {
+				if (n1[i] > n1[maxAIndex]) {
+					maxAIndex = i;
+				}
+				if (n2[i] > n2[maxBIndex]) {
+					maxBIndex = i;
+				}
+				if (n[i] < n[minNIndex]) {
+					minNIndex = i;
+				}
+			}
+
+			fprintf(phase_results,"%f %f %f %f\n", n1[maxAIndex], n2[maxAIndex], nA0, nB0);
+			fprintf(phase_results,"%f %f %f %f\n", n1[maxBIndex], n2[maxBIndex], nA0, nB0);
+			if ( (n1[minNIndex] < n1[maxAIndex]) && (n2[minNIndex] > n2[maxAIndex]) && (n2[minNIndex] < n2[maxBIndex]) && (n1[minNIndex] > n1[maxBIndex]) ) {
+				fprintf(phase_results,"%f %f %f %f\n", n1[minNIndex], n2[minNIndex], nA0, nB0);
+			}
+			Events(1);
+			DrawGraphs();
+
+			readEOF = fscanf(phaseDiagram_densities_theoretical, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf ",
+					&particlesATotal, &particlesBTotal, &theoreticalDensityA1, &theoreticalDensityB1, &theoreticalDensityA2, &theoreticalDensityB2, &theoreticalDensityA3, &theoreticalDensityB3);
+		}
+
+		fclose(phase_results);
+		fclose(phaseDiagram_densities_theoretical);
+	}
+
+	//
+	// Check the 2-phase points in case any are within the 3-phase region
+	//
+
+	printf("\nChecking 2-phase points that may be metastable in the 3-phase region...\n\n");
+
+	// Recycle the same file handles as before
+	sprintf(phaseDiagram_densities_threePhases_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/threePhaseDiagram-densities-twoPhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	phaseDiagram_densities_theoretical = fopen(phaseDiagram_densities_threePhases_name,"r");
+	sprintf(phase_results_name, "/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/LB-three-2-phase-region_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	phase_results = fopen(phase_results_name,"w");
+
+	if (useThreePhaseStepInitialization) {
+		setInitializeTheoreticalTwoPhases();
+	}
+	else {
+		setInitializeRandom();
+	}
+
+	setThreePhaseRegion = 1; // ensure the correct boundaries are being used
+	readEOF = fscanf(phaseDiagram_densities_theoretical, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf ",
+			&particlesATotal, &particlesBTotal, &theoreticalDensityA1, &theoreticalDensityB1, &theoreticalDensityA2, &theoreticalDensityB2, &theoreticalDensityA3, &theoreticalDensityB3);
+	while (readEOF != EOF) {
+		if (insideThreePhaseRegion(particlesATotal, particlesBTotal)) {
+			nA0 = particlesATotal;
+			nB0 = particlesBTotal;
+			initialize();
+			printf("nA0=%f\tnB0=%f\n", nA0, nB0);
+			for (i = 0; i < phase_iterations; i++) {
+				iteration();
+			}
+
+			// After phases settle, identify the min/max values across the lattice
+			minNIndex = 0;
+			maxAIndex = 0;
+			maxBIndex = 0;
+			for (i = 0; i < XDIM; i++) {
+				if (n1[i] > n1[maxAIndex]) {
+					maxAIndex = i;
+				}
+				if (n2[i] > n2[maxBIndex]) {
+					maxBIndex = i;
+				}
+				if (n[i] < n[minNIndex]) {
+					minNIndex = i;
+				}
+			}
+
+			fprintf(phase_results,"%f %f %f %f\n", n1[maxAIndex], n2[maxAIndex], nA0, nB0);
+			fprintf(phase_results,"%f %f %f %f\n", n1[maxBIndex], n2[maxBIndex], nA0, nB0);
+			if ( (n1[minNIndex] < n1[maxAIndex]) && (n2[minNIndex] > n2[maxAIndex]) && (n2[minNIndex] < n2[maxBIndex]) && (n1[minNIndex] > n1[maxBIndex]) ) {
+				fprintf(phase_results,"%f %f %f %f\n", n1[minNIndex], n2[minNIndex], nA0, nB0);
+			}
+			Events(1);
+			DrawGraphs();
+
+			readEOF = fscanf(phaseDiagram_densities_theoretical, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf ",
+					&particlesATotal, &particlesBTotal, &theoreticalDensityA1, &theoreticalDensityB1, &theoreticalDensityA2, &theoreticalDensityB2, &theoreticalDensityA3, &theoreticalDensityB3);
+		}
+		else {
+			printf("Skipping %f, %f...\n", particlesATotal, particlesBTotal);
+			readEOF = fscanf(phaseDiagram_densities_theoretical, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf ",
+								&particlesATotal, &particlesBTotal, &theoreticalDensityA1, &theoreticalDensityB1, &theoreticalDensityA2, &theoreticalDensityB2, &theoreticalDensityA3, &theoreticalDensityB3);
+		}
+	}
+
+	clockRunTime = time(NULL) - clockRunTime;
+	processorRunTime = clock() - processorRunTime;
+
+	fclose(phase_results);
+	fclose(phaseDiagram_densities_theoretical);
+
+	printRunTime(processorRunTime, clockRunTime);
+	printf("\nDone! 3-phase region LB simulations complete.\n\n");
+
+	// TODO: manual exploration of 3-phase LB results (and 2-phase metastable) for high density ratios
+
+} // end function calculatePhaseDiagramRhoVsMuTheoretical()
+
+
+/**
+ * @brief Function _getPhaseDiagramDensityVsTemp_ measures the performance of the LB code by generating a density vs temp phase diagram.
+ */
+//void getPhaseDiagramDensityVsTemp() {
+//	int i = 0;
+//	int ip, im;
+//	//	double slope;
+//
+//	FILE *phase_results;
+//	phase_results = fopen("/home/clark/school/Lattice Boltzmann/Maxwell construction/phase-data.dat","w");
+//
+//	// Loop through a range of critical temperatures (tc)
+//	for (tc = theta+0.00005; theta/tc > quenchDepth; tc += 0.0005) {
+//
+//		// At each tc, iterate enough times for the phase to settle
+//		if (!lnExplosion) {
+//			for (i=0; i < phase_iterations; i++) {
+//				iteration();
+//			}
+//		}
+//		else {
+//			break;
+//		}
+//
+//		// After phases settle, identify the min/max values across the lattice
+//		double max = n1[0];
+//		double min = n1[0];
+//		for (i = 0; i < XDIM; i++) {
+//			if (n1[i] > max) {
+//				max = n1[i];
+//			}
+//			if (n1[i] < min) {
+//				min = n1[i];
+//			}
+//
+//			ip = i+1;
+//			if (ip == XDIM) {
+//				ip = XDIM - 1;
+//			}
+//			im = i-1;
+//			if (im == -1) {
+//				im = 0;
+//			}
+//
+//		}
+//
+//		fprintf(phase_results,"%e %e\n%e %e\n", min, theta/tc, max, theta/tc);
+//		Events(1);
+//		DrawGraphs();
+//		printf("next temp... %f\n", theta/tc);
+//	}
+//
+//	fclose(phase_results);
+//
+//} // end function getPhaseDiagramDensityVsTemp()
+
+
+/**
+ * @brief Function _getDensityProfile_ logs the density profiles for each component of a LB simulation for later plotting.
+ */
+void getDensityProfile() {
+	int i = 0;
+
+	FILE *density_profile;
+	char density_profile_name[255];
+
+	sprintf(density_profile_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/density-profile-A_nA0%f_nB0%f.dat", nA0, nB0);
+	density_profile = fopen(density_profile_name,"w");
+	for (i = 0; i < XDIM; i++) {
+		fprintf(density_profile, "%.15f\n", n1[i]);
+	}
+	fclose(density_profile);
+
+	sprintf(density_profile_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/density-profile-B_nA0%f_nB0%f.dat", nA0, nB0);
+	density_profile = fopen(density_profile_name,"w");
+	for (i = 0; i < XDIM; i++) {
+		fprintf(density_profile, "%.15f\n", n2[i]);
+	}
+	fclose(density_profile);
+
+	printf("Density profiles saved...\n\n");
+} // end function getDensityProfile()
+
+
+/**
+ * @brief Function _getPressureProfile_ logs the pressure profile of a LB simulation for later plotting.
+ * It also saves the associated theoretical pressure.
+ */
+void getPressureProfile() {
+	int i = 0;
+
+	FILE *pressure_profile;
+	char pressure_profile_name[255];
+
+	sprintf(pressure_profile_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/pressure-profile_nA0%f_nB0%f.dat", nA0, nB0);
+	pressure_profile = fopen(pressure_profile_name,"w");
+	for (i = 0; i < XDIM; i++) {
+		fprintf(pressure_profile, "%.15f\n", pressure[i]);
+	}
+	fclose(pressure_profile);
+
+	sprintf(pressure_profile_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/pressure-profile-theoretical_nA0%f_nB0%f.dat", nA0, nB0);
+	pressure_profile = fopen(pressure_profile_name,"w");
+	for (i = 0; i < XDIM; i++) {
+		fprintf(pressure_profile, "%.15f\n", theoreticalPressureArray[i]);
+	}
+	fclose(pressure_profile);
+
+	printf("Pressure profile saved...\n\n");
+} // end function getDensityProfile()
+
+
+/**
+ * @brief Function _getChemicalPotentialProfile_ logs the chemical potential profiles for each component of a LB simulation for later plotting.
+ * It also saves the associated theoretical chemical potentials.
+ */
+void getChemicalPotentialProfile() {
+	int i = 0;
+
+	FILE *chemical_potential_profile;
+	char chemical_potential_profile_name[255];
+
+	sprintf(chemical_potential_profile_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/chemical-potential-profile-A_nA0%f_nB0%f.dat", nA0, nB0);
+	chemical_potential_profile = fopen(chemical_potential_profile_name,"w");
+	for (i = 0; i < XDIM; i++) {
+		fprintf(chemical_potential_profile, "%.15f\n", mu1[i]);
+	}
+	fclose(chemical_potential_profile);
+
+	sprintf(chemical_potential_profile_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/chemical-potential-profile-B_nA0%f_nB0%f.dat", nA0, nB0);
+	chemical_potential_profile = fopen(chemical_potential_profile_name,"w");
+	for (i = 0; i < XDIM; i++) {
+		fprintf(chemical_potential_profile, "%.15f\n", mu2[i]);
+	}
+	fclose(chemical_potential_profile);
+
+	sprintf(chemical_potential_profile_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/chemical-potential-profile-theoretical-A_nA0%f_nB0%f.dat", nA0, nB0);
+	chemical_potential_profile = fopen(chemical_potential_profile_name,"w");
+	for (i = 0; i < XDIM; i++) {
+		fprintf(chemical_potential_profile, "%.15f\n", theoreticalMuAArray[i]);
+	}
+	fclose(chemical_potential_profile);
+
+	sprintf(chemical_potential_profile_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/chemical-potential-profile-theoretical-B_nA0%f_nB0%f.dat", nA0, nB0);
+	chemical_potential_profile = fopen(chemical_potential_profile_name,"w");
+	for (i = 0; i < XDIM; i++) {
+		fprintf(chemical_potential_profile, "%.15f\n", theoreticalMuBArray[i]);
+	}
+	fclose(chemical_potential_profile);
+
+	printf("Chemical potential profiles saved...\n\n");
+} // end function getDensityProfile()
+
+
+/**
+ * @brief Function _generatePhaseDiagramRhoAVsRhoB_ controls the lattice Boltzmann simulations to generate a phase diagram in the 2- and 3-phase regions.
+ *
+ * This function is a wrapper function to control the lattice Boltzmann simulations in the 2- and 3-phase regions of a theoretical phase diagram.
+ * It allows testing of only the 2-phase, only the 3-phase, or both phase diagram regions.  It provides the ability to select a single chemical potential
+ * forcing method or all three for use in the simulation.  However, note that only the default forcing method (2) is allowed for testing the 3-phase
+ * region.
+ *
+ * @note The global boolean _testAllForcingMethods_ controls if all chemical potential forcing methods or only the manually selected one are tested.
+ * @note The global boolean _setPhaseDiagramTwoPhaseRegion_ controls if the 2-phase LB simulations are to be run.
+ * @note The global boolean _setPhaseDiagramThreePhaseRegion_ controls if the 3-phase LB simulations are to be run.
+ */
+void generatePhaseDiagramRhoAVsRhoB() {
+	// Default to test only the selected method
+	int forcingMethod = useChemicalPotentialForcingMethod;
+	int lastForcingMethod = useChemicalPotentialForcingMethod;
+
+	if (testAllForcingMethods) { // test both forcing methods
+		forcingMethod = 1;
+		lastForcingMethod = 2;
+	}
+
+	for (; forcingMethod <= lastForcingMethod; forcingMethod++) {
+		useChemicalPotentialForcingMethod = forcingMethod;
+
+		if (setPhaseDiagramTwoPhaseRegion) {
+			getPhaseDiagramRhoAVsRhoBTwoPhaseRegion();
+		}
+		if (setPhaseDiagramThreePhaseRegion && forcingMethod == 2) { // only allow method 2 (others are horrible)
+			getPhaseDiagramRhoAVsRhoBThreePhaseRegion();
+		}
+	}
+} // end function generatePhaseDiagramRhoAVsRhoB()
+
+
+/**
+ * @brief Function _printComponentDensities_ prints the density values for both A- and B-components to the console.
+ */
+void printComponentDensities() {
+	int i = 0;
+
+	printf("\n\n");
+
+	for (i = 0; i < XDIM; i++) {
+		printf("%f ", n1[i]);
+	}
+
+	printf("\n");
+
+	for (i = 0; i < XDIM; i++) {
+		printf("%f ", n2[i]);
+	}
+
+	printf("\n\n");
+} // end function printComponentDensities()
+
+
+/**
+ * @brief Function _printComponentMaxMin_ prints the maximum and minimum density values for both A- and B-components to the console.
+ */
+void printComponentMaxMin() {
+	int i = 0;
+	double maxA;
+	double minA;
+	double maxB;
+	double minB;
+
+	maxA = n1[0];
+	minA = n1[0];
+	maxB = n2[0];
+	minB = n2[0];
+	for (i = 0; i < XDIM; i++) {
+		if (n1[i] > maxA) {
+			maxA = n1[i];
+		}
+		if (n1[i] < minA) {
+			minA = n1[i];
+		}
+		if (n2[i] > maxB) {
+			maxB = n2[i];
+		}
+		if (n2[i] < minB) {
+			minB = n2[i];
+		}
+	}
+
+	printf("\n");
+	printf("maxA=%f\tminA=%f\n", maxA, minA);
+	printf("maxB=%f\tminB=%f\n", maxB, minB);
+	printf("\n\n");
+} // end function printComponentMaxMin()
+
+
+/**
+ * @brief Function _printMinimizationResults_ prints the free energy minimization results for a given test point to the console.
+ *
+ * @param [in] particlesA The number of A particles in the given test point.
+ * @param [in] particlesB the number of B particles in the given test point.
+ */
+void printMinimizationResults(double particlesA, double particlesB) {
+	int readEOF = 0;
+	int parentFound = 0;
+	double threshold = 1e-6;
+	double particlesATotal = 0.0;
+	double particlesBTotal = 0.0;
+	double rhoA1 = 0.0;
+	double rhoA2 = 0.0;
+	double rhoA3 = 0.0;
+	double rhoB1 = 0.0;
+	double rhoB2 = 0.0;
+	double rhoB3 = 0.0;
+
+	FILE * two_phase_coords;
+	FILE * three_phase_coords;
+	char two_phase_coords_name[255];
+	char three_phase_coords_name[255];
+	sprintf(two_phase_coords_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/threePhaseDiagram-densities-twoPhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	sprintf(three_phase_coords_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/threePhaseDiagram-densities-threePhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	two_phase_coords = fopen(two_phase_coords_name, "r");
+	three_phase_coords = fopen(three_phase_coords_name, "r");
+
+	readEOF = fscanf(two_phase_coords, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf", &particlesATotal, &particlesBTotal, &rhoA1, &rhoB1, &rhoA2, &rhoB2, &rhoA3, &rhoB3);
+	while (readEOF != EOF) {
+		if ( isEqual(particlesA, particlesATotal, threshold) && isEqual(particlesB, particlesBTotal, threshold) ) {
+			printf("\n2-phase point found...\n");
+			printf("particlesATotal=%.15f\tparticlesBTotal=%.15f\n", particlesATotal, particlesBTotal);
+			printf("%.15f %.15f %.15f %.15f %.15f %.15f\n\n", rhoA1, rhoB1, rhoA2, rhoB2, rhoA3, rhoB3);
+			parentFound = 1;
+			break;
+		}
+		else {
+			readEOF = fscanf(two_phase_coords, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf", &particlesATotal, &particlesBTotal, &rhoA1, &rhoB1, &rhoA2, &rhoB2, &rhoA3, &rhoB3);
+		}
+	}
+
+	readEOF = fscanf(three_phase_coords, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf", &particlesATotal, &particlesBTotal, &rhoA1, &rhoB1, &rhoA2, &rhoB2, &rhoA3, &rhoB3);
+	while (!parentFound && readEOF != EOF) {
+		if ( isEqual(particlesA, particlesATotal, threshold) && isEqual(particlesB, particlesBTotal, threshold) ) {
+			printf("\n3-phase point found...\n");
+			printf("particlesATotal=%.15f\tparticlesBTotal=%.15f\n", particlesATotal, particlesBTotal);
+			printf("%.15f %.15f %.15f %.15f %.15f %.15f\n\n", rhoA1, rhoB1, rhoA2, rhoB2, rhoA3, rhoB3);
+			parentFound = 1;
+			break;
+		}
+		else {
+			readEOF = fscanf(three_phase_coords, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf", &particlesATotal, &particlesBTotal, &rhoA1, &rhoB1, &rhoA2, &rhoB2, &rhoA3, &rhoB3);
+		}
+	}
+
+	fclose(two_phase_coords);
+	fclose(three_phase_coords);
+} // end function printMinimizationResults()
+
+
+/**
+ * @brief Function _printLBResults_ prints the lattice Boltzmann simulation results for a given test point to the console.
+ *
+ * @note This function will also print out the minimization results for comparison.
+ *
+ * @param [in] phase The region of the phase diagram (2 or 3) in which the given test point is located.
+ * @param [in] particlesA The number of A particles in the given test point.
+ * @param [in] particlesB the number of B particles in the given test point.
+ */
+void printLBResults(int phase, double particlesA, double particlesB) {
+	int readEOF = 0;
+	int lbFound = 0;
+	int writePhase = 1;
+	double threshold = 1e-6;
+	double particlesATotal = 0.0;
+	double particlesBTotal = 0.0;
+	double rhoA1 = 0.0;
+	double rhoA2 = 0.0;
+	double rhoA3 = 0.0;
+	double rhoB1 = 0.0;
+	double rhoB2 = 0.0;
+	double rhoB3 = 0.0;
+	double tmpRhoA = 0.0;
+	double tmpRhoB = 0.0;
+
+	FILE * LB_coords;
+	char LB_coords_name[255];
+	if (phase == 3) {
+		sprintf(LB_coords_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/LB-three-phase-region_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	}
+	else if (phase == 2 && insideThreePhaseRegion(particlesA, particlesB)) {
+		sprintf(LB_coords_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/LB-three-2-phase-region_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	}
+	else {
+		sprintf(LB_coords_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/LB-phase-data-2_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	}
+	LB_coords = fopen(LB_coords_name, "r");
+
+	readEOF = fscanf(LB_coords, "%lf %lf %lf %lf", &tmpRhoA, &tmpRhoB, &particlesATotal, &particlesBTotal);
+	while (readEOF != EOF) {
+		if ( isEqual(particlesA, particlesATotal, threshold) && isEqual(particlesB, particlesBTotal, threshold) ) {
+			lbFound = 1;
+			switch (writePhase) {
+			case 1:
+				rhoA1 = tmpRhoA;
+				rhoB1 = tmpRhoB;
+				writePhase = 2;
+				break;
+			case 2:
+				rhoA2 = tmpRhoA;
+				rhoB2 = tmpRhoB;
+				writePhase = 3;
+				break;
+			case 3:
+				rhoA3 = tmpRhoA;
+				rhoB3 = tmpRhoB;
+				writePhase = -1;
+				break;
+			default:
+				break;
+			}
+		}
+		readEOF = fscanf(LB_coords, "%lf %lf %lf %lf", &tmpRhoA, &tmpRhoB, &particlesATotal, &particlesBTotal);
+	}
+
+	if (lbFound) {
+		printf("LB results found...%s\n", LB_coords_name);
+		printf("particlesA=%.15f\tparticlesB=%.15f\n", particlesA, particlesB);
+		printf("%.15f %.15f %.15f %.15f %.15f %.15f\n\n", rhoA1, rhoB1, rhoA2, rhoB2, rhoA3, rhoB3);
+		printf("Compared to theory...\n");
+		printMinimizationResults(particlesA, particlesB);
+	}
+
+	fclose(LB_coords);
+} // end function printLBResults()
+
+
+/**
+ * @brief Function _printMinimizationParentPoint_ prints out the parent test point for a given density pair that resulted from a free energy minimization.
+ *
+ * @note The child point coordinates are given by the global parameters _childRhoA_ and _childRhoB_.
+ */
+void printMinimizationParentPoint() {
+	int readEOF = 0;
+	int parentFound = 0;
+	double threshold = 1e-6;
+	double particlesATotal = 0.0;
+	double particlesBTotal = 0.0;
+	double rhoA1 = 0.0;
+	double rhoA2 = 0.0;
+	double rhoA3 = 0.0;
+	double rhoB1 = 0.0;
+	double rhoB2 = 0.0;
+	double rhoB3 = 0.0;
+
+	FILE * two_phase_coords;
+	FILE * three_phase_coords;
+	char two_phase_coords_name[255];
+	char three_phase_coords_name[255];
+	sprintf(two_phase_coords_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/threePhaseDiagram-densities-twoPhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	sprintf(three_phase_coords_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/threePhaseDiagram-densities-threePhases_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	two_phase_coords = fopen(two_phase_coords_name, "r");
+	three_phase_coords = fopen(three_phase_coords_name, "r");
+
+	printf("Searching for the parent of the minimization point %f, %f...\n\n", childRhoA, childRhoB);
+
+	readEOF = fscanf(two_phase_coords, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf", &particlesATotal, &particlesBTotal, &rhoA1, &rhoB1, &rhoA2, &rhoB2, &rhoA3, &rhoB3);
+	while (readEOF != EOF) {
+		if ( (isEqual(rhoA1, childRhoA, threshold) && isEqual(rhoB1, childRhoB, threshold)) ||
+				(isEqual(rhoA2, childRhoA, threshold) && isEqual(rhoB2, childRhoB, threshold)) ||
+				(isEqual(rhoA3, childRhoA, threshold) && isEqual(rhoB3, childRhoB, threshold)) ) {
+			printf("\n2-phase point found...\n");
+			printf("particlesATotal=%.15f\tparticlesBTotal=%.15f\n", particlesATotal, particlesBTotal);
+			printf("%.15f %.15f %.15f %.15f %.15f %.15f\n\n", rhoA1, rhoB1, rhoA2, rhoB2, rhoA3, rhoB3);
+			parentFound = 1;
+			printLBResults(2, particlesATotal, particlesBTotal);
+			break;
+		}
+		else {
+			readEOF = fscanf(two_phase_coords, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf", &particlesATotal, &particlesBTotal, &rhoA1, &rhoB1, &rhoA2, &rhoB2, &rhoA3, &rhoB3);
+		}
+	}
+
+	readEOF = fscanf(three_phase_coords, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf", &particlesATotal, &particlesBTotal, &rhoA1, &rhoB1, &rhoA2, &rhoB2, &rhoA3, &rhoB3);
+	while (!parentFound && readEOF != EOF) {
+		if ( (isEqual(rhoA1, childRhoA, threshold) && isEqual(rhoB1, childRhoB, threshold)) ||
+				(isEqual(rhoA2, childRhoA, threshold) && isEqual(rhoB2, childRhoB, threshold)) ||
+				(isEqual(rhoA3, childRhoA, threshold) && isEqual(rhoB3, childRhoB, threshold)) ) {
+			printf("\n3-phase point found...\n");
+			printf("particlesATotal=%.15f\tparticlesBTotal=%.15f\n", particlesATotal, particlesBTotal);
+			printf("%.15f %.15f %.15f %.15f %.15f %.15f\n\n", rhoA1, rhoB1, rhoA2, rhoB2, rhoA3, rhoB3);
+			parentFound = 1;
+			printLBResults(3, particlesATotal, particlesBTotal);
+			break;
+		}
+		else {
+			readEOF = fscanf(three_phase_coords, "%lf %lf %lf %lf %lf %lf %lf %lf %*lf %*lf %*lf %*lf", &particlesATotal, &particlesBTotal, &rhoA1, &rhoB1, &rhoA2, &rhoB2, &rhoA3, &rhoB3);
+		}
+	}
+
+	fclose(two_phase_coords);
+	fclose(three_phase_coords);
+} // end function printMinimizationParentPoint()
+
+
+/**
+ * @brief Function _printLBParentPoint_ prints out the parent test point for a given density pair that resulted from a lattice Boltzmann simulation.
+ *
+ * @note The child point coordinates are given by the global parameters _childRhoA_ and _childRhoB_.
+ */
+void printLBParentPoint() {
+	int readEOF = 0;
+	int parentFound = 0;
+	double threshold = 1e-6;
+	double particlesATotal = 0.0;
+	double particlesBTotal = 0.0;
+	double tmpRhoA = 0.0;
+	double tmpRhoB = 0.0;
+
+	FILE * LB_coords;
+	char LB_coords_name[255];
+	sprintf(LB_coords_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/LB-phase-data-2_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+	LB_coords = fopen(LB_coords_name, "r");
+
+	printf("Searching for the parent of the LB result point of %f, %f...\n\n", childRhoA, childRhoB);
+
+	readEOF = fscanf(LB_coords, "%lf %lf %lf %lf", &tmpRhoA, &tmpRhoB, &particlesATotal, &particlesBTotal);
+	while (readEOF != EOF) {
+		if ( isEqual(tmpRhoA, childRhoA, threshold) && isEqual(tmpRhoB, childRhoB, threshold) ) {
+			parentFound = 1;
+			printf("Found parent of LB results point %f %f...\n", childRhoA, childRhoB);
+			printLBResults(2, particlesATotal, particlesBTotal);
+			break;
+		}
+		else {
+			readEOF = fscanf(LB_coords, "%lf %lf %lf %lf", &tmpRhoA, &tmpRhoB, &particlesATotal, &particlesBTotal);
+		}
+	}
+	fclose(LB_coords);
+
+	if (!parentFound) {
+		sprintf(LB_coords_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/LB-three-2-phase-region_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+		LB_coords = fopen(LB_coords_name, "r");
+		readEOF = fscanf(LB_coords, "%lf %lf %lf %lf", &tmpRhoA, &tmpRhoB, &particlesATotal, &particlesBTotal);
+		while (readEOF != EOF) {
+			if ( isEqual(tmpRhoA, childRhoA, threshold) && isEqual(tmpRhoB, childRhoB, threshold) ) {
+				parentFound = 1;
+				printf("Found parent of LB results point %f %f...\n", childRhoA, childRhoB);
+				printLBResults(2, particlesATotal, particlesBTotal);
+				break;
+			}
+			else {
+				readEOF = fscanf(LB_coords, "%lf %lf %lf %lf", &tmpRhoA, &tmpRhoB, &particlesATotal, &particlesBTotal);
+			}
+		}
+		fclose(LB_coords);
+	}
+
+	if (!parentFound) {
+		sprintf(LB_coords_name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/LB-three-phase-region_tcA%f_tcB%f_aA%f_aAB%f_aB%f.dat", tcA, tcB, aA, aAB, aB);
+		LB_coords = fopen(LB_coords_name, "r");
+		readEOF = fscanf(LB_coords, "%lf %lf %lf %lf", &tmpRhoA, &tmpRhoB, &particlesATotal, &particlesBTotal);
+		while (readEOF != EOF) {
+			if ( isEqual(tmpRhoA, childRhoA, threshold) && isEqual(tmpRhoB, childRhoB, threshold) ) {
+				parentFound = 1;
+				printf("Found parent of LB results point %f %f...\n", childRhoA, childRhoB);
+				printLBResults(3, particlesATotal, particlesBTotal);
+				break;
+			}
+			else {
+				readEOF = fscanf(LB_coords, "%lf %lf %lf %lf", &tmpRhoA, &tmpRhoB, &particlesATotal, &particlesBTotal);
+			}
+		}
+		fclose(LB_coords);
+	}
+} // end function printLBParentPoint()

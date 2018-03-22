@@ -1,0 +1,92 @@
+#include <stdio.h>
+#include <math.h>
+
+double ann=-0.375,anm=-0.375,amm=-0.375,b=1./3.;
+
+double F(double T,double N1,double M1,double V1,double Ntot,double Mtot){
+	double V2=1-V1;
+	double N2=Ntot-N1;
+	double M2=Mtot-M1;
+
+	double F1;
+	if (((N1+M1)*b>=V1)||(N1<=0)||(M1<=0)||(V1<0)) F1=1e10;
+	else F1=  N1*T*log(N1/(V1-(N1+M1)*b))
+	+  M1*T*log(M1/(V1-(N1+M1)*b))
+	+  ann*N1*N1/V1
+	+2*anm*M1*N1/V1
+	+  amm*M1*M1/V1;
+
+	double F2;
+	if (((N2+M2)*b>=V2)||(N2<=0)||(M2<0)||(V2<0)) F2=1e10;
+	else F2=  N2*T*log(N2/(V2-(N2+M2)*b))
+	+  M2*T*log(M2/(V2-(N2+M2)*b))
+	+  ann*N2*N2/V2
+	+2*anm*M2*N2/V2
+	+  amm*M2*M2/V2;
+
+	return F1+F2;
+}
+
+int Minimize2(double T,double Ntot,double Mtot,double *V1,double *N1,double *M1){
+	double FF[3][3][3];
+	double D=0.1;
+	int change=0;
+
+	while (D>0.000001){
+		for (int i=0;i<3;i++)
+			for (int j=0;j<3;j++)
+				for (int k=0;k<3;k++){
+					FF[i][j][k]=F(T,*N1+D*(i-1),*M1+D*(j-1),*V1+D*(k-1),Ntot,Mtot);
+				}
+		int mini=1,minj=1,mink=1;
+		double minF=FF[1][1][1];
+		for (int i=0;i<3;i++)
+			for (int j=0;j<3;j++)
+				for (int k=0;k<3;k++){
+					if (FF[i][j][k]<minF){
+						mini=i;
+						minj=j;
+						mink=k;
+						minF=FF[i][j][k];
+					}
+				}
+		if ((mini==1)&&(minj==1)&&(mink==1)) {
+			D/=2;
+			//printf("D = %e\n", D);
+		}
+		else {
+			change=1;
+			printf("new min...\n");
+			*N1+=(mini-1)*D;
+			*M1+=(minj-1)*D;
+			*V1+=(mink-1)*D;
+		}
+	}
+	//return change;
+	return 1;
+}
+
+void minimize2(){
+	FILE *res;
+	char name[255];
+	double Ntot,N1,Mtot,M1,V1=0.5,T=1./2.;
+	sprintf(name,"/home/clark/school/Lattice Boltzmann/Maxwell construction/multicomponent/min2_T%f_b%f_ann%f_anm%f_amm%f.dat",T,b,ann,anm,amm);
+	res = fopen(name,"w");
+	printf("hmmm...\n");
+	for (Ntot=0.1;Ntot<1/b;Ntot+=0.1) {
+		printf("N = %e\n", Ntot);
+		for (Mtot=0.1;(Mtot+Ntot)<1/b;Mtot+=0.1){
+			printf("M = %e\n", Mtot);
+			V1=0.5;
+			N1=Ntot*V1;
+			M1=Mtot*V1;
+			//if (Minimize2(T,Ntot,Mtot,&V1,&N1,&M1)) {
+				Minimize2(T,Ntot,Mtot,&V1,&N1,&M1);
+				fprintf(res,"%e %e %e %e %e\n",T,N1/V1,M1/V1,(Ntot-N1)/(1-V1),(Mtot-M1)/(1/V1));
+				printf("%e %e %e %e %e\n",T,N1/V1,M1/V1,(Ntot-N1)/(1-V1),(Mtot-M1)/(1/V1));
+			//}
+		}
+	}
+	fclose(res);
+	printf("done!\n");
+}
