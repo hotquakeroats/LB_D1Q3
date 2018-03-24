@@ -1,5 +1,6 @@
 # LB_D1Q3
-Master's research code
+
+## Master's research code
 
 Learning the physics of what I was doing was my primary goal.  As a result, please be advised that a great many standard software engineering practices went right out the window:
 
@@ -7,3 +8,7 @@ Learning the physics of what I was doing was my primary goal.  As a result, plea
 2. Security was an afterthought - buffer overflows, memory allocation/deallocation, fscanf vs. fgets, testing for NULL pointers, etc. were only addressed very superficially (if at all).  If you want to use this code as a base for anything more production-oriented, you'll really want to take a look at tightening the code up.
 3. There are a number of places where a more computer sciencey algorithm would speed things up greatly (the elephant in the room being the brute force minimization).  I found that I developed a better intuition for the physics by eschewing such things, so I sacrificed clock cycles on purpose to get a better understanding.
 4. Edge cases... I tended to only address the ones that specifically cause me problems.  There are more out there.
+
+## Use of the executables
+
+I'll apologize up front that the GUI isn't the most intuitive.  Since the most time was spent using the 2-component program, I put some effort into making it a *bit* more intuitive, but it falls short... and I unfortunately don't have time at the moment to write a user's guide.  Picking apart the Doxygen files is the best there is at the moment, but if you can hunt down the publication on the arXiv (once it's up) or my thesis, there may be some more context there for you.  Or just get a hold of me somehow with specific questions... I'm happy to help!
