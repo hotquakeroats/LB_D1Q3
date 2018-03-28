@@ -18,14 +18,74 @@ void initializeRandom(int i) {
 
 void initializeSteps(int i) {
 
-	if (i < wall){
-		n1[i] = n1_liquid;
+//	if (i < wall){
+//		n1[i] = n1_liquid;
+//	}
+//	else {
+//		n1[i] = n1_gas;
+//	}
+
+	int interface = 0.5 * XDIM;
+	double transition = 0.0;
+	double rhoA1 = theoreticalRhoVapor, rhoA2 = theoreticalRhoLiquid;
+
+	if (i < interface-0.25*XDIM) {
+		transition = 0.5 + 0.5*tanh((double)(i%XDIM)/interfaceWidth);
+		n1[i] = (1.0-transition)*rhoA2 + transition*rhoA1;
+	}
+	else if (i >= interface-0.25*XDIM && i <= interface+0.25*XDIM) {
+		transition = 0.5 + 0.5*tanh((double)(i-interface)/interfaceWidth);
+		n1[i] = (1.0-transition)*rhoA1 + transition*rhoA2;
 	}
 	else {
-		n1[i] = n1_gas;
+		transition = 0.5 + 0.5*tanh((double)((i-XDIM)%XDIM)/interfaceWidth);
+		n1[i] = (1.0-transition)*rhoA2 + transition*rhoA1;
+	}
+}
+
+int getTheoreticalDensities() {
+	int readEOF;
+	int match = 0;
+	double tmpRhoVapor = 0.0, tmpRhoLiquid = 0.0, tmpThetaRatio = 1.0;
+	double thetaRatio = theta / tc;
+	double matchThreshold = 1e-4;
+
+	FILE *phaseDiagram_densities_twoPhases;
+	phaseDiagram_densities_twoPhases = fopen("/home/clark/school/Lattice Boltzmann/Maxwell construction/single component/phase-data-4/phaseDiagram_rhoVsTemp_theoretical.dat","r");
+
+	if (phaseDiagram_densities_twoPhases) {
+		readEOF = fscanf(phaseDiagram_densities_twoPhases, "%17lf %17lf", &tmpRhoVapor, &tmpThetaRatio);
+		while (readEOF != EOF) { // find theoretical vapor density
+			if (isEqual(tmpThetaRatio, thetaRatio, matchThreshold) && tmpRhoVapor < 1.0) {
+				match = 1;
+				break;
+			}
+			readEOF = fscanf(phaseDiagram_densities_twoPhases, "%17lf %17lf", &tmpRhoVapor, &tmpThetaRatio);
+		}
+		readEOF = fscanf(phaseDiagram_densities_twoPhases, "%17lf %17lf", &tmpRhoLiquid, &tmpThetaRatio);
+		while (readEOF != EOF) { // continue to find theoretical liquid density
+			if (isEqual(tmpThetaRatio, thetaRatio, matchThreshold) && tmpRhoLiquid > 1.0) {
+				match = 2;
+				break;
+			}
+			readEOF = fscanf(phaseDiagram_densities_twoPhases, "%17lf %17lf", &tmpRhoLiquid, &tmpThetaRatio);
+		}
+		fclose(phaseDiagram_densities_twoPhases);
 	}
 
-}
+	if (match == 2) {
+		theoreticalRhoVapor = tmpRhoVapor;
+		theoreticalRhoLiquid = tmpRhoLiquid;
+		printf("t-ratio=%f\trhoV=%f\trhoL=%f\n", thetaRatio, theoreticalRhoVapor, theoreticalRhoLiquid);
+	}
+	else { // zero out theoretical densities if there are none found
+		theoreticalRhoVapor = 0.0;
+		theoreticalRhoLiquid = 0.0;
+		printf("\nNo matching theoretical densities found... \n\n");
+	}
+
+	return match;
+} // end function getTheoreticalDensities()
 
 
 void setInitializeRandom() {
@@ -67,6 +127,16 @@ void initialize() {
 	// Reset the values of the VDW constants for each component
 	a1 = (27./64.)*(tc*tc/pc);
 	b1 = tc/(8.*pc);
+
+	if (initializeProfile == initializeSteps) {
+		if (getTheoreticalDensities() && autoKappaGammaMu) {
+			interfaceWidth = 1.0 / sqrt(4.0*theoreticalRhoVapor*fabs(tc-theta));
+			kappa = 1.0 / (8.0 * theta * theoreticalRhoVapor);
+			gammaMu = 1.0 / (6.0 * kappa * theoreticalRhoLiquid);
+			gammaMu /= 10.0;
+			printf("kappa = %f\tgammaMu = %f\twidth = %f\n", kappa, gammaMu, interfaceWidth);
+		}
+	}
 
 	for (i = 0; i < XDIM; i++) {
 

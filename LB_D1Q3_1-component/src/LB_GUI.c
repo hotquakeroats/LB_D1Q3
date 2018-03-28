@@ -166,6 +166,7 @@ void GUI() {
 	DefineDouble("gamma-P", &gammaP);
 	DefineDouble("gamma-Mu", &gammaMu);
 	DefineDouble("kappa", &kappa);
+	DefineBool("autoKappaGammaMu?", &autoKappaGammaMu);
 	DefineDouble("a1", &a1);
 	DefineDouble("b1", &b1);
 	DefineDouble("pressureMethodCorrection", &pressureMethodCorrection);

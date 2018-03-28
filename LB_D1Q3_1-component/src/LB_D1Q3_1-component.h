@@ -19,7 +19,7 @@
 #include "mygraph.h"
 
 
-#define XDIM 101 // lattice length
+#define XDIM 201 // lattice length
 // Even lattice: mu->10^-8 pinched; p->10^-6 no ripple (walls) mu->10^-8 uniform; p->10^-6 ripple (periodic)
 // Odd lattice:  mu->10^-6 pinched; p->10^-5 big ripple (walls) mu->10^-9 interfaces; p->10^-6 no ripple (periodic)
 
@@ -127,6 +127,10 @@ extern double n1_gas;
 extern double rho1;
 extern double excludedVolume1;
 
+extern double theoreticalRhoVapor;
+extern double theoreticalRhoLiquid;
+extern double interfaceWidth;
+
 extern int freeEnergyArraySize;
 
 // Evaporation constants
@@ -164,6 +168,7 @@ extern int useChemicalPotentialsCoupled;  // chooses between independent or coup
 extern int useChemicalPotentialNonIdeal;
 extern int lnExplosion;
 extern int useBoundaryConditionsPeriodic;
+extern int autoKappaGammaMu;
 
 // GUI
 extern int ulreq;
@@ -192,6 +197,7 @@ void initializeSteps(int);
 void initializeRandom(int);
 void setInitializeRandom();
 void setInitializeSteps();
+int getTheoreticalDensities();
 
 void iteration();
 
@@ -232,6 +238,8 @@ void setCollisionPressureMethod();
 void setCollisionIdeal();
 
 void minimize();
+
+FILE * openFile(char *, char *, char *);
 
 
 #endif /* LB_D1Q3_2_COMPONENTS_H_ */

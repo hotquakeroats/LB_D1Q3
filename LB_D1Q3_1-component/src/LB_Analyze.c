@@ -720,22 +720,19 @@ void calculatePhaseDiagramRhoVsMuTheoretical() {
 void getPhaseDiagramDensityVsTemp() {
 	int i = 0;
 	int ip, im;
-	//	double slope;
 
 	FILE *phase_results;
-	phase_results = fopen("/home/clark/school/Lattice Boltzmann/Maxwell construction/phase-data.dat","w");
+	phase_results = fopen("/home/clark/school/Lattice Boltzmann/Maxwell construction/single component/phase-data-4/phase-data.dat","w");
 
 	// Loop through a range of critical temperatures (tc)
-	for (tc = theta+0.00005; theta/tc > quenchDepth; tc += 0.0005) {
+	for (tc = theta+0.0005; theta/tc > quenchDepth; tc += 0.005) { //0.0005
+		printf("\ntemp ratio = %f\ttc = %f\t", theta/tc, tc);
+
+		setInitializeSteps();
 
 		// At each tc, iterate enough times for the phase to settle
-		if (!lnExplosion) {
-			for (i=0; i < phase_iterations; i++) {
-				iteration();
-			}
-		}
-		else {
-			break;
+		for (i=0; i < phase_iterations; i++) {
+			iteration();
 		}
 
 		// After phases settle, identify the min/max values across the lattice
@@ -760,10 +757,9 @@ void getPhaseDiagramDensityVsTemp() {
 
 		}
 
-		fprintf(phase_results,"%e %e\n%e %e\n", min, theta/tc, max, theta/tc);
+		fprintf(phase_results,"%.15f %.15f\n%.15f %.15f\n", min, theta/tc, max, theta/tc);
 		Events(1);
 		DrawGraphs();
-		printf("next temp... %f\n", theta/tc);
 	}
 
 	fclose(phase_results);
@@ -878,10 +874,12 @@ void getRateOfDiffusion() {
 FILE * openFile(char *fileName, char *extension, char *attributes) {
 	int currentLength = 0;
 	char file_name[MAXSTRLEN];
-	char *dataDirectory = "/home/clark/school/Lattice Boltzmann/Maxwell Construction/single component";
+	char *dataDirectory = "/home/clark/school/Lattice Boltzmann/Maxwell Construction/single component/phase-data-4";
 	currentLength = snprintf(file_name, MAXSTRLEN, "%s/", dataDirectory);
 	currentLength += snprintf(file_name+currentLength, MAXSTRLEN-currentLength, "%s", fileName);
 	currentLength += snprintf(file_name+currentLength, MAXSTRLEN-currentLength, "%s", extension);
+
+	printf("Attempting to open %s\n", file_name);
 
 	FILE * file_handle;
 	file_handle = fopen(file_name, attributes);

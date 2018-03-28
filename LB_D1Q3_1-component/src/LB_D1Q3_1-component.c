@@ -13,6 +13,10 @@
 double n1_liquid = 1.27;
 double n1_gas = 0.6;
 
+double theoreticalRhoVapor = 0.0;
+double theoreticalRhoLiquid = 0.0;
+double interfaceWidth = 2.0;
+
 // Total amount of each component
 double rho1 = 0;
 double excludedVolume1 = 0;
@@ -41,7 +45,7 @@ double gammaP = 1;			// pressure coefficient for forcing rate
 double gammaMu = 1;			// chemical potential coefficient for forcing rate
 double kappa = 0.1;
 double dummy = 1;
-double quenchDepth = 0.85;
+double quenchDepth = 0.6; //0.85;
 double pressureMethodCorrection = 0;
 double pressureMethodCoefficient = 7./3.;	// u*gradRho + u*gradRho(transpose) + theta*u*gradRho (2 1/3)
 
@@ -55,6 +59,7 @@ int useChemicalPotentialsCoupled = 0;
 int useChemicalPotentialNonIdeal = 0;			// default use full mu (not non-ideal part)
 int lnExplosion = 0;
 int useBoundaryConditionsPeriodic = 1;			// default periodic BCs
+int autoKappaGammaMu = 1;
 
 // GUI
 int ulreq=0;
