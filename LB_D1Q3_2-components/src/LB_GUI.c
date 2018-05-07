@@ -191,6 +191,7 @@ void GUI() {
 	DefineDouble("--2 vs. 3 phase factor", &metastableThresholdFactor);
 	DefineDouble("nAIntegrated", &nAIntegrated);
 	DefineDouble("nBIntegrated", &nBIntegrated);
+	DefineFunction("Log VDW parameters", &logVDWParameters);
 	DefineFunction("van K and Scott parameters", &calculateKandSParameters);
 	EndMenu();
 

@@ -233,6 +233,7 @@ void minimizeSinglePoint();
 void calculatePhaseDiagramRhoAVsRhoBThreePhasesTheoretical();
 void exploreVDWShieldRegion();
 void calculateKandSParameters();
+void logVDWParameters();
 void printMinimizationParentPoint();
 void printLBParentPoint();
 void generateFreeEnergyData();

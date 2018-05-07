@@ -1540,6 +1540,10 @@ void generatePhaseDiagramBinodalLines() {
 	}
 	fprintf(unstable_region_coords, "%f %f\n%f %f\n\n",
 			binodalARichArray[minAIndex].rhoA, binodalARichArray[minAIndex].rhoB, binodalBRichArray[minBIndex].rhoA, binodalBRichArray[minBIndex].rhoB);
+	if (binodalAVaporTail < 1) binodalAVaporTail = 1;	// check if tails will cause seg fault below; fix if so
+	if (binodalALiquidTail < 1) binodalALiquidTail = 1;
+	if (binodalBVaporTail < 1) binodalBVaporTail = 1;
+	if (binodalBLiquidTail < 1) binodalBLiquidTail = 1;
 	fprintf(unstable_region_coords, "%f %f\n%f %f\n\n", binodalALiquidArray[binodalAVaporTail-1].rhoA, binodalALiquidArray[binodalAVaporTail-1].rhoB,
 			binodalAVaporArray[binodalALiquidTail-1].rhoA, binodalAVaporArray[binodalALiquidTail-1].rhoB);
 	fprintf(unstable_region_coords, "%f %f\n%f %f\n\n", binodalBVaporArray[binodalBVaporTail-1].rhoA, binodalBVaporArray[binodalBVaporTail-1].rhoB,
